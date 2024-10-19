@@ -3,10 +3,10 @@
 import { ReactNode, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent } from "@/components/ui/tabs"
 import { ChevronRight, Cpu, Globe, BarChart2, Users, Mail, Phone, MapPin, Zap, Trophy, UserCheck, Briefcase, Bot, Bell, Search, BookOpen } from "lucide-react"
+import { Input } from "@/components/ui/input"
 
 export default function LandingPage() {
   const [activeTab, setActiveTab] = useState("home")
@@ -234,7 +234,7 @@ function AboutSection() {
               FutureTrade is at the forefront of virtual trading technology. Our mission is to empower traders with cutting-edge tools and insights, leveraging the power of AI and real-time data analysis.
             </p>
             <p className="text-lg text-gray-300 mb-6">
-              Founded by a team of financial experts and tech innovators, we're committed to revolutionizing the way people interact with global markets.
+              Founded by a team of financial experts and tech innovators, we are committed to revolutionizing the way people interact with global markets.
             </p>
             <AnimatedButton>Learn More</AnimatedButton>
           </div>
