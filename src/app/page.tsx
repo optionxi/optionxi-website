@@ -4,6 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, BarChart2, Lock, Zap, Users, Code, Database } from 'lucide-react'
+import { HeaderCustom } from '@/components/headers/header';
 
 interface FeatureCardProps {
   icon: React.ReactNode; // You can adjust this if the icon has a specific type
@@ -14,43 +15,9 @@ interface FeatureCardProps {
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen ">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg">
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/" className="text-xl font-bold">
-                OptionXi
-              </Link>
-            </div>
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
-                <Link href="/features" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                  Features
-                </Link>
-                <Link href="/pricing" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                  Pricing
-                </Link>
-                <Link href="/docs" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                  Docs
-                </Link>
-                <Link href="/blog" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                  Blog
-                </Link>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <Link href="/signin" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                Sign in
-              </Link>
-              <Link href="/start" className="ml-4 px-4 py-2 rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
-                Start trading
-              </Link>
-            </div>
-          </div>
-        </nav>
-      </header>
+      <HeaderCustom/>
 
       {/* Hero Section */}
       <main className="pt-16">
@@ -74,7 +41,7 @@ export default function LandingPage() {
               Start for free and scale as you grow.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <Link href="/start" className="px-8 py-3 rounded-md text-lg font-medium text-white bg-blue-600 hover:bg-blue-700">
+              <Link href="https://app.optionxi.com" className="px-8 py-3 rounded-md text-lg font-medium text-white bg-blue-600 hover:bg-blue-700">
                 Start your trading journey
               </Link>
               <Link href="/docs" className="px-8 py-3 rounded-md text-lg font-medium text-white bg-gray-800 hover:bg-gray-700">
