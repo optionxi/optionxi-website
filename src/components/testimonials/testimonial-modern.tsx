@@ -32,7 +32,7 @@ const testimonials: TestimonialProps[] = [
     tweetUrl: "https://twitter.com/varlenneto/status/1496595780475535366"
   }
 ];
-const TestimonialCard = ({ author, content, avatarUrl, twitterHandle, tweetUrl }: TestimonialProps) => {
+const TestimonialCard = ({content, avatarUrl, twitterHandle, tweetUrl }: TestimonialProps) => {
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
       window.open(tweetUrl, '_blank');
