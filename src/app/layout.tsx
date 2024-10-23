@@ -14,14 +14,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // <html lang="en">
-    //   <body
-    //     className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-    //   >
-    //     {children}
-    //     <SpeedInsights />
-    //   </body>
-    // </html>
     <html lang="en" className="dark">
     <body className="relative min-h-screen">
     <GridBackground />

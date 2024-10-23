@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, BarChart2, Lock, Zap, Users, Code, Database } from 'lucide-react'
-import { HeaderCustom } from '@/components/headers/header';
+import Navbar from '@/components/navbar/navbar';
 
 interface FeatureCardProps {
   icon: React.ReactNode; // You can adjust this if the icon has a specific type
@@ -17,7 +17,10 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen ">
       {/* Header */}
-      <HeaderCustom/>
+      {/* <HeaderCustom/> */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg">
+      <Navbar/>
+      </header>
 
       {/* Hero Section */}
       <main className="pt-16">
