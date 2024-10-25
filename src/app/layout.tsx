@@ -22,6 +22,8 @@ export default function RootLayout({
         <header className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg">
           <Navbar />
         </header>
+        {/* Add a spacer div to push content below fixed header */}
+        <div className="h-16" /> {/* Adjust height to match your navbar height */}
         <main className="relative z-10 flex-grow">
           {children}
         </main>
