@@ -2,6 +2,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from "next";
 import "./globals.css";
 import GridBackground from '@/components/custom/grid_black_background';
+import Navbar from '@/components/navbar/navbar';
+import Footer from '@/components/footer/footer';
 
 export const metadata: Metadata = {
   title: "OptionXI",
@@ -15,14 +17,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-    <body className="relative min-h-screen">
-    <GridBackground />
-    <div className="relative z-10"> {/* Wrap content to ensure it's above the background */}
-        {/* Render the dashboard or other authenticated content */}
+      <body className="flex flex-col min-h-screen">
+        <GridBackground />
+        <header className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg">
+          <Navbar />
+        </header>
+        <main className="relative z-10 flex-grow">
           {children}
-          <SpeedInsights />
-      </div>
-    </body>
-</html>
+        </main>
+        <footer className="relative z-10">
+          <Footer />
+        </footer>
+        <SpeedInsights />
+      </body>
+    </html>
   );
 }

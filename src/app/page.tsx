@@ -4,20 +4,12 @@ import React from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, BarChart2, Lock, Zap, Users, Code, Database } from 'lucide-react'
-import Navbar from '@/components/navbar/navbar';
 import TestimonialSection from '@/components/testimonials/testimonial-modern';
 import { FeatureCard } from '@/components/featurecard/feature-card';
-import Footer from '@/components/footer/footer';
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen ">
-      {/* Header */}
-      {/* <HeaderCustom/> */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg">
-      <Navbar/>
-      </header>
-
       {/* Hero Section */}
       <main className="pt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
@@ -97,13 +89,9 @@ export default function LandingPage() {
             </Link>
           </div>
         </div>
-
         {/* Testimonials */}
         <TestimonialSection/>
       </main>
-
-      {/* Footer */}
-      <Footer/>
     </div>
   )
 }

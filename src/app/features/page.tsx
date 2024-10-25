@@ -25,8 +25,8 @@ export default function FeaturePage() {
               <Link href="/docs" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                 Docs
               </Link>
-              <Link href="/blog" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                Blog
+              <Link href="/blogs" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                Blogs
               </Link>
             </div>
             <div className="flex items-center">
