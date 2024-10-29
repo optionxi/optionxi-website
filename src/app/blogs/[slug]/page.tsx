@@ -5,8 +5,9 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, ChevronRight } from "lucide-react";
 import { client } from "@/app/sanity/client";
 import { PortableTextBlock } from "@portabletext/types";
+import { PortableTextComponents } from "@portabletext/react";
 
-// Define types for the post and recent posts
+// Types remain the same...
 interface Post {
   title: string;
   slug: {
@@ -55,6 +56,43 @@ const urlFor = (source: SanityImageSource) =>
   projectId && dataset
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
+
+// Properly typed components for PortableText
+const components: PortableTextComponents = {
+  block: {
+    h1: ({children}) => (
+      <h1 className="text-3xl font-bold mt-8 mb-4 text-gray-100">{children}</h1>
+    ),
+    h2: ({children}) => (
+      <h2 className="text-2xl font-bold mt-6 mb-3 text-gray-100">{children}</h2>
+    ),
+    h3: ({children}) => (
+      <h3 className="text-xl font-bold mt-4 mb-2 text-gray-100">{children}</h3>
+    ),
+    normal: ({children}) => (
+      <p className="mb-4 text-gray-300 text-justify leading-relaxed">{children}</p>
+    ),
+    blockquote: ({children}) => (
+      <blockquote className="border-l-4 border-blue-400 pl-4 italic my-4 text-gray-300">
+        {children}
+      </blockquote>
+    ),
+  },
+  marks: {
+    link: ({children, value}) => {
+      const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined;
+      return (
+        <a 
+          href={value.href} 
+          rel={rel}
+          className="text-blue-400 hover:text-green-400 transition-colors"
+        >
+          {children}
+        </a>
+      );
+    },
+  },
+};
 
 const options = { next: { revalidate: 30 } };
 
@@ -121,13 +159,13 @@ export default async function PostPage({
               {post.title}
             </h1>
 
-            <div className="prose prose-invert prose-lg max-w-none 
-              prose-headings:text-gray-100 
-              prose-p:text-gray-300 
-              prose-strong:text-gray-200 
-              prose-a:text-blue-400 hover:prose-a:text-green-400 
-              prose-blockquote:border-blue-400">
-              {post.body && <PortableText value={post.body} />}
+            <div className="max-w-none">
+              {post.body && (
+                <PortableText 
+                  value={post.body} 
+                  components={components}
+                />
+              )}
             </div>
           </article>
 
