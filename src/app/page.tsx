@@ -6,6 +6,57 @@ import { motion } from 'framer-motion'
 import { ArrowRight, BarChart2, Lock, Zap, Users, Code, Database } from 'lucide-react'
 import TestimonialSection from '@/components/testimonials/testimonial-modern';
 import { FeatureCard } from '@/components/featurecard/feature-card';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://optionxi.com'),
+  title: 'OptionXi App',
+  description: 'OptionXi is the future of virtual trading, with live scanners and price alerts, also integration live algo trading with past portfolio',
+  icons: {
+    icon: '/favicon.ico',
+    apple: [
+      '/metadata/apple-touch-icon-57x57.png',
+      '/metadata/apple-touch-icon-72x72.png',
+      '/metadata/apple-touch-icon-76x76.png',
+      '/metadata/apple-touch-icon-114x114.png',
+      '/metadata/apple-touch-icon-120x120.png',
+      '/metadata/apple-touch-icon-144x144.png',
+      '/metadata/apple-touch-icon-152x152.png',
+      '/metadata/apple-touch-icon-180x180.png',
+    ],
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://optionxi.com',
+    siteName: 'OptionXi',
+    title: 'OptionXi',
+    description: 'The future of virtual trading, screeners, alerts, heatmaps, AI stock summary',
+    images: [
+      {
+        url: '/metadata/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'OptionXi Open Graph Image',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: 'https://optionxi.com',
+    title: 'OptionXi',
+    creator: 'Jibin Victor John',
+    description: 'The future of virtual trading, with live screeners and price alerts',
+    images: [
+      {
+        url: '/metadata/twitter-image.jpg',
+        width: 1200,
+        height: 628,
+        alt: 'OptionXi Twitter Card Image',
+      },
+    ],
+  }
+};
+
 
 export default function LandingPage() {
   return (
@@ -35,7 +86,7 @@ export default function LandingPage() {
               <Link href="https://app.optionxi.com" className="px-8 py-3 rounded-md text-lg font-medium text-white bg-blue-600 hover:bg-blue-700">
                 Start your trading journey
               </Link>
-              <Link href="/docs" className="px-8 py-3 rounded-md text-lg font-medium text-white bg-gray-800 hover:bg-gray-700">
+              <Link href="https://docs.optionxi.com" className="px-8 py-3 rounded-md text-lg font-medium text-white bg-gray-800 hover:bg-gray-700">
                 Read the docs
               </Link>
             </div>

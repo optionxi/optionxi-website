@@ -59,7 +59,7 @@ For safe keeping credentials use .env in the project top directory, and use it l
 process.env.YOUR_SECRET_KEY
 ```
 ```
-YOUR_SECRET_KEY=G-Q90KP1J930
+YOUR_SECRET_KEY=XXXXXXXXXXXX
 ```
 
 check point oct 19 9:00 pm

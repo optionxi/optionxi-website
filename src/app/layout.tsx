@@ -5,9 +5,47 @@ import GridBackground from '@/components/custom/grid_black_background';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 
+
 export const metadata: Metadata = {
-  title: "OptionXI",
-  description: "Next generation trading platform",
+  metadataBase: new URL('https://optionxi.com'),
+  title: 'OptionXi App',
+  description: 'Option Xi is the future of virtual trading, with live scanners and price alerts, also integration live algo trading with past portfolio',
+  icons: {
+    icon: '/favicon.ico',
+    apple:  [
+      '/metadata/iphone-touch/apple-touch-icon-60x60.png',
+      '/metadata/iphone-touch/apple-touch-icon-76x76.png',
+      '/metadata/iphone-touch/apple-touch-icon-120x120.png',
+      '/metadata/iphone-touch/apple-touch-icon-152x152.png',
+    ],
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://optionxi.com',
+    siteName:'OptionXi',
+    title:  'OptionXi',
+    description: 'The future of virtual trading, with live screeners and price alerts',
+    images: [
+      {
+        url: '/metadata/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'OptionXi Open Graph Image',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: 'https://optionxi.com',
+    title:  'OptionXi',
+    creator: 'Jibin Victor John',
+    description: 'The future of virtual trading, with live screeners and price alerts',
+    images: [
+      {
+        url: '/metadata/twitter-image.jpg',
+      },
+    ],
+  }
 };
 
 export default function RootLayout({
