@@ -112,7 +112,7 @@ const components: PortableTextComponents = {
       </h4>
     ),
     normal: ({children}) => (
-      <p className="mb-6 text-gray-300 text-justify leading-relaxed animate-fadeIn">
+      <p className="p-4 mb-6 text-gray-300 text-justify leading-relaxed animate-fadeIn">
         {children}
       </p>
     ),
