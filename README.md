@@ -1,4 +1,5 @@
-# OptionXi Website
+# OptionXi Website [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/1nbbz.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
+
 This is the Nxt Js 14 website, for optionxi. Following is the procedure to design your own version of the website. Follow the installation steps or clone it and use it for your personel projects.
 
 

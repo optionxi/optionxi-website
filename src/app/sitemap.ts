@@ -32,12 +32,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily' as const,
       priority: 1,
     },
-    {
-      url: `${baseUrl}/products`,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 0.8,
-    },
+    // {
+    //   url: `${baseUrl}/products`,
+    //   lastModified: new Date(),
+    //   changeFrequency: 'daily' as const,
+    //   priority: 0.8,
+    // },
   ]
 
   // Fetch blog posts from Sanity
