@@ -119,12 +119,12 @@ const components: PortableTextComponents = {
     blockquote: ({children}) => (
       <blockquote className="my-6 pl-6 border-l-4 border-purple-400 italic text-gray-300 animate-slideRight">
         <div className="relative">
-          <span className="absolute -left-8 -top-2 text-4xl text-purple-400 opacity-20">"</span>
+          <span className="absolute -left-8 -top-2 text-4xl text-purple-400 opacity-20">&quot;</span>
           {children}
-          <span className="absolute -bottom-4 right-0 text-4xl text-purple-400 opacity-20">"</span>
+          <span className="absolute -bottom-4 right-0 text-4xl text-purple-400 opacity-20">&quot;</span>
         </div>
       </blockquote>
-    ),
+    )
   },
   marks: {
     link: ({children, value}) => {
