@@ -59,6 +59,7 @@ const urlFor = (source: SanityImageSource) =>
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
 
+
 // Enhanced components with distinct gradients
 const components: PortableTextComponents = {
   list: {
@@ -124,7 +125,7 @@ const components: PortableTextComponents = {
           <span className="absolute -bottom-4 right-0 text-4xl text-purple-400 opacity-20">&quot;</span>
         </div>
       </blockquote>
-    )
+    ),
   },
   marks: {
     link: ({children, value}) => {

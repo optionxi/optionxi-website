@@ -63,4 +63,13 @@ process.env.YOUR_SECRET_KEY
 YOUR_SECRET_KEY=XXXXXXXXXXXX
 ```
 
-check point oct 19 9:00 pm
+### For Icons
+```
+https://iconifier.net/
+```
+```
+https://crop-circle.imageonline.co/
+```
+```
+https://favicon.io/favicon-converter/
+```
