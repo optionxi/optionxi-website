@@ -4,6 +4,7 @@ import "./globals.css";
 import GridBackground from '@/components/custom/grid_black_background';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
+import ChatwootWidget from './components/chatwoot-chat';
 
 
 
@@ -79,6 +80,7 @@ export default function RootLayout({
           <Footer />
         </footer>
         <SpeedInsights />
+        <ChatwootWidget/>
       </body>
     </html>
   );
