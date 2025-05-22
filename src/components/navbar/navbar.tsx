@@ -30,6 +30,8 @@ export default function Navbar() {
     // { name: 'Alerts', href: '/pricing' },
     // { name: 'Docs', href: 'https://docs.optionxi.com' },
     { name: 'Blogs', href: '/blogs' },
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+     { name: 'Terms Of Use', href: '/terms-of-use' },
   ]
 
   return (
