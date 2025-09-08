@@ -52,7 +52,7 @@ function SuccessContent() {
             Invalid Broker
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            The specified broker "{brokerParam}" is not supported or invalid.
+            The specified broker &ldquo;{brokerParam}&ldquo; is not supported or invalid.
           </p>
           <button 
             onClick={() => window.close()} 
@@ -158,7 +158,7 @@ function SuccessContent() {
           
           <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
             <p className="text-blue-800 dark:text-blue-300 font-medium text-sm leading-relaxed">
-              🎉 You're all set! You can now close this window and return to the app to start placing orders.
+              🎉 You&apos;re all set! You can now close this window and return to the app to start placing orders.
             </p>
           </div>
         </motion.div>

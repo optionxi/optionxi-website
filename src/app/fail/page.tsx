@@ -52,7 +52,7 @@ function FailContent() {
             Invalid Broker
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            The specified broker "{brokerParam}" is not supported or invalid.
+            The specified broker &quot;{brokerParam}&quot; is not supported or invalid.
           </p>
           <button 
             onClick={() => window.close()} 
@@ -214,7 +214,7 @@ function FailSkeleton() {
     </div>
   );
 }
-
+ 
 export default function FailPage() {
   return (
     <Suspense fallback={<FailSkeleton />}>
