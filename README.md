@@ -73,3 +73,13 @@ https://crop-circle.imageonline.co/
 ```
 https://favicon.io/favicon-converter/
 ```
+
+### Sucess URl
+```
+http://localhost:3000/success?status=success&broker=zerodha&suid=12345&user_id=AB1234&user_name=John+Doe
+```
+
+### Error URL
+```
+http://localhost:3000/fail?status=error&broker=zerodha&suid=12345&error=Missing+API+key+or+secret
+```
