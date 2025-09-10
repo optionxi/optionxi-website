@@ -72,8 +72,8 @@ export default function LandingPage() {
               </div>
 
               
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                Trade with
+              <h1 className="text-4xl md:text-6xl lg:text-6xl font-bold mb-6 leading-tight">
+                Trade smarter with
                 <br />
                 <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-green-400 bg-clip-text text-transparent">
                   OptionXi
