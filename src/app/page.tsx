@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { ArrowRight, TrendingUp, Shield, Zap, BarChart3, CheckCircle, Smartphone, Play } from 'lucide-react';
+import { ArrowRight, TrendingUp, Shield, Zap, BarChart3, CheckCircle, Play } from 'lucide-react';
 
 export default function LandingPage() {
   const features = [
@@ -16,13 +16,13 @@ export default function LandingPage() {
     },
     {
       icon: <Shield className="w-10 h-10 text-purple-400" />,
-      title: "Bank-Grade Security",
-      description: "Your investments protected with military-grade encryption and advanced security protocols"
+      title: "Open Source",
+      description: "Fully open-sourced for transparency, security, and trust — empowering the community to contribute and improve."
     },
     {
       icon: <Zap className="w-10 h-10 text-yellow-400" />,
-      title: "Lightning Execution",
-      description: "Execute trades in milliseconds with our high-frequency trading infrastructure"
+      title: "Unified Trading",
+      description: "Seamlessly connect with multiple brokers in one app — trade smarter without switching platforms"
     }
   ];
 
@@ -40,43 +40,40 @@ export default function LandingPage() {
     "Real-time portfolio tracking",
     "Advanced charting tools",
     "Risk management alerts",
-    "Tax optimization reports",
-    "Mobile & web platforms"
   ];
 
   const screenshots = [
-    { src: "assets/screenshots/Home Page New.png", title: "Dashboard" },
-    { src: "assets/screenshots/Home Page new 2.png", title: "Portfolio" },
+    { src: "assets/screenshots/Home Page New.png", title: "Homepage" },
+    { src: "assets/screenshots/Home Page new 2.png", title: "Homepage" },
     { src: "assets/screenshots/Market Sentiment.png", title: "Market Sentiment" },
     { src: "assets/screenshots/Market Tools.png", title: "Trading Tools" }
   ];
 
   const mobileFeatures = [
     "Real-time push notifications",
-    "Biometric security", 
-    "Offline portfolio tracking",
-    "Cross-platform sync"
+    "Multiple realtime scanners",
+    "Multi broker connect",
   ];
 
   return (
     <div className="text-white bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
       
       {/* Combined Hero & Mobile App Section */}
-      <section className="px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <section className="px-4 sm:px-6 lg:px-8 py-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Column - Hero Content */}
             <div>
               <div className="inline-flex items-center bg-blue-600/10 border border-blue-500/20 rounded-full px-4 py-1 sm:px-6 sm:py-2 mb-6 sm:mb-8">
-                <Smartphone className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 mr-2" />
+                {/* <Smartphone className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 mr-2" /> */}
                 <span className="text-blue-400 text-sm sm:text-base font-medium">
-                  🚀 Now supporting 6+ major brokers
+                  🚀 Now supporting major brokers
                 </span>
               </div>
 
               
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                Trade Smarter with
+                Trade with
                 <br />
                 <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-green-400 bg-clip-text text-transparent">
                   OptionXi
@@ -84,7 +81,7 @@ export default function LandingPage() {
               </h1>
               
               <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
-                Connect your existing broker account and unlock powerful analytics, automated strategies, and real-time insights. Never miss a market opportunity with our mobile app that brings professional-grade trading tools to your smartphone.
+                Connect your existing broker account and unlock powerful analytics, automated strategies, and real-time insights.
               </p>
 
               {/* Mobile Features */}
@@ -114,7 +111,7 @@ export default function LandingPage() {
               </a>
 
               {/* Web Trading Button */}
-              <a
+              {/* <a
                 href="https://app.optionxi.com"
                 className="group relative h-14 md:h-16 px-6 py-0
                           flex items-center justify-center 
@@ -128,21 +125,21 @@ export default function LandingPage() {
               >
                 <span className="tracking-wide">Web Trading</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </a> */}
             </div>
               {/* Trust indicators */}
               <div className="flex flex-wrap gap-6 text-sm text-gray-400">
                 <div className="flex items-center space-x-2">
                   <CheckCircle className="w-4 h-4 text-green-400" />
-                  <span>10,000+ Active Traders</span>
+                  <span>1,000+ Active Traders</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Shield className="w-4 h-4 text-blue-400" />
-                  <span>Bank-Grade Security</span>
+                  <span>Open source</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Zap className="w-4 h-4 text-yellow-400" />
-                  <span>₹100Cr+ Volume Traded</span>
+                  <span>10+ Screeners and Tools</span>
                 </div>
               </div>
             </div>
@@ -163,7 +160,7 @@ export default function LandingPage() {
                   ))}
                 </div>
                 <div className="text-center mt-6">
-                  <p className="text-gray-400 text-sm">Available on Android & iOS</p>
+                  <p className="text-gray-400 text-sm">Available on Android & Web</p>
                 </div>
               </div>
             </div>
@@ -216,11 +213,11 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="px-4 sm:px-6 lg:px-8 py-24">
+      <section className="px-4 sm:px-6 lg:px-8 py-2">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Why <span className="text-blue-400">10,000+</span> Traders Choose Us
+              Why <span className="text-blue-400">1,000+</span> Traders Choose Us
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Professional-grade trading tools designed for both beginners and experts. Everything you need to succeed in the markets.
@@ -314,7 +311,7 @@ export default function LandingPage() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="px-4 sm:px-6 lg:px-8 py-24 md:py-32 bg-gradient-to-b from-gray-800/50 to-gray-900">
+      <section className="px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-b from-gray-800/50 to-gray-900">
        <div className="max-w-5xl mx-auto text-center">
         <div className="inline-flex flex-wrap items-center bg-green-600/10 border border-green-500/20 rounded-full px-4 sm:px-6 py-2 mb-6 sm:mb-8 text-center max-w-full">
           <Play className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 mr-2 mb-1 sm:mb-0" />
@@ -325,7 +322,7 @@ export default function LandingPage() {
 
         
         <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">
-          Join <span className="text-green-400">10,000+</span> Traders
+          Join <span className="text-green-400">1,000+</span> Traders
           <br />
           Using <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-green-400 bg-clip-text text-transparent">OptionXi</span>
         </h2>
@@ -378,7 +375,7 @@ export default function LandingPage() {
             </div>
             <div className="flex items-center space-x-2">
               <Zap className="w-5 h-5 text-yellow-400" />
-              <span>Lightning fast execution</span>
+              <span>Unified trading</span>
             </div>
           </div>
         </div>
