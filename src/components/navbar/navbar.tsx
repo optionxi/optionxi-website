@@ -7,28 +7,6 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   const navItems = [
-    // { 
-    //   name: 'Tools', 
-    //   href: 'https://app.optionxi.com',
-    //   dropdownItems: [
-    //     { name: 'Top Gainers', href: '#' },
-    //     { name: 'Top Losers', href: '#' },
-    //     { name: 'Top Volume', href: '#' },
-    //     { name: 'Heatmap', href: '#' },
-    //   ]
-    // },
-    // { 
-    //   name: 'Scanners', 
-    //   href: '#',
-    //   dropdownItems: [
-    //     { name: 'Scanners', href: '#' },
-    //     { name: 'Screeners', href: '#' },
-    //     { name: 'Breakouts', href: '#' },
-    //   ]
-    // },
-    // { name: 'Market Trends', href: '#' },
-    // { name: 'Alerts', href: '/pricing' },
-    // { name: 'Docs', href: 'https://docs.optionxi.com' },
     { name: 'Blogs', href: '/blogs' },
     { name: 'Privacy Policy', href: '/privacy-policy' },
      { name: 'Terms Of Use', href: '/terms-of-use' },

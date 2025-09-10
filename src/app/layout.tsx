@@ -1,7 +1,6 @@
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from "next";
 import "./globals.css";
-import GridBackground from '@/components/custom/grid_black_background';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import ChatwootWidget from './components/chatwoot-chat';
@@ -67,7 +66,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="flex flex-col min-h-screen">
-        <GridBackground />
         <header className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg">
           <Navbar />
         </header>
