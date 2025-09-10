@@ -46,7 +46,7 @@ export default function LandingPage() {
 
   const screenshots = [
     { src: "assets/screenshots/Home Page New.png", title: "Dashboard" },
-    { src: "assets/screenshots/Home Page New 2.png", title: "Portfolio" },
+    { src: "assets/screenshots/Home Page new 2.png", title: "Portfolio" },
     { src: "assets/screenshots/Market Sentiment.png", title: "Market Sentiment" },
     { src: "assets/screenshots/Market Tools.png", title: "Trading Tools" }
   ];
@@ -316,10 +316,13 @@ export default function LandingPage() {
       {/* Final CTA Section */}
       <section className="px-4 sm:px-6 lg:px-8 py-24 md:py-32 bg-gradient-to-b from-gray-800/50 to-gray-900">
        <div className="max-w-5xl mx-auto text-center">
-        <div className="inline-flex items-center bg-green-600/10 border border-green-500/20 rounded-full px-6 py-2 mb-8">
-          <Play className="w-5 h-5 text-green-400 mr-2" />
-          <span className="text-green-400 font-medium">Ready to start your trading journey?</span>
+        <div className="inline-flex flex-wrap items-center bg-green-600/10 border border-green-500/20 rounded-full px-4 sm:px-6 py-2 mb-6 sm:mb-8 text-center max-w-full">
+          <Play className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 mr-2 mb-1 sm:mb-0" />
+          <span className="text-green-400 font-medium text-sm sm:text-base">
+            Ready to start your trading journey?
+          </span>
         </div>
+
         
         <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">
           Join <span className="text-green-400">10,000+</span> Traders
