@@ -9,7 +9,7 @@ import ChatwootWidget from './components/chatwoot-chat';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://optionxi.com'),
-  title: 'OptionXi App',
+  title: 'OptionXi Website',
   description: 'OptionXi is the future of virtual trading, with live scanners and price alerts, also integration live algo trading with past portfolio',
   icons: {
     icon: '/favicon.ico',

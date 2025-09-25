@@ -263,7 +263,7 @@ export default function LandingPage() {
                 <div className="aspect-[9/16] overflow-hidden">
                   <img
                     src={screenshot.src}
-                    alt={`${screenshot.title} - OptionXi App`}
+                    alt={`${screenshot.title} - OptionXi Open Source Virtual Trading Platform`}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                 </div>
@@ -286,7 +286,7 @@ export default function LandingPage() {
                   <div className="aspect-[9/16] overflow-hidden">
                     <img
                       src={screenshot.src}
-                      alt={`${screenshot.title} - OptionXi App`}
+                      alt={`${screenshot.title} - OptionXi Open Source Virtual Trading Platform`}
                       className="w-full h-full object-cover"
                     />
                   </div>

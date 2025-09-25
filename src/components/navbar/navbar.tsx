@@ -80,17 +80,17 @@ export default function Navbar() {
             </a>
 
             {/* Auth Buttons */}
-            <Link
+            {/* <Link
               href="https://app.optionxi.com"
               className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-all duration-200"
             >
               Sign up
-            </Link>
+            </Link> */}
             <Link
               href="https://app.optionxi.com"
               className="group relative px-6 py-2.5 rounded-xl text-sm font-medium text-white bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-emerald-500/25"
             >
-              <span className="relative z-10">Login</span>
+              <span className="relative z-10">Login Now</span>
               <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-emerald-400 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
             </Link>
           </div>
@@ -147,19 +147,19 @@ export default function Navbar() {
           {/* Mobile Auth Buttons */}
           <div className="pt-4 pb-3 border-t border-gray-700">
             <div className="flex items-center px-5 space-x-2">
-              <Link
+              {/* <Link
                 href="https://app.optionxi.com"
                 onClick={() => setIsOpen(false)}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-4 py-3 rounded-xl text-base font-medium transition-all duration-200"
               >
                 Sign up
-              </Link>
+              </Link> */}
               <Link
                 href="https://app.optionxi.com"
                 onClick={() => setIsOpen(false)}
                 className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 shadow-lg"
               >
-                Login
+                Login Now
               </Link>
             </div>
           </div>
