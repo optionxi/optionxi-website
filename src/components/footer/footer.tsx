@@ -293,7 +293,7 @@ const Footer = () => {
           © OptionXi. All rights reserved. Made with
           <Heart className="inline-block mx-1 h-3 w-3 text-red-500 fill-red-500" />
           for traders in India. For queries, feedback or suggestions please email us at 
-          <a className="text-gray-300 hover:text-white ml-1" href="mailto:optionxi24@gmail.com">optionxi24@gmail.com</a>
+          <a className="text-gray-300 hover:text-white ml-1" href="mailto:support@optionxi.com">support@optionxi.com</a>
         </div>
       </div>
     </footer>

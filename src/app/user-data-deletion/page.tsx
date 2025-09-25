@@ -22,7 +22,7 @@ Please confirm the deletion of my account and provide details about the data rem
 
 Thank you.`);
       
-      const mailtoLink = `mailto:optionxi24@gmail.com?subject=${subject}&body=${body}`;
+      const mailtoLink = `mailto:contact@optionxi.com?subject=${subject}&body=${body}`;
       window.location.href = mailtoLink;
       
       setEmailSent(true);
@@ -88,7 +88,7 @@ Thank you.`);
                   <div>
                     <h4 className="font-semibold text-white mb-2">Send Email Request</h4>
                     <p className="text-gray-300">
-                      An email will be composed to <span className="text-blue-400 font-mono">optionxi24@gmail.com</span> with your deletion request.
+                      An email will be composed to <span className="text-blue-400 font-mono">support@optionxi.com</span> with your deletion request.
                     </p>
                   </div>
                 </div>
@@ -223,7 +223,7 @@ Thank you.`);
                 Educational platform for virtual trading • Nifty 50 & Options • Open Source Project
               </p>
               <p className="text-sm mt-2">
-                Contact: <a href="mailto:optionxi24@gmail.com" className="text-blue-400 hover:text-blue-300">optionxi24@gmail.com</a>
+                Contact: <a href="mailto:support@optionxi.com" className="text-blue-400 hover:text-blue-300">support@optionxi.com</a>
               </p>
             </div>
           </div>
