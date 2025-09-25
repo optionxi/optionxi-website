@@ -164,7 +164,7 @@ const Footer = () => {
               The content provided on OptionXi is for educational and informational purposes only and does not constitute financial advice, investment recommendations, or trading signals. OptionXi is a virtual trading platform designed for learning and simulation purposes. All trading activities on our platform are virtual and do not involve real money transactions. We strongly advise users to conduct their own research or consult with qualified financial advisors before making any actual financial decisions. OptionXi does not guarantee the accuracy of market data, trading results, or any information provided by our platform. Virtual trading results do not represent actual trading performance and may not reflect the impact of market liquidity, fees, or other real trading conditions. Users should be aware that past performance in virtual trading does not guarantee future results in real trading. Always ensure that any financial decision aligns with your personal financial situation, risk tolerance, and investment goals. Please read our 
               <a className="underline hover:text-gray-300 ml-1 mr-1" href="https://optionxi.com/privacy-policy">Privacy Policy </a>
               and 
-              <a className="underline hover:text-gray-300 ml-1" href="https://optionxi.com/terms-of-service">Terms of Service </a>
+              <a className="underline hover:text-gray-300 ml-1" href="https://optionxi.com/terms-of-use">Terms of Use </a>
                to understand more.
             </div>
           </div>
@@ -284,7 +284,7 @@ const Footer = () => {
           {/* <a href="https://optionxi.com/help" className="hover:text-gray-300 transition-colors">Help</a> */}
           {/* <a href="https://optionxi.com/about" className="hover:text-gray-300 transition-colors">About</a> */}
           <a href="https://optionxi.com/privacy-policy" className="hover:text-gray-300 transition-colors">Privacy policy</a>
-          <a href="https://optionxi.com/terms-of-service" className="hover:text-gray-300 transition-colors">Terms of service</a>
+          <a href="https://optionxi.com/terms-of-use" className="hover:text-gray-300 transition-colors">Terms of use</a>
           {/* <a href="https://optionxi.com/refunds" className="hover:text-gray-300 transition-colors">Refunds</a> */}
         </div>
 
