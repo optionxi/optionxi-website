@@ -2,7 +2,6 @@ import React from 'react';
 import { 
   TrendingUp, 
   Bell, 
-  Search, 
   BarChart3, 
   Filter, 
   Volume2, 
@@ -12,12 +11,10 @@ import {
   Trophy,
   Clock,
   Users,
-  Zap,
   Eye,
   Play,
-  Download,
-  ChevronRight,
-  Star
+  Star,
+  ArrowRight
 } from 'lucide-react';
 
 const ProductsPage = () => {
@@ -69,43 +66,54 @@ const ProductsPage = () => {
     { icon: <Users />, title: "Community", desc: "Connect with fellow traders" }
   ];
 
-  const comingSoonFeatures = [
-    {
-      icon: <Zap className="w-6 h-6 text-indigo-400" />,
-      title: "Algorithmic Trading",
-      description: "Simulate and backtest custom trading strategies with automated execution"
-    },
-    {
-      icon: <Search className="w-6 h-6 text-green-400" />,
-      title: "Open Source Platform",
-      description: "Full access to app code, UI, database, and trade engine for developers"
-    }
-  ];
+  // const comingSoonFeatures = [
+  //   {
+  //     icon: <Zap className="w-6 h-6 text-indigo-400" />,
+  //     title: "Algorithmic Trading",
+  //     description: "Simulate and backtest custom trading strategies with automated execution"
+  //   },
+  //   {
+  //     icon: <Search className="w-6 h-6 text-green-400" />,
+  //     title: "Open Source Platform",
+  //     description: "Full access to app code, UI, database, and trade engine for developers"
+  //   }
+  // ];
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-gray-900 via-gray-950 to-black py-20 px-4">
         <div className="max-w-7xl mx-auto text-center relative">
-          <div className="flex items-center justify-center mb-6">
-            <div className="bg-emerald-500/10 p-3 rounded-full border border-emerald-500/20">
-              <TrendingUp className="w-8 h-8 text-emerald-400" />
-            </div>
-          </div>
+        
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-300 to-gray-500 bg-clip-text text-transparent">
-            Trading Products
+            Trade Platforms
           </h1>
           <p className="text-xl md:text-2xl text-gray-400 mb-8 max-w-3xl mx-auto leading-relaxed">
             Discover powerful trading tools designed for modern traders. Practice, learn, and master the Indian stock market with zero financial risk.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold px-8 py-4 rounded-lg transition-all duration-300 flex items-center gap-2 group">
-              <Download className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              Download App
-            </button>
-            <button className="border border-gray-700 hover:border-gray-600 text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:bg-gray-800/50">
-              Try Web Platform
-            </button>
+           <a
+            href="https://play.google.com/store/apps/details?id=com.optionxi.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group transition-transform duration-300 hover:scale-105"
+          >
+            <img
+              src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+              alt="Get it on Google Play"
+              className="h-20 md:h-24 w-auto"
+            />
+          </a>
+            <a
+            href="https://app.optionxi.com"
+            className="group inline-flex items-center space-x-3 px-8 py-4 bg-gray-800/50 hover:bg-gray-700/60 border border-gray-700/50 hover:border-gray-600/60 rounded-xl transition-all duration-300 text-white hover:text-blue-300"
+          >
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-lg font-medium">Launch Web Terminal</span>
+            </div>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </a>
           </div>
         </div>
       </section>
@@ -212,10 +220,18 @@ const ProductsPage = () => {
                     Weekend access with historical data
                   </li>
                 </ul>
-                <button className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold px-8 py-4 rounded-lg transition-all duration-300 flex items-center gap-2 group">
-                  <Download className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  Get on Google Play
-                </button>
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.optionxi.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group transition-transform duration-300 hover:scale-105"
+                >
+                  <img
+                    src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                    alt="Get it on Google Play"
+                    className="h-20 md:h-24 w-auto"
+                  />
+                </a>
               </div>
               <div className="relative">
                 <div className="bg-gradient-to-br from-emerald-500/20 to-blue-500/20 rounded-2xl p-8 border border-gray-700">
@@ -248,92 +264,6 @@ const ProductsPage = () => {
         </div>
       </section>
 
-      {/* Coming Soon Features */}
-      <section className="py-20 px-4 bg-gray-900/30">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="inline-block bg-indigo-500/10 px-4 py-2 rounded-full border border-indigo-500/20 mb-6">
-              <span className="text-indigo-400 font-semibold">Coming Soon</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-              Next-Level Features
-            </h2>
-            <p className="text-lg text-gray-400">
-              Exciting new capabilities in development
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            {comingSoonFeatures.map((feature, index) => (
-              <div key={index} className="bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-xl p-8 hover:border-indigo-500/50 transition-all duration-300 group">
-                <div className="bg-gray-700/50 w-12 h-12 rounded-lg flex items-center justify-center mb-6 group-hover:bg-indigo-500/20 transition-colors">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-bold mb-4 text-white">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-400 leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Target Audience */}
-      <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-              Who Is This For?
-            </h2>
-            <p className="text-lg text-gray-400">
-              OptionXI serves traders at every level of their journey
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { emoji: "📘", title: "Beginners", desc: "New to stock markets" },
-              { emoji: "🎓", title: "Students", desc: "Finance & fintech learners" },
-              { emoji: "🧠", title: "Option Traders", desc: "Practicing strategies" },
-              { emoji: "👨💻", title: "Developers", desc: "Building trading tools" }
-            ].map((audience, index) => (
-              <div key={index} className="bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-xl p-6 text-center hover:border-gray-600 transition-all duration-300">
-                <div className="text-4xl mb-4">{audience.emoji}</div>
-                <h3 className="font-bold text-white mb-2">{audience.title}</h3>
-                <p className="text-sm text-gray-400">{audience.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-emerald-900/30 to-blue-900/30">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-            Start Your Trading Journey Today
-          </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Practice, learn, and simulate with zero risk. Real market data, full trading experience.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold px-8 py-4 rounded-lg transition-all duration-300 flex items-center gap-2 group justify-center">
-              <Download className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              Download Mobile App
-            </button>
-            <button className="border border-gray-600 hover:border-gray-500 text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:bg-gray-800/50 flex items-center gap-2 justify-center">
-              Learn More
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-          <p className="text-sm text-gray-400 mt-6">
-            ✅ No Risk • 📖 Educational Use Only • 🚀 Real Market Data
-          </p>
-        </div>
-      </section>
     </div>
     
   );
