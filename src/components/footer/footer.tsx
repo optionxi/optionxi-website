@@ -174,7 +174,7 @@ const Footer = () => {
         <div className="px-6 lg:px-16 mb-6 text-white">
           <div className="uppercase text-xs font-bold tracking-wider mb-2">About OptionXi</div>
           <div className="text-xs leading-relaxed">
-            OptionXi is India&apos;s open srouce virtual trading platform designed for stock market education and simulation. Our platform provides comprehensive tools for learning NSE stock trading, Nifty 50 strategies, and options trading on Bank Nifty and Nifty indices. With features like advanced stock screeners, real-time alerts, interactive heatmaps, top gainers/losers tracking, and detailed stock analysis, OptionXi empowers traders and investors to develop their skills in a risk-free environment. Whether you&apos;re a beginner learning market basics or an experienced trader testing new strategies, OptionXi provides the tools and insights needed to enhance your trading education.
+            OptionXi is India&apos;s open source virtual trading platform designed for stock market education and simulation. Our platform provides comprehensive tools for learning NSE stock trading, Nifty 50 strategies, and options trading on Bank Nifty and Nifty indices. With features like advanced stock screeners, real-time alerts, interactive heatmaps, top gainers/losers tracking, and detailed stock analysis, OptionXi empowers traders and investors to develop their skills in a risk-free environment. Whether you&apos;re a beginner learning market basics or an experienced trader testing new strategies, OptionXi provides the tools and insights needed to enhance your trading education.
           </div>
         </div>
 

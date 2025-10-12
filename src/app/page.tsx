@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { ArrowRight, TrendingUp, Shield, Zap, BarChart3, CheckCircle, Play } from 'lucide-react';
+import OrbitalSection from '@/components/orbitalsection/orbital_section';
 
 export default function LandingPage() {
   const features = [
@@ -145,7 +146,7 @@ export default function LandingPage() {
             </div>
             
             {/* Right Column - App Screenshots */}
-            <div className="relative">
+            {/* <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-3xl blur-3xl"></div>
               <div className="relative bg-gray-800/60 rounded-3xl p-6 md:p-8 border border-gray-700/50">
                 <div className="grid grid-cols-2 gap-4">
@@ -163,6 +164,10 @@ export default function LandingPage() {
                   <p className="text-gray-400 text-sm">Available on Android & Web</p>
                 </div>
               </div>
+            </div> */}
+
+            <div className='relative'>
+              <OrbitalSection/>
             </div>
           </div>
         </div>
