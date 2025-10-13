@@ -85,7 +85,7 @@ const urlFor = (source: SanityImageSource) =>
 
 // Share buttons component (server component)
 const ShareButtons = ({ title, slug }: { title: string; slug: string }) => {
-  const currentUrl = `https://yourdomain.com/blogs/${slug}`;
+  const currentUrl = `https://optionxi.com/blogs/${slug}`;
   const encodedUrl = encodeURIComponent(currentUrl);
   const encodedTitle = encodeURIComponent(title);
 
