@@ -111,7 +111,22 @@ export default function LandingPage() {
                 />
               </a>
 
-              {/* Web Trading Button */}
+              {/* Product Hunt Featured Badge - ADDED HERE */}
+              <a 
+                href="https://www.producthunt.com/products/optionxi?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-optionxi&#0045;open&#0045;source&#0045;trading&#0045;platform" 
+                target="_blank"
+                className="transition-transform duration-300 hover:scale-105"
+              >
+                <img 
+                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1016349&theme=light&t=1759650435293" 
+                  alt="OptionXi - Open Source Trading Platform - India’s First Open Source Trading Platform | Product Hunt" 
+                  style={{ width: '250px', height: '54px' }} 
+                  width="250" 
+                  height="54" 
+                />
+              </a>
+
+              {/* Web Trading Button (commented out in original) */}
               {/* <a
                 href="https://app.optionxi.com"
                 className="group relative h-14 md:h-16 px-6 py-0
@@ -145,27 +160,7 @@ export default function LandingPage() {
               </div>
             </div>
             
-            {/* Right Column - App Screenshots */}
-            {/* <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-3xl blur-3xl"></div>
-              <div className="relative bg-gray-800/60 rounded-3xl p-6 md:p-8 border border-gray-700/50">
-                <div className="grid grid-cols-2 gap-4">
-                  {screenshots.slice(0, 4).map((screenshot, index) => (
-                    <div key={index} className="aspect-[9/16] rounded-xl overflow-hidden bg-gray-700 group">
-                      <img
-                        src={screenshot.src}
-                        alt={screenshot.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                    </div>
-                  ))}
-                </div>
-                <div className="text-center mt-6">
-                  <p className="text-gray-400 text-sm">Available on Android & Web</p>
-                </div>
-              </div>
-            </div> */}
-
+            {/* Right Column - App Screenshots/OrbitalSection */}
             <div className='relative'>
               <OrbitalSection/>
             </div>
