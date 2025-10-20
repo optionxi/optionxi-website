@@ -2,6 +2,7 @@
 import React from 'react';
 import { ArrowRight, TrendingUp, Shield, Zap, BarChart3, CheckCircle, Play } from 'lucide-react';
 import OrbitalSection from '@/components/orbitalsection/orbital_section';
+import OptionXIArchitecture from './components/optionxi-architecture';
 
 export default function LandingPage() {
   const features = [
@@ -209,6 +210,14 @@ export default function LandingPage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Demo Section */}
+      <section className="px-4 sm:px-6 lg:px-8 py-2">
+        <div className="max-w-7xl mx-auto">
+          {/* <OptionXiSection/> */}
+          <OptionXIArchitecture/>
         </div>
       </section>
 
