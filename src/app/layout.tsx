@@ -67,7 +67,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className="flex flex-col min-h-screen">
         <header className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg">
-          <Navbar />
+          <Navbar/>
         </header>
         {/* Add a spacer div to push content below fixed header */}
         <div className="h-16" /> {/* Adjust height to match your navbar height */}

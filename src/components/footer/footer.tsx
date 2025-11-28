@@ -3,7 +3,7 @@ import { Twitter, Github, Youtube, Instagram, Heart } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0a0b14] pt-12 pb-6 relative z-10">
+    <footer className="bg-[#0a0b14] pt-12 pb-6 relative z-10 print:hidden">
       <div className="container mx-auto">
         {/* Main Footer Content */}
         {/* Logo and Download Section */}

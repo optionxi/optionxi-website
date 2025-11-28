@@ -12,6 +12,8 @@ export default function Navbar() {
     { name: 'Blogs', href: '/blogs' },
     { name: 'Privacy Policy', href: '/privacy-policy' },
     { name: 'Terms Of Use', href: '/terms-of-use' },
+    { name: 'ERP Campus', href: '/erp-campus' },
+    { name: 'ERP Manufacturing', href: '/erp-manufacturing' },
   ]
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function Navbar() {
   }, [])
 
   return (
-    <nav className="bg-gray-900 text-gray-100">
+    <nav className="bg-gray-900 text-gray-100 print:hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Left: Logo + Brand */}
