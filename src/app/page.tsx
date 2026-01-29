@@ -148,7 +148,7 @@ export default function LandingPage() {
               <div className="flex flex-wrap gap-6 text-sm text-gray-400">
                 <div className="flex items-center space-x-2">
                   <CheckCircle className="w-4 h-4 text-green-400" />
-                  <span>1,000+ Active Traders</span>
+                  <span>3,000+ Active Traders</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Shield className="w-4 h-4 text-blue-400" />
@@ -226,7 +226,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Why <span className="text-blue-400">1,000+</span> Traders Choose Us
+              Why <span className="text-blue-400">3,000+</span> Traders Choose Us
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Professional-grade trading tools designed for both beginners and experts. Everything you need to succeed in the markets.
@@ -331,7 +331,7 @@ export default function LandingPage() {
 
         
         <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">
-          Join <span className="text-green-400">1,000+</span> Traders
+          Join <span className="text-green-400">3,000+</span> Traders
           <br />
           Using <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-green-400 bg-clip-text text-transparent">OptionXi</span>
         </h2>
