@@ -352,7 +352,7 @@ export default function LandingPage() {
                 </div>
               </div>
               <p className="text-gray-300 mb-4 leading-relaxed text-sm">
-                "OptionXI is a really nice app for traders. The developers are doing a great job and keep improving it with regular updates. The swing trading signals are highly accurate, which makes it very reliable for traders. A big plus is that you can directly connect with your broker through the app."
+                &quot;OptionXI is a really nice app for traders. The developers are doing a great job and keep improving it with regular updates. The swing trading signals are highly accurate, which makes it very reliable for traders. A big plus is that you can directly connect with your broker through the app.&quot;
               </p>
               <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
                 <p className="text-xs text-gray-400">September 17, 2025</p>
@@ -382,7 +382,7 @@ export default function LandingPage() {
                 </div>
               </div>
               <p className="text-gray-300 mb-4 leading-relaxed text-sm">
-                "Excellent app for market updates! This app has become my go-to for real-time stock market updates, expert insights, and easy-to-understand data. The interface is smooth, notifications are timely, and it really helps me stay ahead in my trading decisions. Highly recommended for beginners and experienced traders alike!"
+                &quot;Excellent app for market updates! This app has become my go-to for real-time stock market updates, expert insights, and easy-to-understand data. The interface is smooth, notifications are timely, and it really helps me stay ahead in my trading decisions. Highly recommended for beginners and experienced traders alike!&quot;
               </p>
               <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
                 <p className="text-xs text-gray-400">July 5, 2025</p>
@@ -414,7 +414,7 @@ export default function LandingPage() {
                 </div>
               </div>
               <p className="text-gray-300 mb-4 leading-relaxed text-sm">
-                "Best app so far for virtual trading in stocks, my advice is, simple clean UI is much better"
+                &quot;Best app so far for virtual trading in stocks, my advice is, simple clean UI is much better&quot;
               </p>
               <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
                 <p className="text-xs text-gray-400">October 30, 2025</p>
