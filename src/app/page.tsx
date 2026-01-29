@@ -319,6 +319,145 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="px-4 sm:px-6 lg:px-8 py-24 bg-gradient-to-b from-gray-800/50 to-gray-900/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              What <span className="text-blue-400">Traders</span> Say About Us
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Real reviews from our community of 3,000+ traders on the Google Play Store
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            {/* Review 1 - Govinda */}
+            <div className="group p-8 bg-gradient-to-br from-gray-800/60 to-gray-900/60 hover:from-gray-700/80 hover:to-gray-800/80 rounded-2xl border border-gray-700/50 hover:border-gray-600 transition-all duration-300">
+              <div className="flex items-center mb-4">
+                <img 
+                  src="https://play-lh.googleusercontent.com/a-/ALV-UjV9IdrAR9oEvB0RpKeUDbHwEJMX9WoqK-McdYFmYiTQXqsJFlxi=s48-c"
+                  alt="Govinda Shakti Kumar Roy"
+                  className="w-12 h-12 rounded-full mr-4 border-2 border-gray-600"
+                />
+                <div className="flex-1">
+                  <p className="font-semibold text-white">Govinda Shakti Kumar Roy</p>
+                  <div className="flex text-yellow-400 mt-1">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                      </svg>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <p className="text-gray-300 mb-4 leading-relaxed text-sm">
+                "OptionXI is a really nice app for traders. The developers are doing a great job and keep improving it with regular updates. The swing trading signals are highly accurate, which makes it very reliable for traders. A big plus is that you can directly connect with your broker through the app."
+              </p>
+              <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
+                <p className="text-xs text-gray-400">September 17, 2025</p>
+                <img 
+                  src="https://www.gstatic.com/images/branding/product/1x/play_prism_64dp.png"
+                  alt="Google Play"
+                  className="w-5 h-5 opacity-60"
+                />
+              </div>
+            </div>
+
+            {/* Review 2 - Sajith Antony */}
+            <div className="group p-8 bg-gradient-to-br from-gray-800/60 to-gray-900/60 hover:from-gray-700/80 hover:to-gray-800/80 rounded-2xl border border-gray-700/50 hover:border-gray-600 transition-all duration-300">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 rounded-full mr-4 border-2 border-gray-600 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">SA</span>
+                </div>
+                <div className="flex-1">
+                  <p className="font-semibold text-white">Sajith Antony</p>
+                  <div className="flex text-yellow-400 mt-1">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                      </svg>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <p className="text-gray-300 mb-4 leading-relaxed text-sm">
+                "Excellent app for market updates! This app has become my go-to for real-time stock market updates, expert insights, and easy-to-understand data. The interface is smooth, notifications are timely, and it really helps me stay ahead in my trading decisions. Highly recommended for beginners and experienced traders alike!"
+              </p>
+              <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
+                <p className="text-xs text-gray-400">July 5, 2025</p>
+                <img 
+                  src="https://www.gstatic.com/images/branding/product/1x/play_prism_64dp.png"
+                  alt="Google Play"
+                  className="w-5 h-5 opacity-60"
+                />
+              </div>
+            </div>
+
+            {/* Review 3 - Satish Reddy */}
+            <div className="group p-8 bg-gradient-to-br from-gray-800/60 to-gray-900/60 hover:from-gray-700/80 hover:to-gray-800/80 rounded-2xl border border-gray-700/50 hover:border-gray-600 transition-all duration-300">
+              <div className="flex items-center mb-4">
+                <img 
+                  src="https://play-lh.googleusercontent.com/a-/ALV-UjVhfeaxUszzBnIzQVys-UnDoZRie-BTNKAU1RMNxflpAY04uO4G=s64-rw"
+                  alt="Govinda Shakti Kumar Roy"
+                  className="w-12 h-12 rounded-full mr-4 border-2 border-gray-600"
+                />
+                <div className="flex-1">
+                  <p className="font-semibold text-white">Satish Reddy</p>
+                  <div className="flex text-yellow-400 mt-1">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                      </svg>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <p className="text-gray-300 mb-4 leading-relaxed text-sm">
+                "Best app so far for virtual trading in stocks, my advice is, simple clean UI is much better"
+              </p>
+              <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
+                <p className="text-xs text-gray-400">October 30, 2025</p>
+                <img 
+                  src="https://www.gstatic.com/images/branding/product/1x/play_prism_64dp.png"
+                  alt="Google Play"
+                  className="w-5 h-5 opacity-60"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* View More Reviews CTA */}
+          <div className="text-center">
+            <a
+              href="https://play.google.com/store/apps/details?id=com.optionxi.app&showAllReviews=true"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-3 px-8 py-4 bg-gray-800/60 hover:bg-gray-700/80 border border-gray-700/50 hover:border-gray-600 rounded-xl transition-all duration-300 text-white group"
+            >
+              <img 
+                src="https://www.gstatic.com/images/branding/product/1x/play_prism_64dp.png"
+                alt="Google Play"
+                className="w-6 h-6"
+              />
+              <span className="text-lg font-medium">Read All Reviews on Google Play</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </a>
+            <div className="mt-6 flex items-center justify-center space-x-2">
+              <div className="flex text-yellow-400">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className={`w-6 h-6 ${i < 4 ? 'fill-current' : 'fill-current opacity-50'}`} viewBox="0 0 20 20">
+                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                  </svg>
+                ))}
+              </div>
+              <span className="text-xl font-bold text-white">4.5</span>
+              <span className="text-gray-400">• 31 reviews</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA Section */}
       <section className="px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-b from-gray-800/50 to-gray-900">
        <div className="max-w-5xl mx-auto text-center">
