@@ -14,6 +14,7 @@ export default function Navbar() {
     { name: 'Terms Of Use', href: '/terms-of-use' },
     { name: 'ERP Campus', href: '/erp-campus' },
     { name: 'ERP Manufacturing', href: '/erp-manufacturing' },
+    { name: 'Tech Stack', href: '/tech-stack' },
   ]
 
   useEffect(() => {
