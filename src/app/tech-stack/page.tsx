@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   ChevronDown, Server, Database, Zap, Globe, Clock, Code, Activity, 
   Layers, Box, HardDrive, Network, Cpu, Terminal, FileCode,
@@ -13,7 +13,8 @@ import {
   Share2,
   Wrench,
   MessageSquare,
-  Cloud
+  Cloud,
+  X
 } from 'lucide-react';
 
 // Brand Icons
@@ -202,7 +203,7 @@ const servers: ServerData[] = [
   },
   {
     name: "ADR 2",
-    hostname: "meilisearch.optionxi.com",
+    hostname: "beszel.optionxi.com",
     type: "python",
     environment: "production",
     storage: "24GB",
@@ -213,15 +214,15 @@ const servers: ServerData[] = [
     ],
     keyScripts: [
       "Redis and RedisUI for Caching", 
-      "Baszel for Monitoring",
+      "Beszel for Monitoring",
       "Bigcapital For Accounting",
       "Python to update stock names in meliesearch",
       "Mattermost for blog forums",
       "Real-time stock Breakout Alerts as backend for optionxi"
     ],
-    technologies: ["Python","Redis", "Baszel","BigCapital","Mattermost"],
+    technologies: ["Python","Redis", "Beszel","BigCapital","Mattermost"],
     domains:["bigcapital.optionxi.com",
-        "baszel.optionxi.com",
+        "beszel.optionxi.com",
         "redis.optionxi.com",
         "redisui.optionxi.com",
         "redis-cloud.optionxi.com",
@@ -287,10 +288,9 @@ const servers: ServerData[] = [
     environment: "production",
     storage: "12GB",
     domains: ["optionxi.com", "coolify.optionxi.com", "supabase.optionxi.com", 
-        "docs.optionxi.com","n8n.optionxi.com",
-        "meliesearch.optionxi.com"],
+        "docs.optionxi.com","n8n.optionxi.com"],
     primaryRole: "Core backend of optionXi and its services",
-    technologies: ["Hestia", "Coolify", "Supabase", "Mintlify","N8N","Meliesearch"]
+    technologies: ["Hestia", "Coolify", "Supabase", "Mintlify","N8N"]
   },
   {
     name: "SDK 3",
@@ -644,8 +644,15 @@ const techStackCategories = [
   }
 ];
 
-const ServerCard: React.FC<{ server: ServerData; index: number }> = ({ server, index }) => {
-  const [expanded, setExpanded] = useState(false);
+const ServerCard: React.FC<{ server: ServerData; index: number; isSearched?: boolean }> = ({ server, index, isSearched }) => {
+  const [expanded, setExpanded] = useState(isSearched || false);
+
+  // Auto-expand if the card is part of a search result to make details easily viewable
+  useEffect(() => {
+    if (isSearched !== undefined) {
+      setExpanded(isSearched);
+    }
+  }, [isSearched]);
 
   const typeConfig = {
     hestia: { 
@@ -795,6 +802,30 @@ const ServerCard: React.FC<{ server: ServerData; index: number }> = ({ server, i
 
 export default function OptionXiInfrastructure() {
   const [activeTab, setActiveTab] = useState<'servers' | 'dataflow' | 'techstack'>('techstack');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Global search across all properties of the server
+  const filteredServers = servers.filter((server) => {
+    if (!searchQuery) return true;
+    
+    const q = searchQuery.toLowerCase();
+    
+    const matchName = server.name.toLowerCase().includes(q);
+    const matchHost = server.hostname.toLowerCase().includes(q);
+    const matchType = server.type.toLowerCase().includes(q);
+    const matchEnv = server.environment.toLowerCase().includes(q);
+    const matchRole = server.primaryRole.toLowerCase().includes(q);
+    
+    const matchTech = server.technologies.some(t => t.toLowerCase().includes(q));
+    const matchDomain = server.domains?.some(d => d.toLowerCase().includes(q));
+    const matchScripts = server.keyScripts?.some(s => s.toLowerCase().includes(q));
+    const matchCron = server.cronJobs?.some(c => 
+      c.description.toLowerCase().includes(q) || 
+      c.script.toLowerCase().includes(q)
+    );
+
+    return matchName || matchHost || matchType || matchEnv || matchRole || matchTech || matchDomain || matchScripts || matchCron;
+  });
 
   const hestiaServers = servers.filter(s => s.type === 'hestia');
   const pythonServers = servers.filter(s => s.type === 'python');
@@ -834,226 +865,285 @@ export default function OptionXiInfrastructure() {
               </div>
             </div>
 
-            {/* Mobile Scrollable Tabs */}
-            <div className="flex gap-2 mt-6 sm:mt-8 overflow-x-auto pb-2 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
-              {[
-                { id: 'techstack' as const, label: 'Tech Stack', icon: Layers },
-                { id: 'dataflow' as const, label: 'Pipeline Flow', icon: Workflow },
-                { id: 'servers' as const, label: 'Server Nodes', icon: Server },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm transition-all whitespace-nowrap flex-shrink-0 ${
-                    activeTab === tab.id
-                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20 border border-blue-500/50'
-                      : 'bg-slate-900 text-slate-400 border border-slate-800 hover:bg-slate-800 hover:text-slate-200'
-                  }`}
+            {/* Global Search Bar */}
+            <div className="mt-6 sm:mt-8 relative max-w-2xl">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Search className="h-5 w-5 text-slate-400" />
+              </div>
+              <input
+                type="text"
+                className="block w-full pl-11 pr-10 py-3 md:py-3.5 border border-slate-700/60 rounded-xl leading-5 bg-slate-900/50 text-slate-200 placeholder-slate-400 focus:outline-none focus:bg-slate-900 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-all shadow-sm"
+                placeholder="Search domains, servers, tech stacks, roles (e.g., rabbit, optionxi.com)..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              {searchQuery && (
+                <button 
+                  onClick={() => setSearchQuery('')}
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-white transition-colors"
                 >
-                  <tab.icon className="w-4 h-4" />
-                  {tab.label}
+                  <X className="h-5 w-5" />
                 </button>
-              ))}
+              )}
             </div>
+
+            {/* Mobile Scrollable Tabs (Hide when actively searching) */}
+            {!searchQuery && (
+              <div className="flex gap-2 mt-6 sm:mt-8 overflow-x-auto pb-2 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
+                {[
+                  { id: 'techstack' as const, label: 'Tech Stack', icon: Layers },
+                  { id: 'dataflow' as const, label: 'Pipeline Flow', icon: Workflow },
+                  { id: 'servers' as const, label: 'Server Nodes', icon: Server },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm transition-all whitespace-nowrap flex-shrink-0 ${
+                      activeTab === tab.id
+                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20 border border-blue-500/50'
+                        : 'bg-slate-900 text-slate-400 border border-slate-800 hover:bg-slate-800 hover:text-slate-200'
+                    }`}
+                  >
+                    <tab.icon className="w-4 h-4" />
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </header>
 
         <main className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
-          {activeTab === 'servers' && (
-            <div className="space-y-12 sm:space-y-16 animate-fadeIn">
-              {/* Hestia Servers */}
-              <section>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
-                  <div className="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20 w-fit">
-                    <Globe className="w-6 h-6 text-blue-400" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-white tracking-tight">Frontend & Client Nodes</h2>
-                    <p className="text-sm text-slate-400 mt-1">Hestia Control Panel driven website & app hosting</p>
-                  </div>
+          
+          {/* Active Search Results Overrides the Standard Tabs */}
+          {searchQuery ? (
+            <div className="space-y-6 animate-fadeIn">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20 w-fit">
+                  <Search className="w-6 h-6 text-blue-400" />
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                  {hestiaServers.map((server, index) => (
-                    <ServerCard key={server.name} server={server} index={index} />
-                  ))}
+                <div>
+                  <h2 className="text-2xl font-bold text-white tracking-tight">Search Results</h2>
+                  <p className="text-sm text-slate-400 mt-1">Found {filteredServers.length} matching system{filteredServers.length !== 1 ? 's' : ''}</p>
                 </div>
-              </section>
-
-              {/* Python Servers */}
-              <section>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
-                  <div className="p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20 w-fit">
-                    <Code className="w-6 h-6 text-emerald-400" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-white tracking-tight">Python Application Layer</h2>
-                    <p className="text-sm text-slate-400 mt-1">Trading automation, ML models, and market data processing</p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                  {pythonServers.map((server, index) => (
-                    <ServerCard key={server.name} server={server} index={index} />
-                  ))}
-                </div>
-              </section>
-
-              {/* Database Servers */}
-              <section>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
-                  <div className="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20 w-fit">
-                    <Database className="w-6 h-6 text-purple-400" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-white tracking-tight">Storage & Redundancy</h2>
-                    <p className="text-sm text-slate-400 mt-1">S3-compatible backups and deep database archives</p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                  {databaseServers.map((server, index) => (
-                    <ServerCard key={server.name} server={server} index={index} />
-                  ))}
-                </div>
-              </section>
-            </div>
-          )}
-
-          {activeTab === 'dataflow' && (
-            <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 animate-fadeIn">
-              <div className="text-center mb-8 sm:mb-12 px-4">
-                <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-white tracking-tight">Daily Trading Cycle</h2>
-                <p className="text-slate-400 text-sm sm:text-base">Orchestrated multi-server pipeline strictly following IST market hours</p>
               </div>
-              
-              <div className="relative pl-4 sm:pl-0">
-                {/* Mobile line tracking */}
-                <div className="absolute left-10 top-8 bottom-8 w-0.5 bg-gradient-to-b from-slate-800 via-slate-700 to-slate-800 sm:hidden"></div>
-                
-                {dataFlowStages.map((flow, index) => {
-                  const StageIcon = flow.icon;
-                  const colorMap: Record<string, string> = {
-                    blue: 'from-blue-500/10 border-blue-500/20 text-blue-400 icon-bg-blue-500/20',
-                    green: 'from-emerald-500/10 border-emerald-500/20 text-emerald-400 icon-bg-emerald-500/20',
-                    purple: 'from-purple-500/10 border-purple-500/20 text-purple-400 icon-bg-purple-500/20',
-                    orange: 'from-orange-500/10 border-orange-500/20 text-orange-400 icon-bg-orange-500/20',
-                    yellow: 'from-yellow-500/10 border-yellow-500/20 text-yellow-400 icon-bg-yellow-500/20',
-                    red: 'from-red-500/10 border-red-500/20 text-red-400 icon-bg-red-500/20',
-                    indigo: 'from-indigo-500/10 border-indigo-500/20 text-indigo-400 icon-bg-indigo-500/20'
-                  };
+
+              {filteredServers.length > 0 ? (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                  {filteredServers.map((server, index) => (
+                    <ServerCard key={server.name} server={server} index={index} isSearched={true} />
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-16 bg-slate-900/30 rounded-2xl border border-white/5">
+                  <Search className="w-12 h-12 text-slate-600 mx-auto mb-4 opacity-50" />
+                  <h3 className="text-lg font-medium text-slate-300">No matches found</h3>
+                  <p className="text-slate-500 mt-1">Try adjusting your search terms</p>
+                </div>
+              )}
+            </div>
+          ) : (
+            /* Standard View Modes Start */
+            <>
+              {activeTab === 'servers' && (
+                <div className="space-y-12 sm:space-y-16 animate-fadeIn">
+                  {/* Hestia Servers */}
+                  <section>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
+                      <div className="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20 w-fit">
+                        <Globe className="w-6 h-6 text-blue-400" />
+                      </div>
+                      <div>
+                        <h2 className="text-2xl font-bold text-white tracking-tight">Frontend & Client Nodes</h2>
+                        <p className="text-sm text-slate-400 mt-1">Hestia Control Panel driven website & app hosting</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                      {hestiaServers.map((server, index) => (
+                        <ServerCard key={server.name} server={server} index={index} />
+                      ))}
+                    </div>
+                  </section>
+
+                  {/* Python Servers */}
+                  <section>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
+                      <div className="p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20 w-fit">
+                        <Code className="w-6 h-6 text-emerald-400" />
+                      </div>
+                      <div>
+                        <h2 className="text-2xl font-bold text-white tracking-tight">Python Application Layer</h2>
+                        <p className="text-sm text-slate-400 mt-1">Trading automation, ML models, and market data processing</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                      {pythonServers.map((server, index) => (
+                        <ServerCard key={server.name} server={server} index={index} />
+                      ))}
+                    </div>
+                  </section>
+
+                  {/* Database Servers */}
+                  <section>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
+                      <div className="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20 w-fit">
+                        <Database className="w-6 h-6 text-purple-400" />
+                      </div>
+                      <div>
+                        <h2 className="text-2xl font-bold text-white tracking-tight">Storage & Redundancy</h2>
+                        <p className="text-sm text-slate-400 mt-1">S3-compatible backups and deep database archives</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                      {databaseServers.map((server, index) => (
+                        <ServerCard key={server.name} server={server} index={index} />
+                      ))}
+                    </div>
+                  </section>
+                </div>
+              )}
+
+              {activeTab === 'dataflow' && (
+                <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 animate-fadeIn">
+                  <div className="text-center mb-8 sm:mb-12 px-4">
+                    <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-white tracking-tight">Daily Trading Cycle</h2>
+                    <p className="text-slate-400 text-sm sm:text-base">Orchestrated multi-server pipeline strictly following IST market hours</p>
+                  </div>
                   
-                  const cMap = colorMap[flow.color];
-                  const gradientBase = cMap.split(' ')[0];
-                  const borderBase = cMap.split(' ')[1];
-                  const textBase = cMap.split(' ')[2];
-                  
-                  return (
-                    <div 
-                      key={flow.stage}
-                      className="relative mb-8 sm:mb-12 last:mb-0"
-                      style={{ animationDelay: `${index * 100}ms` }}
-                    >
-                      {/* Desktop Line Tracking */}
-                      {index < dataFlowStages.length - 1 && (
-                        <div className="hidden sm:block absolute left-8 top-[60px] bottom-[-48px] w-0.5 bg-gradient-to-b from-slate-800 to-transparent z-0"></div>
-                      )}
+                  <div className="relative pl-4 sm:pl-0">
+                    {/* Mobile line tracking */}
+                    <div className="absolute left-10 top-8 bottom-8 w-0.5 bg-gradient-to-b from-slate-800 via-slate-700 to-slate-800 sm:hidden"></div>
+                    
+                    {dataFlowStages.map((flow, index) => {
+                      const StageIcon = flow.icon;
+                      const colorMap: Record<string, string> = {
+                        blue: 'from-blue-500/10 border-blue-500/20 text-blue-400 icon-bg-blue-500/20',
+                        green: 'from-emerald-500/10 border-emerald-500/20 text-emerald-400 icon-bg-emerald-500/20',
+                        purple: 'from-purple-500/10 border-purple-500/20 text-purple-400 icon-bg-purple-500/20',
+                        orange: 'from-orange-500/10 border-orange-500/20 text-orange-400 icon-bg-orange-500/20',
+                        yellow: 'from-yellow-500/10 border-yellow-500/20 text-yellow-400 icon-bg-yellow-500/20',
+                        red: 'from-red-500/10 border-red-500/20 text-red-400 icon-bg-red-500/20',
+                        indigo: 'from-indigo-500/10 border-indigo-500/20 text-indigo-400 icon-bg-indigo-500/20'
+                      };
                       
-                      <div className={`relative z-10 bg-gradient-to-br ${gradientBase} to-transparent backdrop-blur-sm border ${borderBase} rounded-2xl p-4 sm:p-6 transition-all hover:bg-slate-900/50`}>
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-5">
-                          <div className={`p-3 rounded-xl border ${borderBase} bg-slate-950 flex-shrink-0 w-fit`}>
-                            <StageIcon className={`w-5 h-5 sm:w-6 sm:h-6 ${textBase}`} />
-                          </div>
-                          <div>
-                            <h3 className="text-lg sm:text-xl font-bold text-white mb-1 tracking-tight">{flow.stage}</h3>
-                            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-black/40 rounded-md border border-white/5">
-                              <Clock className={`w-3 h-3 ${textBase}`} />
-                              <span className="text-xs sm:text-sm text-slate-300 font-mono">{flow.time}</span>
+                      const cMap = colorMap[flow.color];
+                      const gradientBase = cMap.split(' ')[0];
+                      const borderBase = cMap.split(' ')[1];
+                      const textBase = cMap.split(' ')[2];
+                      
+                      return (
+                        <div 
+                          key={flow.stage}
+                          className="relative mb-8 sm:mb-12 last:mb-0"
+                          style={{ animationDelay: `${index * 100}ms` }}
+                        >
+                          {/* Desktop Line Tracking */}
+                          {index < dataFlowStages.length - 1 && (
+                            <div className="hidden sm:block absolute left-8 top-[60px] bottom-[-48px] w-0.5 bg-gradient-to-b from-slate-800 to-transparent z-0"></div>
+                          )}
+                          
+                          <div className={`relative z-10 bg-gradient-to-br ${gradientBase} to-transparent backdrop-blur-sm border ${borderBase} rounded-2xl p-4 sm:p-6 transition-all hover:bg-slate-900/50`}>
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-5">
+                              <div className={`p-3 rounded-xl border ${borderBase} bg-slate-950 flex-shrink-0 w-fit`}>
+                                <StageIcon className={`w-5 h-5 sm:w-6 sm:h-6 ${textBase}`} />
+                              </div>
+                              <div>
+                                <h3 className="text-lg sm:text-xl font-bold text-white mb-1 tracking-tight">{flow.stage}</h3>
+                                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-black/40 rounded-md border border-white/5">
+                                  <Clock className={`w-3 h-3 ${textBase}`} />
+                                  <span className="text-xs sm:text-sm text-slate-300 font-mono">{flow.time}</span>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:ml-16">
+                              {flow.activities.map((activity, i) => {
+                                const ActivityIcon = activity.icon;
+                                return (
+                                  <div key={i} className="flex items-start gap-3 p-3 bg-black/40 rounded-xl border border-white/5 hover:border-white/10 transition-colors">
+                                    <ActivityIcon className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                                    <div>
+                                      <p className="text-sm text-slate-200 mb-2 leading-snug">{activity.task}</p>
+                                      <div className="flex flex-wrap gap-1.5">
+                                        {activity.servers.map((server, j) => (
+                                          <span key={j} className={`px-2 py-0.5 bg-slate-800/50 rounded text-[10px] sm:text-xs text-slate-300 font-medium border ${borderBase}`}>
+                                            {server}
+                                          </span>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
                             </div>
                           </div>
                         </div>
-                        
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:ml-16">
-                          {flow.activities.map((activity, i) => {
-                            const ActivityIcon = activity.icon;
-                            return (
-                              <div key={i} className="flex items-start gap-3 p-3 bg-black/40 rounded-xl border border-white/5 hover:border-white/10 transition-colors">
-                                <ActivityIcon className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
-                                <div>
-                                  <p className="text-sm text-slate-200 mb-2 leading-snug">{activity.task}</p>
-                                  <div className="flex flex-wrap gap-1.5">
-                                    {activity.servers.map((server, j) => (
-                                      <span key={j} className={`px-2 py-0.5 bg-slate-800/50 rounded text-[10px] sm:text-xs text-slate-300 font-medium border ${borderBase}`}>
-                                        {server}
-                                      </span>
-                                    ))}
-                                  </div>
-                                </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'techstack' && (
+                <div className="max-w-6xl mx-auto animate-fadeIn">
+                  <div className="text-center mb-8 sm:mb-12 px-4">
+                    <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-white tracking-tight">System Architecture</h2>
+                    <p className="text-slate-400 text-sm sm:text-base">Modern, decoupled microservices stack powering operations</p>
+                  </div>
+                  
+                  {/* Bento Grid Layout */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                    {techStackCategories.map((category, index) => {
+                      const CategoryIcon = category.icon;
+                      return (
+                        <div
+                          key={category.name}
+                          className={`group relative overflow-hidden bg-slate-900/40 backdrop-blur-md border border-slate-800 hover:border-slate-600 rounded-2xl p-5 sm:p-6 transition-all duration-300 ${category.span}`}
+                          style={{ animationDelay: `${index * 50}ms` }}
+                        >
+                          {/* Subtle hover gradient background */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                          
+                          <div className="relative z-10 flex flex-col h-full">
+                            <div className="flex items-start justify-between mb-4">
+                              <div>
+                                <h3 className="text-lg font-bold text-white mb-1 tracking-tight">{category.name}</h3>
+                                <p className="text-xs text-slate-400">{category.description}</p>
                               </div>
-                            );
-                          })}
+                              <div className="p-2.5 bg-slate-950 rounded-lg border border-slate-800 shadow-inner">
+                                <CategoryIcon className="w-5 h-5 text-slate-300" />
+                              </div>
+                            </div>
+                            
+                            <div className="mt-auto pt-4 flex flex-wrap gap-2">
+                              {category.technologies.map((tech, i) => {
+                                const TechIcon = tech.icon;
+                                return (
+                                  <div 
+                                    key={i} 
+                                    className="flex items-center gap-2 px-3 py-1.5 bg-slate-950/80 rounded-md border border-slate-800 hover:border-slate-700 transition-colors cursor-default"
+                                    title={tech.name}
+                                  >
+                                    <TechIcon 
+                                      className="w-4 h-4 flex-shrink-0" 
+                                      style={{ color: tech.hex }} 
+                                    />
+                                    <span className="text-[13px] font-medium text-slate-300">{tech.name}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </>
+            /* Standard View Modes End */
           )}
 
-          {activeTab === 'techstack' && (
-            <div className="max-w-6xl mx-auto animate-fadeIn">
-              <div className="text-center mb-8 sm:mb-12 px-4">
-                <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-white tracking-tight">System Architecture</h2>
-                <p className="text-slate-400 text-sm sm:text-base">Modern, decoupled microservices stack powering operations</p>
-              </div>
-              
-              {/* Bento Grid Layout */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                {techStackCategories.map((category, index) => {
-                  const CategoryIcon = category.icon;
-                  return (
-                    <div
-                      key={category.name}
-                      className={`group relative overflow-hidden bg-slate-900/40 backdrop-blur-md border border-slate-800 hover:border-slate-600 rounded-2xl p-5 sm:p-6 transition-all duration-300 ${category.span}`}
-                      style={{ animationDelay: `${index * 50}ms` }}
-                    >
-                      {/* Subtle hover gradient background */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                      
-                      <div className="relative z-10 flex flex-col h-full">
-                        <div className="flex items-start justify-between mb-4">
-                          <div>
-                            <h3 className="text-lg font-bold text-white mb-1 tracking-tight">{category.name}</h3>
-                            <p className="text-xs text-slate-400">{category.description}</p>
-                          </div>
-                          <div className="p-2.5 bg-slate-950 rounded-lg border border-slate-800 shadow-inner">
-                            <CategoryIcon className="w-5 h-5 text-slate-300" />
-                          </div>
-                        </div>
-                        
-                        <div className="mt-auto pt-4 flex flex-wrap gap-2">
-                          {category.technologies.map((tech, i) => {
-                            const TechIcon = tech.icon;
-                            return (
-                              <div 
-                                key={i} 
-                                className="flex items-center gap-2 px-3 py-1.5 bg-slate-950/80 rounded-md border border-slate-800 hover:border-slate-700 transition-colors cursor-default"
-                                title={tech.name}
-                              >
-                                <TechIcon 
-                                  className="w-4 h-4 flex-shrink-0" 
-                                  style={{ color: tech.hex }} 
-                                />
-                                <span className="text-[13px] font-medium text-slate-300">{tech.name}</span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
         </main>
 
         <footer className="border-t border-slate-800 backdrop-blur-xl bg-slate-950/50 mt-12 sm:mt-20">
