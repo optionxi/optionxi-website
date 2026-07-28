@@ -24,7 +24,7 @@ const SCREENSHOTS = [
 
 const MAINSCREENSHOTS = [
     { src: "assets/screenshots/Home Screen.png", title: "HomeScreen" },
-    { src: "assets/screenshots/AI NIfty.png", title: "HomeScreen2" },
+    { src: "assets/screenshots/AI Nifty.png", title: "HomeScreen2" },
   ];
 
 const TICKER = [
