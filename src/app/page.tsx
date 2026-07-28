@@ -34,7 +34,7 @@ const FEATURES_DETAILED = [
   },
   {
     icon: BarChart3,
-    title: "Find winning stocks, fast and easy",
+    title: "Find winning stocks, fast and easy screeners",
     body: "Scan thousands of stocks using custom filters or proven technical patterns in seconds.",
     points: [
       "Filter using RSI, EMA, highs, lows",
@@ -45,7 +45,7 @@ const FEATURES_DETAILED = [
   },
   {
     icon: BrainCircuit,
-    title: "See where the market's betting",
+    title: "Realtime Option chains and OI Analysis Page",
     body: "Analyze live option chains, open interest and market sentiment before every trade.",
     points: [
       "Live option chain with PCR and Greeks",
