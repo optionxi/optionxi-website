@@ -15,33 +15,80 @@ import IndicesTicker from "@/components/tickers/indices-ticker";
 /* ------------------------------------------------------------------ */
 
 const APP_ICON = {
-  light: "https://play-lh.googleusercontent.com/31FPe2frYtE9cmfWTpU_vKXVEY0ZwC5s7rTS55ZNgrIh-Ca-L5VVLsLVMp1VnDlj0kQyQN3cd7HP7ufh0cgLZA=w240-h240",
-  dark: "https://play-lh.googleusercontent.com/31FPe2frYtE9cmfWTpU_vKXVEY0ZwC5s7rTS55ZNgrIh-Ca-L5VVLsLVMp1VnDlj0kQyQN3cd7HP7ufh0cgLZA=w240-h240", // swap when you have a dark-mode icon
+  light: "/assets/images/logo_xi.png",
+  dark: "/assets/images/logo_xi.png", // swap when you have a dark-mode icon
 };
 
 
-/* One screenshot per feature — swap these for dedicated feature screenshots when available */
+/* Expanded feature data */
+const FEATURES_DETAILED = [
+  {
+    icon: LineChart,
+    title: "Practice trading, risk-free",
+    body: "Trade Nifty 50, Bank Nifty and more using real live prices — without any real money on the line.",
+    points: [
+      "Live watchlists for Nifty 50, Bank Nifty and more",
+      "Real price movements, zero real money",
+      "Track your orders, portfolio and fellow traders",
+    ],
+    stat: { label: "Paper traders active", value: "9,000+" },
+  },
+  {
+    icon: BarChart3,
+    title: "Find winning stocks, fast",
+    body: "Filter thousands of stocks with custom conditions or ready-made technical patterns like breakouts.",
+    points: [
+      "Custom filters — highs, lows, RSI, EMA and more",
+      "Built-in patterns like 52-week breakouts, no setup needed",
+      "Save your favorite screens and re-run them daily",
+    ],
+    stat: { label: "Stocks screened live", value: "2,000+" },
+  },
+  {
+    icon: BrainCircuit,
+    title: "See where the market's betting",
+    body: "Check live option chains and open interest data to read market sentiment before you trade.",
+    points: [
+      "Full option chain with PCR, premiums and Greeks",
+      "OI activity shows where big money is flowing",
+      "Switch between Nifty, BankNifty, FinNifty and stocks",
+    ],
+    stat: { label: "Sentiment tracked", value: "Live" },
+  },
+  {
+    icon: Bell,
+    title: "Never miss a move",
+    body: "Get instant alerts the moment a stock breaks out, plus the day's top gainers, losers and most active names.",
+    points: [
+      "Live bullish and bearish breakout alerts",
+      "Top gainers, losers and most active stocks",
+      "Real-time scanner, updated all day long",
+    ],
+    stat: { label: "Alerts delivered daily", value: "10,000+" },
+  },
+  {
+    icon: Trophy,
+    title: "Maintain a detailed trading journal",
+    body: "Log every trade, review your decisions, and analyze your performance over time to become a more disciplined trader.",
+    points: [
+      "Record entries, exits, setups, and trade notes",
+      "Track your win rate, P&L, and trading performance",
+      "Review past trades to identify strengths and mistakes",
+    ],
+    stat: { label: "Trades journaled", value: "50,000+" },
+  },
+];
+
 const FEATURE_SCREENSHOTS = [
-  { src: "assets/screenshots/Home Page New.png", darkSrc: null, chip: { icon: LineChart, label: "Live price", value: "NIFTY 24,812 ▲" } },
-  { src: "assets/screenshots/Market Tools.png", darkSrc: null, chip: { icon: BarChart3, label: "Screener match", value: "42 stocks found" } },
-  { src: "assets/screenshots/Market Sentiment.png", darkSrc: null, chip: { icon: Bell, label: "Price alert", value: "RELIANCE +1.12%" } },
-  { src: "assets/screenshots/Home Page new 2.png", darkSrc: null, chip: { icon: Trophy, label: "Leaderboard", value: "You're #24 today" } },
-  { src: "assets/screenshots/Home Screen.png", darkSrc: null, chip: { icon: Github, label: "Open source", value: "412 stars on GitHub" } },
-  { src: "assets/screenshots/AI Nifty.png", darkSrc: null, chip: { icon: Zap, label: "Broker linked", value: "Zerodha connected" } },
+  { src: "assets/screenshots/Practice_Trading.png", darkSrc: null, chip: { icon: LineChart, label: "Live price", value: "NIFTY 50 tracked" } },
+  { src: "assets/screenshots/Screener_Pro.png", darkSrc: null, chip: { icon: BarChart3, label: "Screener match", value: "61 stocks found" } },
+  { src: "assets/screenshots/Option_Chain.png", darkSrc: null, chip: { icon: BrainCircuit, label: "Market sentiment", value: "PCR 1.57 · Bullish" } },
+  { src: "assets/screenshots/Stock_Alert.png", darkSrc: null, chip: { icon: Bell, label: "Breakout alert", value: "WELCORP +2.36%" } },
+  { src: "assets/screenshots/Journals.png", darkSrc: null, chip: { icon: Trophy, label: "Leaderboard", value: "You're #1 today" } },
 ];
-
-// Add a `darkSrc` per item whenever you have a dark-mode-specific screenshot.
-// Falls back to `src` automatically if `darkSrc` is omitted.
-const SCREENSHOTS = [
-  { src: "assets/screenshots/Home Page New.png", darkSrc: null, title: "Homepage" },
-  { src: "assets/screenshots/Home Page new 2.png", darkSrc: null, title: "Homepage" },
-  { src: "assets/screenshots/Market Sentiment.png", darkSrc: null, title: "Market Sentiment" },
-  { src: "assets/screenshots/Market Tools.png", darkSrc: null, title: "Trading Tools" },
-];
-
 const MAINSCREENSHOTS = [
-  { src: "assets/screenshots/Home Screen.png", darkSrc: null, title: "HomeScreen" },
-  { src: "assets/screenshots/AI Nifty.png", darkSrc: null, title: "HomeScreen2" },
+  { src: "assets/screenshots/Home_Screen.png", darkSrc: null, title: "HomeScreen" },
+  { src: "assets/screenshots/AI_Nifty.png", darkSrc: null, title: "HomeScreen2" },
 ];
 
 // Small helper so every image call site doesn't need its own ternary
@@ -50,16 +97,6 @@ function useThemedSrc() {
   return (item: { src: string; darkSrc?: string | null }) =>
     resolvedTheme === "dark" && item.darkSrc ? item.darkSrc : item.src;
 }
-
-
-const FEATURES = [
-  { icon: LineChart, title: "Virtual trading, real data", body: "Practice on NIFTY, BankNIFTY and options using live market prices — no real money on the line." },
-  { icon: BarChart3, title: "Stock screeners", body: "Filter thousands of stocks by price action, volume and technical signals in a couple of taps." },
-  { icon: Bell, title: "Watchlists & alerts", body: "Build a personal watchlist and get notified the moment a price or trend moves." },
-  { icon: Trophy, title: "Leaderboards", body: "See how your paper trades stack up against other learners, daily and all-time." },
-  { icon: Shield, title: "Fully open source", body: "The entire codebase is public. Inspect it, self-host it, or help build the next feature." },
-  { icon: Zap, title: "Connect a real broker", body: "When you're ready, link Zerodha, Upstox, Angel One, Fyers or Dhan and trade for real." },
-];
 
 const STEPS = [
   { n: "01", title: "Screen the market", body: "Run a screener or check the day's top gainers and losers to find stocks worth watching." },
@@ -131,87 +168,6 @@ export default function OptionXiLanding() {
 
   // Avoid a flash of the wrong theme before next-themes has resolved on the client
   const dark = mounted && resolvedTheme === "dark";
-
-/* Expanded feature data */
-const FEATURES_DETAILED = [
-  {
-    icon: LineChart,
-    title: "Virtual trading, real data",
-    body: "Practice on NIFTY, BankNIFTY and options — no real money on the line.",
-    points: [
-      "Delayed 24hrs tick-by-tick pricing",
-      "Options chain with real premiums and Greeks",
-      "Unlimited paper trades",
-    ],
-    stat: { label: "Daily Traders", value: "1200+" },
-  },
-  {
-    icon: BarChart3,
-    title: "Stock screeners",
-    body: "Filter thousands of stocks by price action, volume and technical signals.",
-    points: [
-      "Pre-built screeners: breakouts, momentum, oversold",
-      "Combine multiple technical conditions",
-      "Save custom screens and re-run them daily",
-    ],
-    stat: { label: "Stocks screened live", value: "2,000+" },
-  },
-  {
-    icon: Bell,
-    title: "Watchlists & alerts",
-    body: "Build a personal watchlist and get notified the moment a price or trend moves.",
-    points: [
-      "Price, volume and indicator-based triggers",
-      "Push notifications, even when the app is closed",
-      "Multiple watchlists for different strategies",
-    ],
-    stat: { label: "Alerts delivered daily", value: "10,000+" },
-  },
-  {
-    icon: Trophy,
-    title: "Leaderboards",
-    body: "See how your paper trades stack up against other learners, daily and all-time.",
-    points: [
-      "Daily, weekly and all-time rankings",
-      "Compare returns, win rate and risk discipline",
-      "Follow top traders' public paper portfolios",
-    ],
-    stat: { label: "Active traders on the board", value: "9,000+" },
-  },
-  {
-    icon: Shield,
-    title: "Fully open source",
-    body: "The entire codebase is public. Inspect it, self-host it, or help build the next feature.",
-    points: [
-      "MIT-licensed, auditable end to end",
-      "Self-host the web terminal on your own infra",
-      "Community PRs reviewed and merged regularly",
-    ],
-    stat: { label: "GitHub stars", value: "400+" },
-  },
-  {
-    icon: Zap,
-    title: "Connect a real broker",
-    body: "When you're ready, link Zerodha, Upstox, Angel One, Fyers or Dhan and trade for real.",
-    points: [
-      "One-tap OAuth connection, no manual API keys",
-      "Same screeners and alerts carry over to live trading",
-      "Switch back to paper mode anytime",
-    ],
-    stat: { label: "Brokers supported", value: "5" },
-  },
-];
-
-const FEATURE_SCREENSHOTS = [
-  { src: "assets/screenshots/Home Page New.png", darkSrc: null, chip: { icon: LineChart, label: "Live price", value: "NIFTY 24,812 ▲" } },
-  { src: "assets/screenshots/Market Tools.png", darkSrc: null, chip: { icon: BarChart3, label: "Screener match", value: "42 stocks found" } },
-  { src: "assets/screenshots/Market Sentiment.png", darkSrc: null, chip: { icon: Bell, label: "Price alert", value: "RELIANCE +1.12%" } },
-  { src: "assets/screenshots/Home Page new 2.png", darkSrc: null, chip: { icon: Trophy, label: "Leaderboard", value: "You're #24 today" } },
-  { src: "assets/screenshots/Home Screen.png", darkSrc: null, chip: { icon: Github, label: "Open source", value: "412 stars on GitHub" } },
-  { src: "assets/screenshots/AI Nifty.png", darkSrc: null, chip: { icon: Zap, label: "Broker linked", value: "Zerodha connected" } },
-];
-
-
 
   const t = dark
     ? {
