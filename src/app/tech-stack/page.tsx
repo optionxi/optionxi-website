@@ -817,8 +817,8 @@ export default function OptionXiInfrastructure() {
 
   return (
     <div className="min-h-screen bg-[#FAFAF8] text-slate-800 font-sans selection:bg-emerald-100">
-      <div className="relative z-10 max-w-6xl mx-auto">
-        <header className="sticky top-0 z-50 border-b border-slate-200 backdrop-blur-xl bg-white/85">
+      <div className="relative z-0 max-w-6xl mx-auto">
+        <header className="sticky top-10 z-50 border-b border-slate-200 backdrop-blur-xl bg-white/85">
           <div className="px-4 sm:px-6 py-6 sm:py-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div>

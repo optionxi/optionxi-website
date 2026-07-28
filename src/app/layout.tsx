@@ -4,8 +4,7 @@ import "./globals.css";
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import ChatwootWidget from './components/chatwoot-chat';
-
-
+import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://optionxi.com'),
@@ -56,21 +55,22 @@ export const metadata: Metadata = {
   }
 };
 
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light">
-      <body className="flex flex-col min-h-screen">
-        <Navbar/>
-        <main className="relative flex-grow top-10">
-          {children}
-        </main>
-        <Footer />
+    <html lang="en" suppressHydrationWarning>
+      <body className="flex flex-col min-h-screen bg-background text-foreground transition-colors">
+        {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          <Navbar/>
+          <main className="relative flex-grow top-10">
+            {children}
+          </main>
+          <Footer />
+        </ThemeProvider>
         <SpeedInsights />
         <ChatwootWidget/>
       </body>
