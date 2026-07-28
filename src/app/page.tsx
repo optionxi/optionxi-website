@@ -19,61 +19,60 @@ const APP_ICON = {
   dark: "/assets/images/logo_xi.png", // swap when you have a dark-mode icon
 };
 
-
 /* Expanded feature data */
 const FEATURES_DETAILED = [
   {
     icon: LineChart,
-    title: "Practice trading, risk-free",
-    body: "Trade Nifty 50, Bank Nifty and more using real live prices — without any real money on the line.",
+    title: "Practice trading, risk-free, No real money",
+    body: "Trade Nifty 50, Bank Nifty and more using live market prices—without risking a single rupee.",
     points: [
-      "Live watchlists for Nifty 50, Bank Nifty and more",
-      "Real price movements, zero real money",
-      "Track your orders, portfolio and fellow traders",
+      "Trade NSE stocks with live market data",
+      "Practice with virtual funds and zero risk",
+      "Track your orders, portfolio and P&L",
     ],
     stat: { label: "Paper traders active", value: "9,000+" },
   },
   {
     icon: BarChart3,
-    title: "Find winning stocks, fast",
-    body: "Filter thousands of stocks with custom conditions or ready-made technical patterns like breakouts.",
+    title: "Find winning stocks, fast and easy",
+    body: "Scan thousands of stocks using custom filters or proven technical patterns in seconds.",
     points: [
-      "Custom filters — highs, lows, RSI, EMA and more",
-      "Built-in patterns like 52-week breakouts, no setup needed",
-      "Save your favorite screens and re-run them daily",
+      "Filter using RSI, EMA, highs, lows",
+      "Ready-made breakout scanners",
+      "Save and rerun your favorite screens",
     ],
     stat: { label: "Stocks screened live", value: "2,000+" },
   },
   {
     icon: BrainCircuit,
     title: "See where the market's betting",
-    body: "Check live option chains and open interest data to read market sentiment before you trade.",
+    body: "Analyze live option chains, open interest and market sentiment before every trade.",
     points: [
-      "Full option chain with PCR, premiums and Greeks",
-      "OI activity shows where big money is flowing",
-      "Switch between Nifty, BankNifty, FinNifty and stocks",
+      "Live option chain with PCR and Greeks",
+      "Track OI changes to spot market direction",
+      "Analyze Nifty, Bank Nifty and stock options",
     ],
     stat: { label: "Sentiment tracked", value: "Live" },
   },
   {
     icon: Bell,
-    title: "Never miss a move",
-    body: "Get instant alerts the moment a stock breaks out, plus the day's top gainers, losers and most active names.",
+    title: "Never miss a market move, Get real-time alerts",
+    body: "Receive instant breakout alerts, AI-powered stock picks and live market opportunities.",
     points: [
-      "Live bullish and bearish breakout alerts",
-      "Top gainers, losers and most active stocks",
-      "Real-time scanner, updated all day long",
+      "Day-high and day-low breakouts alerts",
+      "Daily AI-picked stocks with strong setups",
+      "Live scanners updated throughout the day",
     ],
     stat: { label: "Alerts delivered daily", value: "10,000+" },
   },
   {
     icon: Trophy,
-    title: "Maintain a detailed trading journal",
-    body: "Log every trade, review your decisions, and analyze your performance over time to become a more disciplined trader.",
+    title: "Journal every trade, Improve every day",
+    body: "Record your trades, review your decisions and build better trading discipline over time.",
     points: [
-      "Record entries, exits, setups, and trade notes",
-      "Track your win rate, P&L, and trading performance",
-      "Review past trades to identify strengths and mistakes",
+      "Log entries, exits, setups and notes",
+      "Track win rate, P&L and performance",
+      "Review past trades and learn from mistakes",
     ],
     stat: { label: "Trades journaled", value: "50,000+" },
   },
@@ -343,38 +342,50 @@ export default function OptionXiLanding() {
           <div className={`sticky top-0 h-screen flex items-center border-y ${t.border} ${t.bgAlt} overflow-hidden`}>
             <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-16 items-center">
               {/* Left: text content, crossfades only, no translation */}
-              <div className="relative h-[30rem]">
+              <div className="relative h-[30rem] sm:h-[28rem] lg:h-[24rem] xl:h-[26rem] pt-16 pb-16">
                 {FEATURES_DETAILED.map((f, i) => (
                   <div
-                    key={i}
-                    className="absolute inset-0 transition-opacity duration-500 ease-in-out"
-                    style={{ opacity: activeFeature === i ? 1 : 0, pointerEvents: activeFeature === i ? "auto" : "none" }}
-                  >
-                    <div className={`w-14 h-14 rounded-xl bg-emerald-600/10 flex items-center justify-center mb-6`}>
-                      <f.icon size={26} className="text-emerald-600" />
+                      key={i}
+                      className="absolute inset-0 pt-3 sm:pt-4 transition-opacity duration-500 ease-in-out"
+                      style={{ opacity: activeFeature === i ? 1 : 0, pointerEvents: activeFeature === i ? "auto" : "none" }}
+                    >
+                    <div className={`w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-emerald-600/10 flex items-center justify-center mb-4 sm:mb-6`}>
+                      <f.icon size={22} className="text-emerald-600 sm:hidden" />
+                      <f.icon size={26} className="text-emerald-600 hidden sm:block" />
                     </div>
+                    
 
-                    <h3 className="font-bold text-3xl md:text-4xl mb-4 tracking-tight">{f.title}</h3>
-                    <p className={`${t.sub} text-lg leading-relaxed mb-6 max-w-lg`}>{f.body}</p>
+                    <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl mb-2.5 sm:mb-4 tracking-tight leading-tight">
+                      {f.title}
+                    </h3>
+                    <p className={`${t.sub} text-sm sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6 max-w-lg`}>
+                      {f.body}
+                    </p>
+                    <br/>
 
-                    <ul className="space-y-3 mb-7">
+                    <ul className="space-y-2 sm:space-y-3 mb-5 sm:mb-7">
                       {f.points.map((pt, j) => (
-                        <li key={j} className="flex items-start gap-2.5 text-base">
-                          <CheckCircle2 size={18} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+                        <li key={j} className="flex items-start gap-2 sm:gap-2.5 text-sm sm:text-base">
+                          <CheckCircle2 size={16} className="text-emerald-500 flex-shrink-0 mt-0.5 sm:hidden" />
+                          <CheckCircle2 size={18} className="text-emerald-500 flex-shrink-0 mt-0.5 hidden sm:block" />
                           <span className={t.sub}>{pt}</span>
                         </li>
                       ))}
                     </ul>
+                    <br/>
+                    <br/>
 
-                    <div className={`inline-flex items-baseline gap-2 rounded-xl border ${t.border} ${t.card} px-5 py-3`}>
-                      <span className="text-2xl font-extrabold font-mono text-emerald-600">{f.stat.value}</span>
-                      <span className={`text-sm ${t.sub}`}>{f.stat.label}</span>
+                    <div className={`inline-flex items-baseline gap-2 rounded-xl border ${t.border} ${t.card} px-4 sm:px-5 py-2.5 sm:py-3`}>
+                      <span className="text-xl sm:text-2xl font-extrabold font-mono text-emerald-600">{f.stat.value}</span>
+                      <span className={`text-xs sm:text-sm ${t.sub}`}>{f.stat.label}</span>
                     </div>
                   </div>
                 ))}
 
-                {/* Step indicator — replaces need to scroll to know progress */}
-                <div className="absolute -bottom-2 left-0 flex items-center gap-2">
+                
+
+                {/* Step indicator — now pinned to the reserved pb-16 zone, never overlaps text */}
+                <div className="absolute bottom-0 left-0 flex items-center gap-2 pb-1">
                   {FEATURES_DETAILED.map((_, i) => (
                     <div
                       key={i}
@@ -436,26 +447,48 @@ export default function OptionXiLanding() {
 
 
       {/* ---------------- How it works ---------------- */}
-      <section id="how" className={`${t.bgAlt} border-y ${t.border} py-24`}>
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="max-w-2xl mb-14">
-            <span className="text-emerald-600 text-sm font-semibold uppercase tracking-wide">The process</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2 tracking-tight">Three steps from curious to confident</h2>
+    <section id="how" className={`${t.bgAlt} border-y ${t.border} py-24`}>
+  <div className="max-w-7xl mx-auto px-6">
+    <div className="max-w-2xl mb-16">
+      <span className="text-emerald-600 dark:text-emerald-400 text-sm font-semibold uppercase tracking-wide">
+        The process
+      </span>
+      <h2 className="text-3xl md:text-4xl font-bold mt-2 tracking-tight">
+        Three steps from curious to confident
+      </h2>
+    </div>
+
+    <div className="relative grid md:grid-cols-3 gap-8 md:gap-6">
+      {/* connecting line across the row, desktop only */}
+      <div
+        className="hidden md:block absolute top-6 left-0 right-0 h-px bg-gradient-to-r from-emerald-500/0 via-emerald-500/30 to-emerald-500/0"
+        aria-hidden="true"
+      />
+
+      {STEPS.map((s, i) => (
+        <div
+          key={i}
+          className={`group relative rounded-2xl border ${t.border} ${t.bg ?? "bg-white dark:bg-neutral-900"} p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/10 hover:border-emerald-500/40`}
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-600 text-white font-mono font-bold text-sm shrink-0 shadow-sm shadow-emerald-600/30">
+              {s.n}
+            </div>
+            {i < STEPS.length - 1 && (
+              <ArrowRight
+                size={16}
+                className="hidden md:block text-emerald-600/40 dark:text-emerald-400/40 ml-auto group-hover:translate-x-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-all duration-300"
+              />
+            )}
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {STEPS.map((s, i) => (
-              <div key={i} className="relative">
-                <div className="text-5xl font-mono font-bold text-emerald-600/20 mb-2">{s.n}</div>
-                <h3 className="text-xl font-bold mb-2">{s.title}</h3>
-                <p className={`${t.sub} leading-relaxed`}>{s.body}</p>
-                {i < STEPS.length - 1 && (
-                  <ArrowRight size={18} className={`hidden md:block absolute top-2 -right-4 ${t.sub}`} />
-                )}
-              </div>
-            ))}
-          </div>
+
+          <h3 className="text-xl font-bold mb-2 tracking-tight">{s.title}</h3>
+          <p className={`${t.sub} leading-relaxed text-sm`}>{s.body}</p>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* ---------------- Pricing ---------------- */}
       <section id="pricing" className={`${t.bgAlt} border-y ${t.border} py-24`}>
