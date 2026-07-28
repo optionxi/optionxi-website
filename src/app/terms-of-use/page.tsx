@@ -94,17 +94,16 @@ const TermsOfUsePage = () => {
 
   return (
     <div className="min-h-screen bg-[#FAFAF8]">
-      {/* Header */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-6 py-12">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-9 h-9 rounded-lg bg-slate-900 flex items-center justify-center">
-              <TrendingUp className="w-5 h-5 text-emerald-400" />
-            </div>
-            <span className="text-lg font-semibold text-slate-900 tracking-tight">OptionXi</span>
+      {/* Masthead */}
+      <div className="bg-white dark:bg-[#0B1220] text-slate-900 dark:text-white border-b border-slate-200 dark:border-transparent">
+        <div className="max-w-6xl mx-auto px-6 pt-9 pb-7 flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Terms of Use</h1>
           </div>
-          <h1 className="text-3xl font-semibold text-slate-900 tracking-tight mb-2">Terms of Use</h1>
-          <p className="text-slate-500 text-[13.5px]">Last updated: December 2025</p>
+          <div className="text-right">
+            <p className="font-mono text-[10px] tracking-[0.15em] text-slate-400 dark:text-slate-500 uppercase">Last updated</p>
+            <p className="font-mono text-sm text-slate-600 dark:text-slate-200">December 2025</p>
+          </div>
         </div>
       </div>
 

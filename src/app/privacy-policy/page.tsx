@@ -161,9 +161,6 @@ const PrivacyPolicyPage: React.FC = () => {
       <div className="bg-white dark:bg-[#0B1220] text-slate-900 dark:text-white border-b border-slate-200 dark:border-transparent">
         <div className="max-w-6xl mx-auto px-6 pt-9 pb-7 flex items-center justify-between flex-wrap gap-4">
           <div>
-            <p className="font-mono text-[11px] tracking-[0.22em] text-emerald-600 dark:text-emerald-400/80 uppercase mb-1">
-              Statement of
-            </p>
             <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Privacy Policy</h1>
           </div>
           <div className="text-right">
@@ -171,7 +168,6 @@ const PrivacyPolicyPage: React.FC = () => {
             <p className="font-mono text-sm text-slate-600 dark:text-slate-200">{lastUpdated}</p>
           </div>
         </div>
-        <div className="h-[3px] w-full bg-gradient-to-r from-emerald-500 via-amber-400 to-rose-500" />
       </div>
 
       {/* Intro */}
