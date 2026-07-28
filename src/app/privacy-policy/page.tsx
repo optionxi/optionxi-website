@@ -152,11 +152,7 @@ const PrivacyPolicyPage = () => {
         <div className="max-w-6xl mx-auto px-6 pt-10 pb-6">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center">
-                <Shield className="w-5 h-5 text-teal-400" strokeWidth={2} />
-              </div>
               <div>
-                <p className="font-mono text-[11px] tracking-widest text-teal-700">OPTIONXI · LEGAL</p>
                 <h1 className="text-2xl font-semibold tracking-tight text-slate-900">Privacy Policy</h1>
               </div>
             </div>

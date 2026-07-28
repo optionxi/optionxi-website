@@ -140,43 +140,39 @@ const Footer = () => {
         {/* Financial disclaimer */}
         <div className="py-8">
           <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
-            <div className="flex items-start gap-3">
-              <div className="mt-0.5 shrink-0 h-8 w-8 rounded-full bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="shrink-0 h-8 w-8 rounded-full bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center">
                 <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               </div>
-              <div>
-                <div className="text-[11px] font-semibold tracking-[0.14em] text-slate-400 dark:text-slate-500 uppercase mb-1.5">
-                  Financial content disclaimer
-                </div>
-                <p className="text-[12.5px] leading-relaxed text-slate-500 dark:text-slate-400">
-                  The content provided on OptionXi is for educational and informational purposes only and
-                  does not constitute financial advice, investment recommendations, or trading signals.
-                  OptionXi is a virtual trading platform designed for learning and simulation purposes. All
-                  trading activities on our platform are virtual and do not involve real money transactions.
-                  We strongly advise users to conduct their own research or consult with qualified financial
-                  advisors before making any actual financial decisions. OptionXi does not guarantee the
-                  accuracy of market data, trading results, or any information provided by our platform.
-                  Virtual trading results do not represent actual trading performance and may not reflect the
-                  impact of market liquidity, fees, or other real trading conditions. Users should be aware
-                  that past performance in virtual trading does not guarantee future results in real trading.
-                  Always ensure that any financial decision aligns with your personal financial situation,
-                  risk tolerance, and investment goals.{' '}
-                  <span className="text-slate-700 dark:text-slate-300 font-medium">
-                    For educational and simulation purposes. Not affiliated with NSE or BSE. Real-money
-                    trading requires a connected, licensed broker account.
-                  </span>{' '}
-                  Please read our
-                  <a className="underline decoration-slate-300 dark:decoration-slate-600 hover:text-slate-900 dark:hover:text-slate-200 hover:decoration-slate-500 dark:hover:decoration-slate-400 mx-1" href="https://optionxi.com/privacy-policy">
-                    Privacy Policy
-                  </a>
-                  and
-                  <a className="underline decoration-slate-300 dark:decoration-slate-600 hover:text-slate-900 dark:hover:text-slate-200 hover:decoration-slate-500 dark:hover:decoration-slate-400 ml-1" href="https://optionxi.com/terms-of-use">
-                    Terms of Use
-                  </a>{' '}
-                  to understand more.
-                </p>
+              <div className="text-[11px] font-semibold tracking-[0.14em] text-slate-400 dark:text-slate-500 uppercase">
+                Financial content disclaimer
               </div>
             </div>
+            <p className="text-[12.5px] leading-relaxed text-slate-500 dark:text-slate-400">
+              The content provided on OptionXi is for educational and informational purposes only and
+              does not constitute financial advice, investment recommendations, or trading signals. OptionXi is a virtual trading platform designed for learning and simulation purposes. All
+              trading activities on our platform are virtual and do not involve real money transactions. We strongly advise users to conduct their own research or consult with qualified financial
+              advisors before making any actual financial decisions. OptionXi does not guarantee the
+              accuracy of market data, trading results, or any information provided by our platform.
+              Virtual trading results do not represent actual trading performance and may not reflect the
+              impact of market liquidity, fees, or other real trading conditions. Users should be aware
+              that past performance in virtual trading does not guarantee future results in real trading.
+              Always ensure that any financial decision aligns with your personal financial situation,
+              risk tolerance, and investment goals.{' '}
+              <span className="text-slate-700 dark:text-slate-300 font-medium">
+                For educational and simulation purposes. Not affiliated with NSE or BSE. Real-money
+                trading requires a connected, licensed broker account.
+              </span>{' '}
+              Please read our
+              <a className="underline decoration-slate-300 dark:decoration-slate-600 hover:text-slate-900 dark:hover:text-slate-200 hover:decoration-slate-500 dark:hover:decoration-slate-400 mx-1" href="https://optionxi.com/privacy-policy">
+                Privacy Policy
+              </a>
+              and
+              <a className="underline decoration-slate-300 dark:decoration-slate-600 hover:text-slate-900 dark:hover:text-slate-200 hover:decoration-slate-500 dark:hover:decoration-slate-400 ml-1" href="https://optionxi.com/terms-of-use">
+                Terms of Use
+              </a>{' '}
+              to understand more.
+            </p>
           </div>
         </div>
 
