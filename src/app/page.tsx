@@ -143,7 +143,7 @@ const FEATURES_DETAILED = [
       "Options chain with real premiums and Greeks",
       "Unlimited paper trades, reset your portfolio anytime",
     ],
-    stat: { label: "Avg. trades practiced before going live", value: "120+" },
+    stat: { label: "Daily Traders", value: "1200+" },
   },
   {
     icon: BarChart3,
