@@ -818,7 +818,9 @@ export default function OptionXiInfrastructure() {
   return (
     <div className="min-h-screen bg-[#FAFAF8] text-slate-800 font-sans selection:bg-emerald-100">
       <div className="relative z-0 max-w-6xl mx-auto">
-        <header className="sticky top-10 z-50 border-b border-slate-200 backdrop-blur-xl bg-white/85">
+        <>
+        {/* Main header - NOT sticky, scrolls away */}
+        <header className="border-b border-slate-200 bg-white">
           <div className="px-4 sm:px-6 py-6 sm:py-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div>
@@ -840,9 +842,9 @@ export default function OptionXiInfrastructure() {
                     <span className="text-xs sm:text-sm text-emerald-700 font-semibold tracking-wide uppercase">All Systems Nominal</span>
                   </div>
                 </div>
-                <div className="hidden sm:block text-right bg-white px-4 py-2 rounded-lg border border-slate-200">
+                <div className="hidden sm:flex items-center gap-3 bg-white px-4 py-2 rounded-lg border border-slate-200">
                   <div className="text-xl font-semibold text-slate-900 leading-none">{servers.length}</div>
-                  <div className="text-[10px] text-slate-400 uppercase tracking-wider mt-1">Active Nodes</div>
+                  <div className="text-[10px] text-slate-400 uppercase tracking-wider">Active Nodes</div>
                 </div>
               </div>
             </div>
@@ -868,10 +870,14 @@ export default function OptionXiInfrastructure() {
                 </button>
               )}
             </div>
+          </div>
+        </header>
 
-            {/* Mobile Scrollable Tabs (Hide when actively searching) */}
-            {!searchQuery && (
-              <div className="flex gap-2 mt-6 sm:mt-8 overflow-x-auto pb-2 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
+        {/* Sticky tabs bar - sticks just below the navbar */}
+        {!searchQuery && (
+          <div className="sticky top-[64px] z-40 border-b border-slate-200 backdrop-blur-xl bg-white/85">
+            <div className="px-4 sm:px-6 py-3">
+              <div className="flex gap-2 overflow-x-auto no-scrollbar">
                 {[
                   { id: 'techstack' as const, label: 'Tech Stack', icon: Layers },
                   { id: 'dataflow' as const, label: 'Pipeline Flow', icon: Workflow },
@@ -884,16 +890,17 @@ export default function OptionXiInfrastructure() {
                       activeTab === tab.id
                         ? 'bg-slate-900 text-white shadow-sm'
                         : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-50 hover:text-slate-800'
-                    }`}
+                      }`}
                   >
                     <tab.icon className="w-4 h-4" />
                     {tab.label}
                   </button>
                 ))}
               </div>
-            )}
+            </div>
           </div>
-        </header>
+        )}
+      </>
 
         <main className="px-4 sm:px-6 py-8 sm:py-12">
 

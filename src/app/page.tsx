@@ -310,25 +310,26 @@ export default function OptionXiLanding() {
             <div className="relative flex justify-center lg:justify-end">
               {/* Back phone — angled, offset behind */}
               <div
-                className={`hidden sm:block absolute w-60 rounded-[2rem] border-8 ${dark ? "border-slate-800" : "border-slate-900"} bg-slate-900 shadow-xl overflow-hidden opacity-90`}
-                style={{
-                  transform: "rotate(-20deg) translate(-148px, -38px)",
-                  zIndex: 0,
-                }}
+                className={`hidden sm:block absolute w-60 aspect-[9/19.5] rounded-[2rem] border-8 ${dark ? "border-slate-800" : "border-slate-900"} bg-slate-900 shadow-xl overflow-hidden opacity-90`}
+                style={{ transform: "rotate(-20deg) translate(-148px, -38px)", zIndex: 0 }}
               >
                 <img
                   src={getSrc(MAINSCREENSHOTS[1])}
                   alt="OptionXi app screenshot — AI analysis"
-                  className="w-full h-auto object-cover"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
               </div>
 
               {/* Front phone */}
               <div
-                className={`relative w-64 rounded-[2.2rem] border-8 ${dark ? "border-slate-800" : "border-slate-900"} bg-slate-900 shadow-2xl overflow-hidden`}
+                className={`relative w-64 aspect-[9/19.5] rounded-[2.2rem] border-8 ${dark ? "border-slate-800" : "border-slate-900"} bg-slate-900 shadow-2xl overflow-hidden`}
                 style={{ zIndex: 1 }}
               >
-                <img src={getSrc(MAINSCREENSHOTS[0])} alt="OptionXi app screenshot" className="w-full h-auto object-cover" />
+                <img
+                  src={getSrc(MAINSCREENSHOTS[0])}
+                  alt="OptionXi app screenshot"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
               </div>
 
               <div className={`hidden sm:flex absolute -left-6 top-10 items-center gap-2 rounded-xl border ${t.border} ${t.card} shadow-lg px-3 py-2 z-10`}>
@@ -451,21 +452,16 @@ export default function OptionXiLanding() {
               {/* Right: phone mockup, fixed position, only the screen content crossfades */}
               <div className="hidden lg:flex justify-center items-center relative">
                 <div
-                  className={`relative w-80 rounded-[2.6rem] border-[10px] ${dark ? "border-slate-800" : "border-slate-900"} bg-slate-900 shadow-2xl overflow-hidden`}
+                  className={`relative w-80 aspect-[9/19.5] rounded-[2.6rem] border-[10px] ${dark ? "border-slate-800" : "border-slate-900"} bg-slate-900 shadow-2xl overflow-hidden`}
                 >
-                  <div className="relative">
+                  <div className="relative w-full h-full">
                     {FEATURE_SCREENSHOTS.map((shot, i) => (
                       <img
                         key={i}
                         src={getSrc(shot)}
                         alt={FEATURES_DETAILED[i].title}
-                        className="w-full h-auto object-cover transition-opacity duration-500 ease-in-out"
-                        style={{
-                          opacity: activeFeature === i ? 1 : 0,
-                          position: i === 0 ? "relative" : "absolute",
-                          inset: 0,
-                          top: 0,
-                        }}
+                        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out"
+                        style={{ opacity: activeFeature === i ? 1 : 0 }}
                       />
                     ))}
                   </div>
@@ -672,47 +668,66 @@ export default function OptionXiLanding() {
       </section>
 
       {/* ---------------- Final CTA ---------------- */}
-      <section className="max-w-7xl mx-auto px-6 pb-24">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
         <div
-          className="rounded-3xl border border-emerald-500/20 p-12 md:p-16 text-center relative overflow-hidden"
+          className="rounded-2xl sm:rounded-3xl border border-emerald-500/20 p-8 sm:p-12 md:p-16 text-center relative overflow-hidden"
           style={{
             background: dark
               ? "linear-gradient(135deg, rgba(16,185,129,0.12), rgba(15,23,42,0))"
               : "linear-gradient(135deg, rgba(16,185,129,0.08), rgba(255,255,255,0))",
           }}
         >
-          <img src={getSrc(APP_ICON.light === APP_ICON.dark ? { src: APP_ICON.light } : { src: APP_ICON.light, darkSrc: APP_ICON.dark })} alt="OptionXi" className="w-16 h-16 rounded-2xl mx-auto mb-6 shadow-lg" />
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
+          <img
+            src={getSrc(APP_ICON.light === APP_ICON.dark ? { src: APP_ICON.light } : { src: APP_ICON.light, darkSrc: APP_ICON.dark })}
+            alt="OptionXi"
+            className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl mx-auto mb-4 sm:mb-6 shadow-lg"
+          />
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold tracking-tight mb-3 sm:mb-4">
             Start trading smarter, <span className="text-emerald-600">today</span>
           </h2>
-          <p className={`${t.sub} text-lg max-w-xl mx-auto mb-10`}>
+          <p className={`${t.sub} text-base sm:text-lg max-w-xl mx-auto mb-8 sm:mb-10 px-2`}>
             Free to download. No real money at risk until you're ready. Open source, always.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             
-            <a href="https://play.google.com/store/apps/details?id=com.optionxi.app"
-              target="_blank" rel="noreferrer"
+              <a href="https://play.google.com/store/apps/details?id=com.optionxi.app"
+              target="_blank"
+              rel="noreferrer"
               className="transition-transform hover:scale-105"
             >
               <img
                 src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
                 alt="Get it on Google Play"
-                className="h-16 w-auto"
+                className="h-14 sm:h-16 w-auto"
               />
             </a>
-            <a href="https://app.optionxi.com"
-                target="_blank" rel="noreferrer"
-                className={`inline-flex items-center gap-2 border ${t.border} ${t.text} px-6 py-4 rounded-xl font-semibold hover:bg-emerald-500/5 transition-colors`}
-              >
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                Open Web Terminal
-                <ChevronRight size={16} />
-              </a>
+
+            
+              <a href="https://app.optionxi.com"
+              target="_blank"
+              rel="noreferrer"
+              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 border ${t.border} ${t.text} px-5 py-3.5 sm:px-6 sm:py-4 rounded-xl font-semibold hover:bg-emerald-500/5 transition-colors whitespace-nowrap`}
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+              <span className="text-sm sm:text-base">
+                <span className="sm:hidden">Web Terminal</span>
+                <span className="hidden sm:inline">Open Web Terminal</span>
+              </span>
+              <ChevronRight size={16} className="shrink-0" />
+            </a>
           </div>
-          <div className={`flex flex-wrap items-center justify-center gap-8 mt-10 text-sm ${t.sub}`}>
-            <div className="flex items-center gap-2"><Shield size={15} className="text-emerald-500" /> Open source & auditable</div>
-            <div className="flex items-center gap-2"><GraduationCap size={15} className="text-emerald-500" /> Built for learning</div>
-            <div className="flex items-center gap-2"><Lock size={15} className="text-emerald-500" /> No card needed to start</div>
+
+          <div className={`hidden sm:flex flex-wrap items-center justify-center gap-8 mt-10 text-sm ${t.sub}`}>
+            <div className="flex items-center gap-2">
+              <Shield size={15} className="text-emerald-500 shrink-0" /> Open source & auditable
+            </div>
+            <div className="flex items-center gap-2">
+              <GraduationCap size={15} className="text-emerald-500 shrink-0" /> Built for learning
+            </div>
+            <div className="flex items-center gap-2">
+              <Lock size={15} className="text-emerald-500 shrink-0" /> No card needed to start
+            </div>
           </div>
         </div>
       </section>

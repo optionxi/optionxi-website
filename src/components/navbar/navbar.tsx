@@ -48,10 +48,10 @@ export default function Navbar() {
         scrolled ? 'bg-background/90 border-border' : 'bg-background/70 border-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="h-16 flex items-center justify-between">
           {/* Left: Logo + Brand */}
-          <Link href="/" className="flex items-center gap-2.5 group">
+          <Link href="/" className="flex items-center gap-2 group">
             <img
               src="/assets/images/logo_xi.png"
               alt="OptionXi Logo"
@@ -62,95 +62,98 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 text-[15px] font-medium">
+          {/* Desktop Navigation - TIGHTENED SPACING */}
+          <nav className="hidden md:flex items-center gap-5 text-sm font-medium">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors whitespace-nowrap"
               >
                 {item.name}
               </Link>
             ))}
           </nav>
 
-          {/* Right: Theme toggle + GitHub + Auth */}
-          <div className="flex items-center gap-3">
+          {/* Right: Theme toggle + GitHub + Auth - TIGHTENED SPACING */}
+          <div className="flex items-center gap-2">
             {/* Theme toggle */}
             <button
               onClick={toggleTheme}
               type="button"
               aria-label="Toggle theme"
-              className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
             >
-              {mounted && theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+              {mounted && theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
             </button>
 
-            
-             <a href="https://github.com/optionxi/optionxi-website"
+            <a href="https://github.com/optionxi/optionxi-website"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 text-sm font-medium transition-colors"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 text-xs font-medium transition-colors"
             >
-              <Github size={15} />
+              <Github size={14} />
               {stars !== null ? stars.toLocaleString() : '...'}
             </a>
 
             <Link
               href="https://app.optionxi.com"
-              className="hidden sm:inline-flex items-center gap-1.5 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold px-5 py-2.5 rounded-full transition-colors"
+              className="hidden sm:inline-flex items-center gap-1.5 bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold px-4 py-1.5 rounded-full transition-colors"
             >
-              Login Now <ArrowRight size={14} />
+              Login Now <ArrowRight size={13} />
             </Link>
 
             {/* Mobile menu button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-full border border-border text-muted-foreground hover:text-foreground transition-colors"
+              className="md:hidden inline-flex items-center justify-center w-8 h-8 rounded-full border border-border text-muted-foreground hover:text-foreground transition-colors"
               aria-controls="mobile-menu"
               aria-expanded={isOpen}
             >
               <span className="sr-only">Open main menu</span>
-              {!isOpen ? <Menu size={18} /> : <X size={18} />}
+              {!isOpen ? <Menu size={16} /> : <X size={16} />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - IMPROVED SPACING */}
       {isOpen && (
         <div className="md:hidden border-t border-border bg-background" id="mobile-menu">
-          <div className="px-4 pt-3 pb-4 space-y-1">
+          <div className="px-4 py-3 space-y-1">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="block px-3 py-3 rounded-xl text-[15px] font-medium text-foreground/80 hover:bg-muted hover:text-primary transition-colors"
+                className="block px-3 py-2.5 rounded-lg text-sm font-medium text-foreground/80 hover:bg-muted hover:text-primary transition-colors"
               >
                 {item.name}
               </Link>
             ))}
 
-            
-            <a href="https://github.com/optionxi/optionxi-website"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-3 mt-2 rounded-xl border border-border text-muted-foreground text-sm font-medium"
-            >
-              <Github size={16} />
-              {stars !== null ? `${stars.toLocaleString()} stars` : 'Loading...'}
-            </a>
+            <div className="mt-3 pt-3 border-t border-border space-y-2">
+              <a href="https://github.com/optionxi/optionxi-website"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between px-3 py-2.5 rounded-lg border border-border text-muted-foreground text-sm font-medium hover:bg-muted transition-colors"
+              >
+                <span className="flex items-center gap-2">
+                  <Github size={15} />
+                  GitHub Stars
+                </span>
+                <span>{stars !== null ? stars.toLocaleString() : '...'}</span>
+              </a>
 
-            <Link
-              href="https://app.optionxi.com"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center justify-center gap-1.5 mt-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold px-4 py-3 rounded-full transition-colors"
-            >
-              Login Now <ArrowRight size={14} />
-            </Link>
+              <Link
+                href="https://app.optionxi.com"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center justify-center gap-1.5 w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors"
+              >
+                Login Now <ArrowRight size={14} />
+              </Link>
+            </div>
           </div>
         </div>
       )}
