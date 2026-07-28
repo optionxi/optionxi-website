@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, type ReactNode } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Shield,
   Lock,
@@ -13,200 +13,217 @@ import {
   Mail,
   Link2,
   ChevronRight,
-  type LucideIcon,
 } from 'lucide-react';
 
-interface SectionMeta {
+interface SectionType {
   id: string;
-  code: string;
+  num: string;
   label: string;
-  icon: LucideIcon;
+  icon: React.ElementType;
 }
 
-/**
- * OptionXI — Privacy Policy
- * Light theme, fintech-editorial style.
- * Signature motif: ticker-style section eyebrows (OPX·01) echoing stock
- * ticker codes, paired with a faint candlestick rule in the masthead.
- */
-
-const SECTIONS: SectionMeta[] = [
-  { id: 'about', code: '01', label: 'About OptionXI', icon: Eye },
-  { id: 'collect', code: '02', label: 'Information We Collect', icon: Database },
-  { id: 'use', code: '03', label: 'How We Use It', icon: RefreshCw },
-  { id: 'security', code: '04', label: 'Data Security', icon: Lock },
-  { id: 'open-source', code: '05', label: 'Open Source', icon: Link2 },
-  { id: 'accuracy', code: '06', label: 'Data Accuracy', icon: AlertTriangle },
-  { id: 'algo', code: '07', label: 'Future Algo Trading', icon: BookOpen },
-  { id: 'rights', code: '08', label: 'Your Rights', icon: Shield },
-  { id: 'third-party', code: '09', label: 'Third-Party Services', icon: Link2 },
-  { id: 'liability', code: '10', label: 'Limitation of Liability', icon: Scale },
-  { id: 'updates', code: '11', label: 'Policy Updates', icon: RefreshCw },
-  { id: 'contact', code: '12', label: 'Contact Us', icon: Mail },
+const SECTIONS: SectionType[] = [
+  { id: 'about', num: '01', label: 'About OptionXI', icon: Eye },
+  { id: 'collect', num: '02', label: 'Information we collect', icon: Database },
+  { id: 'use', num: '03', label: 'How we use it', icon: RefreshCw },
+  { id: 'security', num: '04', label: 'Data security', icon: Lock },
+  { id: 'open-source', num: '05', label: 'Open source', icon: Link2 },
+  { id: 'accuracy', num: '06', label: 'Data accuracy', icon: AlertTriangle },
+  { id: 'algo', num: '07', label: 'Future algo trading', icon: BookOpen },
+  { id: 'rights', num: '08', label: 'Your rights', icon: Shield },
+  { id: 'third-party', num: '09', label: 'Third-party services', icon: Link2 },
+  { id: 'liability', num: '10', label: 'Limitation of liability', icon: Scale },
+  { id: 'updates', num: '11', label: 'Policy updates', icon: RefreshCw },
+  { id: 'contact', num: '12', label: 'Contact us', icon: Mail },
 ];
-
-interface EyebrowProps {
-  code: string;
-  children?: ReactNode;
-}
-
-const Eyebrow = ({ code, children }: EyebrowProps) => (
-  <div className="flex items-center gap-2 mb-3">
-    <span className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-wider text-teal-700 bg-teal-50 border border-teal-200 rounded-full px-2.5 py-1">
-      <span className="w-1.5 h-1.5 rounded-full bg-teal-600" />
-      OPX·{code}
-    </span>
-    <span className="h-px flex-1 bg-slate-200" />
-  </div>
-);
 
 interface SectionProps {
   id: string;
-  code: string;
+  num: string;
   title: string;
-  icon?: LucideIcon;
-  children?: ReactNode;
+  icon: React.ElementType;
+  children: React.ReactNode;
 }
 
-const Section = ({ id, code, title, icon: Icon, children }: SectionProps) => (
-  <section id={id} className="scroll-mt-24 py-10 border-b border-slate-200 last:border-b-0">
-    <Eyebrow code={code}>{title}</Eyebrow>
-    <h2 className="flex items-center gap-2.5 text-2xl font-semibold text-slate-900 tracking-tight mb-4">
-      {Icon && <Icon className="w-5 h-5 text-teal-600" strokeWidth={2} />}
+const Section = ({ id, num, title, icon: Icon, children }: SectionProps) => (
+  <section id={id} className="scroll-mt-28 py-9 border-b border-slate-200 dark:border-slate-700 last:border-b-0">
+    <span className="inline-block font-mono text-[11px] tracking-[0.15em] text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded px-2 py-0.5 mb-4">
+      CLAUSE {num}
+    </span>
+    <h2 className="flex items-center gap-2.5 text-[22px] font-black tracking-tight text-slate-900 dark:text-white mb-4">
+      {Icon && <Icon className="w-5 h-5 text-slate-400 dark:text-slate-500 flex-shrink-0" strokeWidth={2.25} />}
       {title}
     </h2>
-    <div className="text-slate-600 leading-relaxed space-y-4">{children}</div>
+    <div className="text-slate-600 dark:text-slate-300 text-[15px] leading-relaxed space-y-4">{children}</div>
   </section>
 );
 
-type CalloutTone = 'info' | 'warning' | 'danger';
-
-interface CalloutProps {
-  tone?: CalloutTone;
-  title?: string;
-  icon?: LucideIcon;
-  children?: ReactNode;
+interface FieldGroupProps {
+  tag: string;
+  title: string;
+  items: string[];
 }
 
-const Callout = ({ tone = 'info', title, icon: Icon, children }: CalloutProps) => {
-  const tones: Record<CalloutTone, string> = {
-    info: 'border-teal-300 bg-teal-50/60',
-    warning: 'border-amber-300 bg-amber-50/60',
-    danger: 'border-rose-300 bg-rose-50/60',
-  };
-  const iconTones: Record<CalloutTone, string> = {
-    info: 'text-teal-600',
-    warning: 'text-amber-600',
-    danger: 'text-rose-600',
-  };
-  const titleTones: Record<CalloutTone, string> = {
-    info: 'text-teal-800',
-    warning: 'text-amber-800',
-    danger: 'text-rose-800',
-  };
-  return (
-    <div className={`border-l-4 rounded-r-lg px-5 py-4 ${tones[tone]}`}>
-      <div className="flex items-start gap-3">
-        {Icon && <Icon className={`w-5 h-5 mt-0.5 flex-shrink-0 ${iconTones[tone]}`} />}
-        <div>
-          {title && <p className={`font-semibold text-sm mb-1.5 ${titleTones[tone]}`}>{title}</p>}
-          <div className="text-slate-700 text-sm leading-relaxed">{children}</div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const CandlestickRule = () => (
-  <svg viewBox="0 0 400 28" className="w-full h-6 text-teal-600/40" preserveAspectRatio="none">
-    {Array.from({ length: 40 }).map((_, i) => {
-      const x = i * 10 + 4;
-      const up = i % 3 !== 0;
-      const bodyTop = 8 + ((i * 37) % 8);
-      const bodyH = 4 + ((i * 13) % 6);
-      const wickTop = bodyTop - 3 - ((i * 7) % 3);
-      const wickBot = bodyTop + bodyH + 3 + ((i * 5) % 3);
-      return (
-        <g key={i} stroke="currentColor" fill={up ? 'currentColor' : 'none'}>
-          <line x1={x} y1={wickTop} x2={x} y2={wickBot} strokeWidth="1" />
-          <rect x={x - 1.5} y={bodyTop} width="3" height={bodyH} strokeWidth="1" />
-        </g>
-      );
-    })}
-  </svg>
+const FieldGroup = ({ tag, title, items }: FieldGroupProps) => (
+  <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-800/40 p-5">
+    <p className="font-mono text-[11px] tracking-wide text-emerald-700 dark:text-emerald-400 mb-1">// {tag}</p>
+    <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-2.5">{title}</h3>
+    <ul className="text-sm text-slate-600 dark:text-slate-300 space-y-1.5">
+      {items.map((it) => (
+        <li key={it} className="flex gap-2">
+          <span className="text-slate-300 dark:text-slate-600">—</span>
+          <span>{it}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
 );
 
-const PrivacyPolicyPage = () => {
-  const [active, setActive] = useState('about');
+interface ToneMap {
+  rose: string;
+  amber: string;
+  slate: string;
+}
 
-  const lastUpdated = new Date().toLocaleDateString('en-US', {
+const toneMap: ToneMap = {
+  rose: 'bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800',
+  amber: 'bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
+  slate: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700',
+};
+
+interface LedgerRowProps {
+  label: string;
+  value: string;
+  tone?: keyof ToneMap;
+}
+
+const LedgerRow = ({ label, value, tone = 'slate' }: LedgerRowProps) => (
+  <div className="flex items-baseline gap-3 py-2.5">
+    <span className="text-[13.5px] text-slate-700 dark:text-slate-300">{label}</span>
+    <span className="flex-1 border-b border-dotted border-slate-300 dark:border-slate-600 mb-1" />
+    <span
+      className={`font-mono text-[10.5px] tracking-wide uppercase border rounded px-2 py-0.5 whitespace-nowrap ${toneMap[tone]}`}
+    >
+      {value}
+    </span>
+  </div>
+);
+
+const PrivacyPolicyPage: React.FC = () => {
+  const [active, setActive] = useState<string>('about');
+
+  // Scroll-spy: highlight the TOC entry for whichever section is
+  // currently occupying the "reading zone" of the viewport.
+  useEffect(() => {
+    const sectionEls = SECTIONS
+      .map((s) => document.getElementById(s.id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (sectionEls.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Among sections currently intersecting the reading zone,
+        // pick the one closest to the top.
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+        if (visible.length > 0) {
+          setActive(visible[0].target.id);
+        }
+      },
+      {
+        // Top offset clears the fixed navbar (h-16 = 64px) plus the
+        // main wrapper's `top-10` (40px) shift, with a little breathing room.
+        // Bottom offset (-60%) means a section is only "active" once its
+        // top has crossed into the upper part of the viewport, which reads
+        // more naturally than "as soon as any pixel is visible".
+        rootMargin: '-120px 0px -60% 0px',
+        threshold: 0,
+      }
+    );
+
+    sectionEls.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  const lastUpdated: string = new Date().toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 z-10">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white">
+
       {/* Masthead */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-6 pt-10 pb-6">
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div className="flex items-center gap-3">
-              <div>
-                <h1 className="text-2xl font-semibold tracking-tight text-slate-900">Privacy Policy</h1>
-              </div>
-            </div>
-            <p className="font-mono text-xs text-slate-500 tracking-wide">
-              LAST UPDATED&nbsp;
-              <span className="text-slate-700">{lastUpdated}</span>
+      <div className="bg-white dark:bg-[#0B1220] text-slate-900 dark:text-white border-b border-slate-200 dark:border-transparent">
+        <div className="max-w-6xl mx-auto px-6 pt-9 pb-7 flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <p className="font-mono text-[11px] tracking-[0.22em] text-emerald-600 dark:text-emerald-400/80 uppercase mb-1">
+              Statement of
+            </p>
+            <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Privacy Policy</h1>
+          </div>
+          <div className="text-right">
+            <p className="font-mono text-[10px] tracking-[0.15em] text-slate-400 dark:text-slate-500 uppercase">Effective</p>
+            <p className="font-mono text-sm text-slate-600 dark:text-slate-200">{lastUpdated}</p>
+          </div>
+        </div>
+        <div className="h-[3px] w-full bg-gradient-to-r from-emerald-500 via-amber-400 to-rose-500" />
+      </div>
+
+      {/* Intro */}
+      <div className="max-w-6xl mx-auto px-6 pt-10 pb-2">
+        <p className="max-w-2xl text-slate-600 dark:text-slate-300 text-[15px] leading-relaxed">
+          How OptionXI collects, uses, and protects information across our virtual trading
+          simulator for NSE stocks, Nifty&nbsp;50, and index options.
+        </p>
+      </div>
+
+      {/* Risk ledger */}
+      <div className="max-w-6xl mx-auto px-6 pt-6 pb-10">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+          <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/50 flex items-center gap-2.5">
+            <BookOpen className="w-4 h-4 text-slate-400 dark:text-slate-500" />
+            <p className="text-sm font-bold text-slate-800 dark:text-slate-200">
+              Read this before you use the platform
             </p>
           </div>
-          <div className="mt-6">
-            <CandlestickRule />
+          <div className="px-6 py-2 divide-y divide-slate-100 dark:divide-slate-800">
+            <LedgerRow label="Purpose of this platform" value="Education only" tone="slate" />
+            <LedgerRow label="Investment advice provided" value="None" tone="rose" />
+            <LedgerRow label="Market data reliability" value="Not guaranteed" tone="amber" />
+            <LedgerRow label="Virtual vs. real performance" value="Not correlated" tone="amber" />
+            <LedgerRow label="Claims for trading losses" value="Waived on use" tone="rose" />
           </div>
-          <p className="mt-4 max-w-2xl text-slate-600 text-sm leading-relaxed">
-            How OptionXI collects, uses, and protects information across our virtual trading
-            simulation platform for NSE stocks, Nifty&nbsp;50, and index options.
-          </p>
+          <div className="px-6 py-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-800/30">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Always consult a qualified financial advisor before making real investment decisions.
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Top banners */}
-      <div className="max-w-6xl mx-auto px-6 pt-8 space-y-4">
-        <Callout tone="warning" title="Educational purpose only" icon={BookOpen}>
-          OptionXI is designed solely for educational purposes and virtual trading simulation.
-          This platform is not intended for actual financial investment or trading advice.
-          Always consult a qualified financial advisor before making real investment decisions.
-        </Callout>
-        <Callout tone="danger" title="Please read before using the platform" icon={AlertTriangle}>
-          <ul className="space-y-1.5 mt-1">
-            <li>— We are not financial advisors and do not provide investment advice.</li>
-            <li>— Market data may be delayed, interrupted, or contain errors; we're not liable for resulting losses.</li>
-            <li>— Virtual trading results do not guarantee real market performance.</li>
-            <li>— Use of the platform constitutes a waiver of claims for damages arising from losses.</li>
-          </ul>
-        </Callout>
-      </div>
-
       {/* Body: TOC + content */}
-      <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-[220px_1fr] gap-10">
-        {/* Table of contents */}
-        <nav className="md:sticky md:top-8 md:self-start">
-          <p className="font-mono text-[11px] tracking-widest text-slate-400 mb-3">CONTENTS</p>
-          <ul className="space-y-1 border-l border-slate-200">
+      <div className="max-w-6xl mx-auto px-6 pb-16 grid grid-cols-1 md:grid-cols-[220px_1fr] gap-10">
+        <nav className="md:sticky md:top-24 md:self-start md:max-h-[calc(100vh-7rem)] md:overflow-y-auto">
+          <p className="font-mono text-[11px] tracking-widest text-slate-400 dark:text-slate-500 mb-3">CONTENTS</p>
+          <ul className="space-y-1 border-l border-slate-200 dark:border-slate-700">
             {SECTIONS.map((s) => (
               <li key={s.id}>
-                <a
-                  href={`#${s.id}`}
+                
+                <a href={`#${s.id}`}
                   onClick={() => setActive(s.id)}
-                  className={`group flex items-center gap-1.5 -ml-px pl-4 pr-2 py-1.5 border-l-2 text-sm transition-colors ${
+                  className={`group flex items-center gap-1.5 -ml-px pl-4 pr-2 py-1.5 border-l-2 text-sm transition-colors rounded-r-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 ${
                     active === s.id
-                      ? 'border-teal-600 text-teal-700 font-medium bg-teal-50/50'
-                      : 'border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300'
+                      ? 'border-emerald-600 dark:border-emerald-400 text-slate-900 dark:text-white font-semibold bg-emerald-50/60 dark:bg-emerald-950/30'
+                      : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600'
                   }`}
                 >
-                  <span className="font-mono text-[10px] text-slate-400 group-hover:text-slate-500">
-                    {s.code}
+                  <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-400">
+                    {s.num}
                   </span>
                   {s.label}
                   <ChevronRight
@@ -220,156 +237,185 @@ const PrivacyPolicyPage = () => {
           </ul>
         </nav>
 
-        {/* Content */}
-        <div className="bg-white border border-slate-200 rounded-2xl px-8">
-          <Section id="about" code="01" title="About OptionXI" icon={Eye}>
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl px-8">
+          <Section id="about" num="01" title="About OptionXI" icon={Eye}>
             <p>
-              OptionXI (&ldquo;We&rdquo;, &ldquo;Us&rdquo;, or the &ldquo;Company&rdquo;) operates a
-              virtual trading platform accessible through our website and mobile application
-              (&ldquo;the Platform&rdquo;) to facilitate educational trading simulation and market
-              learning. The platform provides virtual trading capabilities for NSE stocks, Nifty&nbsp;50,
-              and options trading on Bank Nifty and Nifty indices.
+              OptionXI ("we," "us," or the "Company") operates a virtual trading platform,
+              accessible through our website and mobile app (the "Platform"), built for
+              educational trading simulation and market learning. The Platform supports virtual
+              trading in NSE stocks, Nifty&nbsp;50, and options on the Bank Nifty and Nifty
+              indices.
             </p>
             <p>
-              Our platform includes features such as stock screeners, watchlists, stock alerts,
-              top gainers/losers, detailed stock information, and virtual trading capabilities.
-              We are committed to protecting your privacy while providing educational tools for
-              market learning.
+              Features include stock screeners, watchlists, price alerts, top gainers/losers, and
+              detailed stock information alongside virtual trading. We protect your privacy while
+              you use these tools to learn how markets work.
             </p>
           </Section>
 
-          <Section id="collect" code="02" title="Information We Collect" icon={Database}>
-            <div className="grid sm:grid-cols-1 gap-4 not-prose">
-              <div className="rounded-xl border border-slate-200 p-5">
-                <h3 className="text-sm font-semibold text-slate-900 mb-2.5">Personal information</h3>
-                <ul className="text-sm text-slate-600 space-y-1.5">
-                  <li>Email address (Gmail / Apple ID for authentication)</li>
-                  <li>Profile information from social authentication providers</li>
-                  <li>Communication preferences and settings</li>
-                  <li>Support requests and correspondence</li>
-                </ul>
-              </div>
-              <div className="rounded-xl border border-slate-200 p-5">
-                <h3 className="text-sm font-semibold text-slate-900 mb-2.5">Usage information</h3>
-                <ul className="text-sm text-slate-600 space-y-1.5">
-                  <li>Virtual trading activities and portfolio performance</li>
-                  <li>Watchlist preferences and stock alerts</li>
-                  <li>Platform navigation and feature usage</li>
-                  <li>Device information and technical specifications</li>
-                  <li>IP address, browser type, and access times</li>
-                </ul>
-              </div>
-              <div className="rounded-xl border border-slate-200 p-5">
-                <h3 className="text-sm font-semibold text-slate-900 mb-2.5">Market data</h3>
-                <ul className="text-sm text-slate-600 space-y-1.5">
-                  <li>NSE stock data (previous-day data for virtual trading)</li>
-                  <li>Real-time data access when connected to broker accounts</li>
-                  <li>Options data for Bank Nifty and Nifty indices</li>
-                  <li>Market analytics and screening results</li>
-                </ul>
-              </div>
+          <Section id="collect" num="02" title="Information we collect" icon={Database}>
+            <div className="grid gap-4 not-prose">
+              <FieldGroup
+                tag="personal_information"
+                title="Personal information"
+                items={[
+                  'Email address (via Google or Apple sign-in)',
+                  'Profile information from social authentication providers',
+                  'Communication preferences and settings',
+                  'Support requests and correspondence',
+                ]}
+              />
+              <FieldGroup
+                tag="usage_information"
+                title="Usage information"
+                items={[
+                  'Virtual trading activity and portfolio performance',
+                  'Watchlist preferences and price alerts',
+                  'Platform navigation and feature usage',
+                  'Device information and technical specifications',
+                  'IP address, browser type, and access times',
+                ]}
+              />
+              <FieldGroup
+                tag="market_data"
+                title="Market data"
+                items={[
+                  'NSE stock data (prior-day data used for virtual trading)',
+                  'Real-time data access when a broker account is connected',
+                  'Options data for Bank Nifty and Nifty indices',
+                  'Market analytics and screening results',
+                ]}
+              />
             </div>
           </Section>
 
-          <Section id="use" code="03" title="How We Use Your Information" icon={RefreshCw}>
+          <Section id="use" num="03" title="How we use your information" icon={RefreshCw}>
             <ul className="space-y-2 text-sm">
-              <li>Providing authentication and secure access to the platform</li>
-              <li>Enabling virtual trading simulation and educational features</li>
-              <li>Delivering stock alerts, notifications, and market updates</li>
-              <li>Improving platform performance and user experience</li>
-              <li>Providing customer support and technical assistance</li>
-              <li>Analyzing usage patterns for platform enhancement</li>
-              <li>Complying with legal and regulatory requirements</li>
+              {[
+                'Authenticating you and securing access to the Platform',
+                'Running virtual trading simulation and educational features',
+                'Sending stock alerts, notifications, and market updates',
+                'Improving Platform performance and user experience',
+                'Providing customer support and technical assistance',
+                'Analyzing usage patterns to improve the Platform',
+                'Meeting legal and regulatory requirements',
+              ].map((it) => (
+                <li key={it} className="flex gap-2.5">
+                  <span className="text-emerald-600 dark:text-emerald-400 mt-1">·</span>
+                  <span>{it}</span>
+                </li>
+              ))}
             </ul>
           </Section>
 
-          <Section id="security" code="04" title="Data Security & Storage" icon={Lock}>
+          <Section id="security" num="04" title="Data security & storage" icon={Lock}>
             <p>
-              We use Firebase as our backend infrastructure, which provides enterprise-grade
-              security and encryption. Your data is protected through industry-standard security
-              measures, including:
+              We use Firebase as our backend, which provides enterprise-grade encryption and
+              security. Your data is protected by:
             </p>
             <ul className="space-y-1.5 text-sm">
-              <li>Encrypted data transmission and storage</li>
-              <li>Secure authentication protocols</li>
-              <li>Regular security audits and monitoring</li>
-              <li>Access controls and data segregation</li>
+              {[
+                'Encrypted data in transit and at rest',
+                'Secure authentication protocols',
+                'Regular security audits and monitoring',
+                'Access controls and data segregation',
+              ].map((it) => (
+                <li key={it} className="flex gap-2.5">
+                  <span className="text-emerald-600 dark:text-emerald-400 mt-1">·</span>
+                  <span>{it}</span>
+                </li>
+              ))}
             </ul>
           </Section>
 
-          <Section id="open-source" code="05" title="Open Source Initiative" icon={Link2}>
+          <Section id="open-source" num="05" title="Open source initiative" icon={Link2}>
             <p>
-              OptionXI will soon become an open-source project, making our UI components and
-              database structures available to the public for educational purposes. This
-              initiative aims to promote learning and development in the fintech education space
-              while maintaining user privacy and security.
+              OptionXI will soon become open source, making our UI components and database
+              structures available to the public for educational purposes. This supports learning
+              and development in fintech education while keeping user privacy and security intact.
             </p>
           </Section>
 
-          <Section id="accuracy" code="06" title="Data Accuracy & Availability" icon={AlertTriangle}>
-            <Callout tone="warning">
-              Market data may be delayed, interrupted, or contain errors. We do not guarantee the
-              accuracy, completeness, or availability of market data. Users acknowledge that data
-              interruptions or inaccuracies may occur, and we are not responsible for any losses
-              or damages resulting from such issues.
-            </Callout>
+          <Section id="accuracy" num="06" title="Data accuracy & availability" icon={AlertTriangle}>
+            <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-950/30 px-5 py-4">
+              <p className="text-sm text-slate-700 dark:text-slate-300">
+                Market data may be delayed, interrupted, or contain errors. We don't guarantee its
+                accuracy, completeness, or availability. Interruptions or inaccuracies can happen,
+                and we aren't responsible for losses or damages that result from them.
+              </p>
+            </div>
           </Section>
 
-          <Section id="algo" code="07" title="Future Algorithmic Trading" icon={BookOpen}>
+          <Section id="algo" num="07" title="Future algorithmic trading" icon={BookOpen}>
             <p>
-              While we plan to introduce algorithmic trading capabilities for placing real-time
-              orders in the future, this feature is not currently available. Any future
-              implementation will be subject to additional terms and conditions, regulatory
-              compliance, and enhanced security measures.
+              We plan to introduce algorithmic trading for placing real-time orders in the future.
+              This feature isn't available yet. When it launches, it will carry additional terms,
+              regulatory compliance requirements, and stronger security measures.
             </p>
           </Section>
 
-          <Section id="rights" code="08" title="Your Rights" icon={Shield}>
+          <Section id="rights" num="08" title="Your rights" icon={Shield}>
             <p>You have the right to:</p>
             <ul className="space-y-1.5 text-sm">
-              <li>Access your personal information</li>
-              <li>Correct inaccurate data</li>
-              <li>Delete your account and associated data</li>
-              <li>Withdraw consent for data processing</li>
-              <li>Export your data in a portable format</li>
+              {[
+                'Access your personal information',
+                'Correct inaccurate data',
+                'Delete your account and its associated data',
+                'Withdraw consent for data processing',
+                'Export your data in a portable format',
+              ].map((it) => (
+                <li key={it} className="flex gap-2.5">
+                  <span className="text-emerald-600 dark:text-emerald-400 mt-1">·</span>
+                  <span>{it}</span>
+                </li>
+              ))}
             </ul>
           </Section>
 
-          <Section id="third-party" code="09" title="Third-Party Services" icon={Link2}>
+          <Section id="third-party" num="09" title="Third-party services" icon={Link2}>
             <p>
-              Our platform integrates with third-party services including Google/Apple for
-              authentication, market data providers, and broker APIs for real-time data access.
-              These services have their own privacy policies, and we encourage you to review
-              them.
+              The Platform integrates with third-party services, including Google and Apple for
+              authentication, market data providers, and broker APIs for real-time data. These
+              services have their own privacy policies, which we encourage you to review.
             </p>
           </Section>
 
-          <Section id="liability" code="10" title="Limitation of Liability" icon={Scale}>
-            <Callout tone="danger" title="By using OptionXI, you acknowledge and agree that:">
-              <ul className="space-y-1.5 mt-1">
-                <li>— The platform is for educational and simulation purposes only</li>
-                <li>— We are not financial advisors and provide no investment advice</li>
-                <li>— You waive all rights to claim damages for any losses incurred</li>
-                <li>— Virtual trading results do not guarantee real market performance</li>
-                <li>— We are not liable for data errors, interruptions, or system failures</li>
-                <li>— You use the platform at your own risk</li>
-              </ul>
-            </Callout>
+          <Section id="liability" num="10" title="Limitation of liability" icon={Scale}>
+            <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">
+              By using OptionXI, you acknowledge and agree that:
+            </p>
+            <div className="rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/30 divide-y divide-rose-100 dark:divide-rose-900 px-5">
+              {[
+                'The Platform is for educational and simulation purposes only',
+                'We are not financial advisors and provide no investment advice',
+                'You waive all rights to claim damages for any losses incurred',
+                'Virtual trading results do not guarantee real market performance',
+                'We are not liable for data errors, interruptions, or system failures',
+                'You use the Platform at your own risk',
+              ].map((it) => (
+                <p key={it} className="text-sm text-slate-700 dark:text-slate-300 py-2.5">
+                  {it}
+                </p>
+              ))}
+            </div>
           </Section>
 
-          <Section id="updates" code="11" title="Policy Updates" icon={RefreshCw}>
+          <Section id="updates" num="11" title="Policy updates" icon={RefreshCw}>
             <p>
-              We may update this privacy policy from time to time. We will notify users of
-              significant changes through the platform or via email. Continued use of the
-              platform after changes constitutes acceptance of the updated policy.
+              We may update this policy from time to time. We'll notify you of significant
+              changes through the Platform or by email. Continuing to use the Platform after
+              changes take effect means you accept the updated policy.
             </p>
           </Section>
 
-          <Section id="contact" code="12" title="Contact Us" icon={Mail}>
-            <p>For questions about this privacy policy or our data practices, reach out to:</p>
-            <div className="not-prose mt-2 inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
-              <Mail className="w-4 h-4 text-teal-600" />
-              <a href="mailto:support@optionxi.com" className="text-sm font-medium text-slate-800 hover:text-teal-700">
+          <Section id="contact" num="12" title="Contact us" icon={Mail}>
+            <p>Questions about this policy or our data practices? Reach out:</p>
+            <div className="not-prose mt-2 inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-3">
+              <Mail className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              
+              <a href="mailto:support@optionxi.com"
+                className="text-sm font-medium text-slate-800 dark:text-slate-200 hover:text-emerald-700 dark:hover:text-emerald-400"
+              >
                 support@optionxi.com
               </a>
             </div>
