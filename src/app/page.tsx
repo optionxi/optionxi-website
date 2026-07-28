@@ -137,18 +137,18 @@ const FEATURES_DETAILED = [
   {
     icon: LineChart,
     title: "Virtual trading, real data",
-    body: "Practice on NIFTY, BankNIFTY and options using live market prices — no real money on the line.",
+    body: "Practice on NIFTY, BankNIFTY and options — no real money on the line.",
     points: [
-      "Live tick-by-tick pricing during market hours",
+      "Delayed 24hrs tick-by-tick pricing",
       "Options chain with real premiums and Greeks",
-      "Unlimited paper trades, reset your portfolio anytime",
+      "Unlimited paper trades",
     ],
     stat: { label: "Daily Traders", value: "1200+" },
   },
   {
     icon: BarChart3,
     title: "Stock screeners",
-    body: "Filter thousands of stocks by price action, volume and technical signals in a couple of taps.",
+    body: "Filter thousands of stocks by price action, volume and technical signals.",
     points: [
       "Pre-built screeners: breakouts, momentum, oversold",
       "Combine multiple technical conditions",
@@ -176,7 +176,7 @@ const FEATURES_DETAILED = [
       "Compare returns, win rate and risk discipline",
       "Follow top traders' public paper portfolios",
     ],
-    stat: { label: "Active traders on the board", value: "5,000+" },
+    stat: { label: "Active traders on the board", value: "9,000+" },
   },
   {
     icon: Shield,
@@ -295,7 +295,7 @@ const FEATURE_SCREENSHOTS = [
                   </div>
                   <span><strong className={t.text}>4.2</strong> on Google Play</span>
                 </div>
-                <div className="flex items-center gap-2"><Users size={15} /> 5,000+ downloads</div>
+                <div className="flex items-center gap-2"><Users size={15} /> 9,000+ downloads</div>
                 <div className="flex items-center gap-2"><Lock size={15} /> Secure Google sign-in</div>
               </div>
             </div>
