@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Menu, X, Github } from 'lucide-react'
+import { Menu, X, Github, ArrowRight } from 'lucide-react'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [stars, setStars] = useState<number | null>(null)
+  const [scrolled, setScrolled] = useState(false)
 
   const navItems = [
     { name: 'Blogs', href: '/blogs' },
@@ -28,91 +29,74 @@ export default function Navbar() {
       }
     }
     fetchStars()
+
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   return (
-    <nav className="bg-gray-900 text-gray-100 print:hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 backdrop-blur border-b transition-colors print:hidden ${
+        scrolled ? 'bg-white/90 border-gray-200' : 'bg-white/70 border-transparent'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="h-16 flex items-center justify-between">
           {/* Left: Logo + Brand */}
-          <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative">
-                <img
-                  src="/assets/images/logo_xi.png"
-                  alt="OptionXi Logo"
-                  className="w-10 h-10 rounded-2xl transition-transform duration-300 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                OptionXi
-              </span>
-            </Link>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden md:block ml-10">
-              <div className="flex items-baseline space-x-1">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="px-4 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-all duration-200 relative group"
-                  >
-                    {item.name}
-                    <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <img
+              src="/assets/images/logo_xi.png"
+              alt="OptionXi Logo"
+              className="w-8 h-8 rounded-lg transition-transform duration-300 group-hover:scale-110"
+            />
+            <span className="font-bold text-lg tracking-tight text-gray-900">
+              OptionXi
+            </span>
+          </Link>
 
-          {/* Right: GitHub + Auth buttons */}
-          <div className="hidden md:flex items-center space-x-4">
-            {/* GitHub Button */}
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8 text-[15px] font-medium">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="text-gray-600 hover:text-emerald-600 transition-colors"
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Right: GitHub + Auth */}
+          <div className="flex items-center gap-3">
             <a
               href="https://github.com/optionxi/optionxi-website"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-700/50 bg-gray-800/50 hover:bg-gray-700/70 hover:border-gray-600/70 transition-all duration-300 text-sm font-medium backdrop-blur-sm"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-gray-200 text-gray-600 hover:text-gray-900 hover:border-gray-300 text-sm font-medium transition-colors"
             >
-              <Github className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />
-              <span className="text-gray-300 group-hover:text-white transition-colors">
-                {stars !== null ? stars.toLocaleString() : '...'}
-              </span>
+              <Github size={15} />
+              {stars !== null ? stars.toLocaleString() : '...'}
             </a>
 
-            {/* Auth Buttons */}
-            {/* <Link
-              href="https://app.optionxi.com"
-              className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-all duration-200"
-            >
-              Sign up
-            </Link> */}
             <Link
               href="https://app.optionxi.com"
-              className="group relative px-6 py-2.5 rounded-xl text-sm font-medium text-white bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-emerald-500/25"
+              className="hidden sm:inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors"
             >
-              <span className="relative z-10">Login Now</span>
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-emerald-400 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+              Login Now <ArrowRight size={14} />
             </Link>
-          </div>
 
-          {/* Mobile menu button */}
-          <div className="-mr-2 flex md:hidden">
+            {/* Mobile menu button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className="inline-flex items-center justify-center p-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-200"
+              className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 text-gray-600 hover:text-gray-900 transition-colors"
               aria-controls="mobile-menu"
-              aria-expanded="false"
+              aria-expanded={isOpen}
             >
               <span className="sr-only">Open main menu</span>
-              {!isOpen ? (
-                <Menu className="block h-6 w-6" />
-              ) : (
-                <X className="block h-6 w-6" />
-              )}
+              {!isOpen ? <Menu size={18} /> : <X size={18} />}
             </button>
           </div>
         </div>
@@ -120,54 +104,39 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-gray-800" id="mobile-menu">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <div className="md:hidden border-t border-gray-200 bg-white" id="mobile-menu">
+          <div className="px-4 pt-3 pb-4 space-y-1">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-4 py-3 rounded-xl text-base font-medium transition-all duration-200"
+                className="block px-3 py-3 rounded-xl text-[15px] font-medium text-gray-700 hover:bg-gray-50 hover:text-emerald-600 transition-colors"
               >
                 {item.name}
               </Link>
             ))}
 
-            {/* GitHub in Mobile */}
             <a
               href="https://github.com/optionxi/optionxi-website"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-3 rounded-xl border border-gray-700/50 bg-gray-700/30 hover:bg-gray-700/50 transition-all duration-300 text-sm font-medium"
+              className="flex items-center gap-2 px-3 py-3 mt-2 rounded-xl border border-gray-200 text-gray-600 text-sm font-medium"
             >
-              <Github className="w-4 h-4 text-gray-400" />
-              <span className="text-gray-300">
-                {stars !== null ? `${stars.toLocaleString()} stars` : 'Loading...'}
-              </span>
+              <Github size={16} />
+              {stars !== null ? `${stars.toLocaleString()} stars` : 'Loading...'}
             </a>
-          </div>
 
-          {/* Mobile Auth Buttons */}
-          <div className="pt-4 pb-3 border-t border-gray-700">
-            <div className="flex items-center px-5 space-x-2">
-              {/* <Link
-                href="https://app.optionxi.com"
-                onClick={() => setIsOpen(false)}
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-4 py-3 rounded-xl text-base font-medium transition-all duration-200"
-              >
-                Sign up
-              </Link> */}
-              <Link
-                href="https://app.optionxi.com"
-                onClick={() => setIsOpen(false)}
-                className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 shadow-lg"
-              >
-                Login Now
-              </Link>
-            </div>
+            <Link
+              href="https://app.optionxi.com"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-center gap-1.5 mt-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-4 py-3 rounded-full transition-colors"
+            >
+              Login Now <ArrowRight size={14} />
+            </Link>
           </div>
         </div>
       )}
-    </nav>
+    </header>
   )
 }

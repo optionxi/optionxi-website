@@ -64,19 +64,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="light">
       <body className="flex flex-col min-h-screen">
-        <header className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg">
-          <Navbar/>
-        </header>
-        {/* Add a spacer div to push content below fixed header */}
-        <div className="h-16" /> {/* Adjust height to match your navbar height */}
-        <main className="relative z-10 flex-grow">
+        <Navbar/>
+        <main className="relative flex-grow top-10">
           {children}
         </main>
-        <footer className="relative z-10">
-          <Footer />
-        </footer>
+        <Footer />
         <SpeedInsights />
         <ChatwootWidget/>
       </body>

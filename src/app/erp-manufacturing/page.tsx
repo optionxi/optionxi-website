@@ -8,7 +8,7 @@ export default function ERPNextProposal() {
   const contentRef = React.useRef(null);
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-gray-100">
       {/* Print/Download Button */}
       {/* The download button is fixed and hidden on print. It will always print the current view which is optimized for desktop in the print media query. */}
       <button
@@ -24,7 +24,7 @@ export default function ERPNextProposal() {
       {/* Main Container: Full width on small screens, fixed A4-like width on medium/print */}
       <div 
         ref={contentRef} 
-        className="max-w-full md:max-w-[210mm] mx-auto bg-white shadow-2xl"
+        className="max-w-full md:max-w-6xl mx-auto bg-white shadow-2xl"
       >
         {/* Header */}
         <header className="bg-gradient-to-br from-slate-800 to-slate-900 text-white px-6 md:px-12 py-8 md:py-16 border-b-6 border-blue-600">

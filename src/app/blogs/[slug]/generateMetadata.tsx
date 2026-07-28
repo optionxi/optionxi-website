@@ -25,45 +25,56 @@ const urlFor = (source: SanityImageSource) =>
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
 
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: { slug: string } 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const post: PostMetadata = await client.fetch(METADATA_QUERY, params, {
-    next: { revalidate: 30 }
-  });
+  // Next.js 15: params is now async and must be awaited before use.
+  const { slug } = await params;
+
+  const post: PostMetadata = await client.fetch(
+    METADATA_QUERY,
+    { slug },
+    { next: { revalidate: 30 } }
+  );
 
   const imageUrl = post.mainImage
     ? urlFor(post.mainImage)?.width(1200).height(675).url()
     : null;
 
+  const description =
+    post.description ||
+    `Read ${post.title} - Published on ${new Date(post.publishedAt).toLocaleDateString()}`;
+
   return {
     title: post.title,
-    description: post.description || `Read ${post.title} - Published on ${new Date(post.publishedAt).toLocaleDateString()}`,
+    description,
     openGraph: {
       title: post.title,
-      description: post.description || `Read ${post.title} - Published on ${new Date(post.publishedAt).toLocaleDateString()}`,
+      description,
       type: 'article',
       publishedTime: post.publishedAt,
-      images: imageUrl ? [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 675,
-          alt: post.title,
-        }
-      ] : [],
+      images: imageUrl
+        ? [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 675,
+              alt: post.title,
+            },
+          ]
+        : [],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
-      description: post.description || `Read ${post.title} - Published on ${new Date(post.publishedAt).toLocaleDateString()}`,
+      description,
       images: imageUrl ? [imageUrl] : [],
     },
     authors: [{ name: 'OptionXi' }],
     alternates: {
-      canonical: `/blogs/${params.slug}`,
-    }
+      canonical: `/blogs/${slug}`,
+    },
   };
 }

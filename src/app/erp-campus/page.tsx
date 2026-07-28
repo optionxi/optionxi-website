@@ -80,7 +80,7 @@ export default function ERPNextProposal() {
   ];
 
   return (
-    <div className="min-h-screen  bg-gray-900">
+    <div className="min-h-screen bg-gray-100">
       {/* Print Button - Fixed position, hidden on print */}
       <button 
         onClick={() => window.print()}
@@ -93,7 +93,7 @@ export default function ERPNextProposal() {
       </button>
 
       {/* Main Container - max-w-full on mobile, fixed width for desktop/print */}
-      <div className="max-w-full md:max-w-[210mm] mx-auto bg-white shadow-2xl">
+      <div className="max-w-full md:max-w-6xl mx-auto bg-white shadow-2xl">
         
         {/* Header */}
         <header className="bg-gradient-to-br from-slate-800 to-slate-900 text-white px-6 py-10 md:px-12 md:py-16 border-b-8 border-blue-600">

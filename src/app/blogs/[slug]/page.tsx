@@ -98,7 +98,7 @@ const ShareButtons = ({ title, slug }: { title: string; slug: string }) => {
 
   return (
     <div className="flex items-center gap-3">
-      <span className="text-sm text-gray-400 flex items-center gap-2">
+      <span className="text-sm text-slate-500 flex items-center gap-2">
         <Share2 size={16} />
         Share:
       </span>
@@ -107,7 +107,7 @@ const ShareButtons = ({ title, slug }: { title: string; slug: string }) => {
           href={shareLinks.twitter}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-2 rounded-lg bg-slate-800 hover:bg-blue-500 transition-colors"
+          className="p-2 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-900 hover:text-white transition-colors"
           aria-label="Share on Twitter"
         >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -118,7 +118,7 @@ const ShareButtons = ({ title, slug }: { title: string; slug: string }) => {
           href={shareLinks.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-2 rounded-lg bg-slate-800 hover:bg-blue-600 transition-colors"
+          className="p-2 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-900 hover:text-white transition-colors"
           aria-label="Share on LinkedIn"
         >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -129,7 +129,7 @@ const ShareButtons = ({ title, slug }: { title: string; slug: string }) => {
           href={shareLinks.facebook}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-2 rounded-lg bg-slate-800 hover:bg-blue-700 transition-colors"
+          className="p-2 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-900 hover:text-white transition-colors"
           aria-label="Share on Facebook"
         >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -140,7 +140,7 @@ const ShareButtons = ({ title, slug }: { title: string; slug: string }) => {
           href={shareLinks.reddit}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-2 rounded-lg bg-slate-800 hover:bg-orange-600 transition-colors"
+          className="p-2 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-900 hover:text-white transition-colors"
           aria-label="Share on Reddit"
         >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -152,84 +152,67 @@ const ShareButtons = ({ title, slug }: { title: string; slug: string }) => {
   );
 };
 
-// Enhanced components with distinct gradients
+// Clean, editorial, light-theme Portable Text components
 const components: PortableTextComponents = {
   list: {
-    bullet: ({children}) => (
-      <ul className="space-y-2 my-4 list-none">
-        {children}
-      </ul>
+    bullet: ({ children }) => (
+      <ul className="space-y-2 my-6 list-none pl-0">{children}</ul>
     ),
-    number: ({children}) => (
-      <ol className="space-y-2 my-4 list-decimal">
+    number: ({ children }) => (
+      <ol className="space-y-2 my-6 list-decimal pl-5 marker:text-slate-400">
         {children}
       </ol>
     ),
   },
   listItem: {
-    bullet: ({children}) => (
-      <li className="flex items-start gap-2 group animate-fadeIn">
-        <span className="inline-block w-1.5 h-1.5 rounded-full bg-purple-400 mt-2.5 group-hover:bg-pink-400 transition-colors"></span>
-        <span className="text-gray-300">{children}</span>
+    bullet: ({ children }) => (
+      <li className="flex items-start gap-3">
+        <span className="inline-block w-1.5 h-1.5 rounded-full bg-indigo-500 mt-2.5 shrink-0" />
+        <span className="text-slate-700">{children}</span>
       </li>
     ),
-    number: ({children}) => (
-      <li className="text-gray-300 animate-fadeIn">{children}</li>
-    ),
+    number: ({ children }) => <li className="text-slate-700">{children}</li>,
   },
   block: {
-    h1: ({children}) => (
-      <h1 className="text-4xl font-bold mt-12 mb-6 relative group animate-slideUp">
-        <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400 bg-clip-text text-transparent">
-          {children}
-        </span>
-        <span className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-purple-400 to-rose-400 group-hover:w-full transition-all duration-300"></span>
+    h1: ({ children }) => (
+      <h1 className="text-3xl md:text-4xl font-bold mt-12 mb-5 text-slate-900 tracking-tight">
+        {children}
       </h1>
     ),
-    h2: ({children}) => (
-      <h2 className="text-3xl font-bold mt-8 mb-4 relative group animate-slideUp">
-        <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
-          {children}
-        </span>
-        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-amber-400 to-yellow-400 group-hover:w-full transition-all duration-300"></span>
+    h2: ({ children }) => (
+      <h2 className="text-2xl md:text-3xl font-bold mt-10 mb-4 text-slate-900 tracking-tight">
+        {children}
       </h2>
     ),
-    h3: ({children}) => (
-      <h3 className="text-3xl font-semibold mt-6 mb-3 text-gray-200 tracking-tight">
+    h3: ({ children }) => (
+      <h3 className="text-xl md:text-2xl font-semibold mt-8 mb-3 text-slate-900">
         {children}
       </h3>
     ),
-    h4: ({children}) => (
-      <h4 className="text-xl font-medium mt-5 mb-2 text-gray-300 hover:text-gray-100 cursor-pointer transition-colors">
+    h4: ({ children }) => (
+      <h4 className="text-lg font-semibold mt-6 mb-2 text-slate-800">
         {children}
       </h4>
     ),
-    normal: ({children}) => (
-      <p className="p-4 mb-6 text-gray-300 text-justify leading-relaxed animate-fadeIn">
-        {children}
-      </p>
+    normal: ({ children }) => (
+      <p className="mb-6 text-[17px] leading-8 text-slate-700">{children}</p>
     ),
-    blockquote: ({children}) => (
-      <blockquote className="my-6 pl-6 border-l-4 border-purple-400 italic text-gray-300 animate-slideRight">
-        <div className="relative">
-          <span className="absolute -left-8 -top-2 text-4xl text-purple-400 opacity-20">&quot;</span>
-          {children}
-          <span className="absolute -bottom-4 right-0 text-4xl text-purple-400 opacity-20">&quot;</span>
-        </div>
+    blockquote: ({ children }) => (
+      <blockquote className="my-8 pl-5 border-l-4 border-indigo-500 italic text-slate-600 text-lg leading-relaxed">
+        {children}
       </blockquote>
     ),
   },
   marks: {
-    link: ({children, value}) => {
-      const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined;
+    link: ({ children, value }) => {
+      const rel = !value.href.startsWith("/") ? "noreferrer noopener" : undefined;
       return (
-        <a 
-          href={value.href} 
+        <a
+          href={value.href}
           rel={rel}
-          className="relative inline-block text-purple-400 hover:text-pink-400 transition-colors group"
+          className="text-indigo-600 underline decoration-indigo-200 underline-offset-4 hover:decoration-indigo-500 transition-colors"
         >
-          <span className="relative z-10">{children}</span>
-          <span className="absolute bottom-0 left-0 w-full h-0.5 bg-current transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+          {children}
         </a>
       );
     },
@@ -241,16 +224,19 @@ const options = { next: { revalidate: 30 } };
 export default async function PostPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  // Next.js 15: params is now async and must be awaited before use.
+  const { slug } = await params;
+
   const { post, recentPosts }: PostData = await client.fetch(
     POST_QUERY,
-    params,
+    { slug },
     options
   );
 
   const postImageUrl = post.mainImage
-    ? urlFor(post.mainImage)?.width(1200).height(675).url()
+    ? urlFor(post.mainImage)?.width(1400).height(787).url()
     : null;
 
   const authorImageUrl = post.author?.image
@@ -258,96 +244,100 @@ export default async function PostPage({
     : null;
 
   return (
-    <main className="min-h-screen bg-slate-950 text-gray-100">
-      <div className="container mx-auto px-4 py-8">
-        <Link 
-          href="/blogs" 
-          className="inline-flex items-center text-purple-400 hover:text-pink-400 transition-colors mb-8"
+    <main className="min-h-screen bg-white text-slate-900">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+        <Link
+          href="/blogs"
+          className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors mb-10"
         >
-          <ArrowLeft size={20} className="mr-2" />
+          <ArrowLeft size={16} className="mr-2" />
           Back to posts
         </Link>
 
-        <div className="grid lg:grid-cols-[1fr,380px] gap-8">
-          <article className="relative">
-            {postImageUrl && (
-              <div className="mb-8 rounded-xl overflow-hidden ring-1 ring-purple-500/20">
-                <img
-                  src={postImageUrl}
-                  alt={post.title}
-                  className="w-full aspect-video object-cover"
-                  width="1200"
-                  height="675"
-                />
+        <div className="grid lg:grid-cols-[1fr,340px] gap-12">
+          <article className="max-w-2xl">
+            {/* Categories */}
+            {post.categories && post.categories.length > 0 && (
+              <div className="flex flex-wrap items-center gap-2 mb-5">
+                {post.categories.map((category) =>
+                  category.slug && category.slug.current ? (
+                    <Link
+                      key={category.slug.current}
+                      href={`/blogs/category/${category.slug.current}`}
+                      className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 hover:bg-indigo-100 transition-colors"
+                    >
+                      <Tag size={12} className="text-indigo-500" />
+                      <span className="text-xs font-medium text-indigo-600">
+                        {category.title}
+                      </span>
+                    </Link>
+                  ) : (
+                    <div
+                      key={category.title}
+                      className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-50 border border-slate-200"
+                    >
+                      <Tag size={12} className="text-slate-400" />
+                      <span className="text-xs font-medium text-slate-500">
+                        {category.title}
+                      </span>
+                    </div>
+                  )
+                )}
               </div>
             )}
 
-            {/* Meta Information */}
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-6">
-              <div className="flex items-center gap-1">
-                <Calendar size={16} className="text-purple-400" />
+            {/* Title */}
+            <h1 className="text-3xl md:text-5xl font-bold leading-tight text-slate-900 mb-6 tracking-tight">
+              {post.title}
+            </h1>
+
+            {/* Meta */}
+            <div className="flex flex-wrap items-center gap-5 text-sm text-slate-500 pb-6 mb-8 border-b border-slate-100">
+              <div className="flex items-center gap-1.5">
+                <Calendar size={15} />
                 <time dateTime={post.publishedAt}>
-                  {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                    month: 'long',
-                    day: 'numeric',
-                    year: 'numeric'
+                  {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
                   })}
                 </time>
               </div>
               {post.estimatedReadingTime && (
-                <div className="flex items-center gap-1">
-                  <Clock size={16} className="text-pink-400" />
+                <div className="flex items-center gap-1.5">
+                  <Clock size={15} />
                   <span>{post.estimatedReadingTime} min read</span>
                 </div>
               )}
-              
-              {/* Categories - Fixed with null check */}
-              {post.categories && post.categories.length > 0 && (
-                <div className="flex flex-wrap items-center gap-2">
-                  {post.categories.map((category) => (
-                    category.slug && category.slug.current ? (
-                      <Link 
-                        key={category.slug.current}
-                        href={`/blogs/category/${category.slug.current}`}
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 hover:bg-indigo-500/20 transition-colors"
-                      >
-                        <Tag size={12} className="text-indigo-400" />
-                        <span className="text-xs font-medium text-indigo-400">
-                          {category.title}
-                        </span>
-                      </Link>
-                    ) : (
-                      // Fallback for categories without slug
-                      <div 
-                        key={category.title}
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gray-500/10 border border-gray-500/20"
-                      >
-                        <Tag size={12} className="text-gray-400" />
-                        <span className="text-xs font-medium text-gray-400">
-                          {category.title}
-                        </span>
-                      </div>
-                    )
-                  ))}
-                </div>
-              )}
-
             </div>
 
-            {/* Author Section */}
+            {postImageUrl && (
+              <div className="mb-10 rounded-2xl overflow-hidden border border-slate-100 shadow-sm">
+                <img
+                  src={postImageUrl}
+                  alt={post.title}
+                  className="w-full aspect-video object-cover"
+                  width="1400"
+                  height="787"
+                />
+              </div>
+            )}
+
+            {/* Author */}
             {post.author && (
-              <div className="flex items-center gap-4 mb-8 p-4 rounded-lg bg-slate-900/50 border border-slate-800">
+              <div className="flex items-center gap-4 mb-10 p-4 rounded-xl bg-slate-50 border border-slate-100">
                 {authorImageUrl && (
                   <img
                     src={authorImageUrl}
                     alt={post.author.name}
-                    className="w-12 h-12 rounded-full ring-2 ring-purple-500/50"
+                    className="w-11 h-11 rounded-full ring-2 ring-white shadow-sm"
                   />
                 )}
                 <div className="flex-1">
-                  <h3 className="font-semibold text-gray-200">{post.author.name}</h3>
+                  <p className="text-sm text-slate-400">Written by</p>
+                  <h3 className="font-semibold text-slate-900">{post.author.name}</h3>
                   {post.author.bio && (
-                    <div className="text-sm text-gray-400 mt-1">
+                    <div className="text-sm text-slate-500 mt-1">
                       <PortableText value={post.author.bio} />
                     </div>
                   )}
@@ -355,59 +345,54 @@ export default async function PostPage({
               </div>
             )}
 
-            <h1 className="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-green-500 bg-clip-text text-transparent">
-              {post.title}
-            </h1>
-
-            <div className="max-w-none prose prose-invert">
-              {post.body && (
-                <PortableText 
-                  value={post.body} 
-                  components={components}
-                />
-              )}
+            {/* Body */}
+            <div className="prose prose-slate max-w-none">
+              {post.body && <PortableText value={post.body} components={components} />}
             </div>
 
-            {/* Share Buttons */}
-            <div className="mt-12 pt-8 border-t border-slate-800">
+            {/* Share */}
+            <div className="mt-14 pt-8 border-t border-slate-100">
               <ShareButtons title={post.title} slug={post.slug.current} />
             </div>
           </article>
 
-          <aside className="lg:border-l lg:border-slate-800 lg:pl-8">
-            <div className="sticky top-8">
-              <h2 className="text-xl font-semibold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          {/* Sidebar */}
+          <aside className="lg:border-l lg:border-slate-100 lg:pl-10">
+            <div className="sticky top-10">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-400 mb-6">
                 Recent Posts
               </h2>
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-3">
                 {recentPosts.map((recentPost) => (
-                  <Link 
+                  <Link
                     key={recentPost.slug.current}
                     href={`/blogs/${recentPost.slug.current}`}
                     className="group"
                   >
-                    <article className="flex gap-4 p-3 rounded-lg transition-all 
-                      hover:bg-slate-900/50 hover:ring-1 hover:ring-purple-500/20">
+                    <article className="flex gap-4 p-2 rounded-xl transition-colors hover:bg-slate-50">
                       {recentPost.mainImage && (
                         <img
-                          src={urlFor(recentPost.mainImage)?.width(100).height(100).url()}
+                          src={urlFor(recentPost.mainImage)?.width(96).height(96).url()}
                           alt={recentPost.title}
-                          className="w-24 h-24 rounded-lg object-cover ring-1 ring-slate-800"
+                          className="w-16 h-16 rounded-lg object-cover border border-slate-100 shrink-0"
                         />
                       )}
-                      <div className="flex-1">
-                        <h3 className="font-medium text-gray-200 group-hover:text-purple-400 transition-colors line-clamp-2 mb-2">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-medium text-slate-800 group-hover:text-indigo-600 transition-colors line-clamp-2 mb-1">
                           {recentPost.title}
                         </h3>
-                        <time className="text-sm text-gray-500">
-                          {new Date(recentPost.publishedAt).toLocaleDateString('en-US', {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric'
+                        <time className="text-xs text-slate-400">
+                          {new Date(recentPost.publishedAt).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
                           })}
                         </time>
                       </div>
-                      <ChevronRight size={20} className="text-gray-600 group-hover:text-pink-400 transition-colors" />
+                      <ChevronRight
+                        size={16}
+                        className="text-slate-300 group-hover:text-indigo-500 transition-colors mt-1 shrink-0"
+                      />
                     </article>
                   </Link>
                 ))}

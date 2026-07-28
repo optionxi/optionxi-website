@@ -1,9 +1,9 @@
 'use client'
 import { useEffect } from 'react'
+import type { JSX } from 'react'
 
 export default function ChatwootWidget(): JSX.Element | null {
   useEffect(() => {
-    // Only run on client side
     const script = document.createElement('script')
     script.innerHTML = `
       (function(d,t) {
@@ -22,11 +22,11 @@ export default function ChatwootWidget(): JSX.Element | null {
       })(document,"script");
     `
     document.body.appendChild(script)
-    
+
     return () => {
       document.body.removeChild(script)
     }
   }, [])
-  
+
   return null
 }
