@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 import {
   ArrowRight, Shield, Zap, BarChart3, Bell, Trophy, LineChart,
@@ -110,7 +110,7 @@ const PLANS = [
     tagline: "Stay updated on the market",
     price: 400,
     popular: false,
-    features: ["Real-time market sentiment alerts", "Real-time news alerts", "Up to 30 stock screeners"],
+    features: ["Market sentiment alerts", "News alerts", "Up to 30 stock screeners"],
   },
   {
     key: "pro",
@@ -118,7 +118,7 @@ const PLANS = [
     tagline: "For active, hands-on traders",
     price: 800,
     popular: true,
-    features: ["Everything in Basic", "Real-time stock pick alerts", "Up to 50 stock screeners"],
+    features: ["Everything in Basic", "Stock pick alerts", "Up to 50 stock screeners"],
   },
   {
     key: "max",
@@ -126,23 +126,102 @@ const PLANS = [
     tagline: "The full research & automation suite",
     price: 1500,
     popular: false,
-    features: ["Everything in Pro", "In-depth research analysis", "Live market depth data", "3 custom algo deployments", "Alerts on WhatsApp"],
+    features: ["Everything in Pro", "3 custom algo deployments", "Alerts on WhatsApp"],
   },
 ];
 
-const REVIEWS = [
-  { name: "Geetasri A.", tag: "Beginner trader", text: "One of the best apps for beginners — genuinely helpful for learning the ropes.", rating: 5 },
-  { name: "Sajith Antony", tag: "Swing trader", text: "My go-to for real-time updates. Smooth interface, timely notifications, great for staying ahead.", rating: 5 },
-  { name: "Satish Reddy", tag: "Options trader", text: "Best app so far for virtual trading in stocks — simple, clean UI.", rating: 5 },
-  { name: "Meera Krishnan", tag: "Paper trader", text: "The screener alone is worth it — found three breakout setups in my first week.", rating: 5 },
-  { name: "Arjun Nair", tag: "Intraday trader", text: "Option chain view is clean and fast, no lag during market hours.", rating: 4 },
-  { name: "Priya Suresh", tag: "New investor", text: "Journaling my trades finally made me see my own bad habits. Overdue feature.", rating: 5 },
-   {
-    name: "Geetasri Anjaneyulu Gundapu",
-    date: "April 21, 2026",
-    text: "A genuine review — it's one of the best apps for beginners, I loved a lot from it, but be careful, there are some price variations in reality. So good luck.",
-    rating: 5,
+const REVIEWS = 
+[
+  {
+    "name": "Sethupathi",
+    "avatar": "https://play-lh.googleusercontent.com/a/ACg8ocJsNFgza0Kk0j5touYiUrmaxvb9bBS2v7rm0A0fLDtbmslWRA=mo",
+    "text": "excellent app for traders",
+    "rating": 5,
+    "date": "July 16, 2026",
+    "reviewId": "aa194927-bd76-47e7-b736-09f3b022c6d3",
+    "link": "https://play.google.com/store/apps/details?id=com.optionxi.app&reviewId=aa194927-bd76-47e7-b736-09f3b022c6d3&showAllReviews=true"
   },
+  {
+    "name": "Ansh Kumar",
+    "avatar": "https://play-lh.googleusercontent.com/a/ACg8ocKlgQ6G9gVe7V1bYeJRdh9lCgHEE6Tq1tI6yd0BzY_-pZEMhw=mo",
+    "text": "this is the best app I have seen in my life",
+    "rating": 5,
+    "date": "June 08, 2026",
+    "reviewId": "d9a0facc-87a6-4823-a074-74aee19f95c0",
+    "link": "https://play.google.com/store/apps/details?id=com.optionxi.app&reviewId=d9a0facc-87a6-4823-a074-74aee19f95c0&showAllReviews=true"
+  },
+  {
+    "name": "satyanarayana satyanarayana",
+    "avatar": "https://play-lh.googleusercontent.com/a-/ALV-UjXLQKRuQBQf8OtXdOOiAVVM1OuAUJP6o02vHHUfNpQJWg8ZW7Ip",
+    "text": "Thank you for your support! 😊 If you are satisfied with our service, please give us a 5-star rating and share your valuable feedback. Your encouragement helps us improve and serve you better.",
+    "rating": 5,
+    "date": "May 19, 2026",
+    "reviewId": "d49e356e-24b5-4f57-9f3c-268baa6b7f33",
+    "link": "https://play.google.com/store/apps/details?id=com.optionxi.app&reviewId=d49e356e-24b5-4f57-9f3c-268baa6b7f33&showAllReviews=true"
+  },
+  {
+    "name": "Suvajit Mondal",
+    "avatar": "https://play-lh.googleusercontent.com/a-/ALV-UjVaIAXis2cnpWL0IhaQ9SWPn2vA6eFjk_NTp6U6GwLXOVAZq3-X",
+    "text": "Can we do stocks option trade in this application?",
+    "rating": 5,
+    "date": "April 24, 2026",
+    "reviewId": "c9c50fe0-980b-4876-91d2-708186febda6",
+    "link": "https://play.google.com/store/apps/details?id=com.optionxi.app&reviewId=c9c50fe0-980b-4876-91d2-708186febda6&showAllReviews=true"
+  },
+  {
+    "name": "Geetasri Anjaneyulu Gundapu",
+    "avatar": "https://play-lh.googleusercontent.com/a/ACg8ocKu67YsPy_NRDSSEbph_bKh4WV2FJvmD8Qid9Qi_qSiJd_u29k=mo",
+    "text": "a genuine review , it the one of the best app for beginners I loved a lot from it but becarefull there are some price variations in reality,so good luck.",
+    "rating": 5,
+    "date": "April 21, 2026",
+    "reviewId": "c4166dbd-66ce-4ec7-87d5-0c0243692c08",
+    "link": "https://play.google.com/store/apps/details?id=com.optionxi.app&reviewId=c4166dbd-66ce-4ec7-87d5-0c0243692c08&showAllReviews=true"
+  },
+  {
+    "name": "Ravindra Golhar",
+    "avatar": "https://play-lh.googleusercontent.com/a/ACg8ocJvcztT-vi9K4jFu4OB52AdaMkITyQ2FSU9zH3gEOU6Pns_vA=mo",
+    "text": "very good app...live market data provided by app very helpfull for option trader",
+    "rating": 5,
+    "date": "March 21, 2026",
+    "reviewId": "e68f0e4a-2a91-4727-b367-fa74d7952249",
+    "link": "https://play.google.com/store/apps/details?id=com.optionxi.app&reviewId=e68f0e4a-2a91-4727-b367-fa74d7952249&showAllReviews=true"
+  },
+  {
+    "name": "Soni Ashish",
+    "avatar": "https://play-lh.googleusercontent.com/a-/ALV-UjVPPAz51owQnk6txzuWHK-LPF6jyGSHEb3IoBCGyMMjd26QuaEf",
+    "text": "yah application bahut acchi hai ismein Data dekhne mein bahut help milati hai",
+    "rating": 5,
+    "date": "March 13, 2026",
+    "reviewId": "70fc8bf4-0f0d-4f52-8099-541392736eec",
+    "link": "https://play.google.com/store/apps/details?id=com.optionxi.app&reviewId=70fc8bf4-0f0d-4f52-8099-541392736eec&showAllReviews=true"
+  },
+  {
+    "name": "Rahul Sivaraman",
+    "avatar": "https://play-lh.googleusercontent.com/a/ACg8ocK6LLAg8EJsylhC_8F3DBLcgQuc1n0CNVLgPSUxvrHWgV9-2w=mo",
+    "text": "this is a great app with loaded with most required features . Thanks for developers",
+    "rating": 5,
+    "date": "March 11, 2026",
+    "reviewId": "20984376-a9c8-460e-aaed-eb3d2965ed89",
+    "link": "https://play.google.com/store/apps/details?id=com.optionxi.app&reviewId=20984376-a9c8-460e-aaed-eb3d2965ed89&showAllReviews=true"
+  },
+  {
+    "name": "Ramesh Mistry lugel Crcc klm",
+    "avatar": "https://play-lh.googleusercontent.com/a-/ALV-UjXEFEZ2by13ES8AquHo4Hudd7xAJJZtREoPRN3W_bQm_dO-tHXq",
+    "text": "It is good and accurate signal provide👍",
+    "rating": 5,
+    "date": "January 21, 2026",
+    "reviewId": "8de20ed9-6b43-4756-958a-aef875d8b811",
+    "link": "https://play.google.com/store/apps/details?id=com.optionxi.app&reviewId=8de20ed9-6b43-4756-958a-aef875d8b811&showAllReviews=true"
+  },
+  {
+    "name": "Christhejus : Business Account",
+    "avatar": "https://play-lh.googleusercontent.com/a-/ALV-UjVJ2iYDVUHU8mVd-wKEhs7w2_aGj0j_JwVHd30LP2lLy_LeilaJ",
+    "text": "Its pretty good for beginners who are looking for market sentiment analysis, great customer support",
+    "rating": 5,
+    "date": "January 19, 2026",
+    "reviewId": "25cc9f54-358f-4749-b0fb-1252cbce090f",
+    "link": "https://play.google.com/store/apps/details?id=com.optionxi.app&reviewId=25cc9f54-358f-4749-b0fb-1252cbce090f&showAllReviews=true"
+  }
 ];
 
 function avatarColor(name: string) {
@@ -150,11 +229,16 @@ function avatarColor(name: string) {
   const idx = name.charCodeAt(0) % palette.length;
   return palette[idx];
 }
-
 function ReviewCard({ r, t }: { r: (typeof REVIEWS)[number]; t: any }) {
+  const CardWrapper = r.link ? "a" : "div";
+  const wrapperProps = r.link
+    ? { href: r.link, target: "_blank", rel: "noopener noreferrer" }
+    : {};
+
   return (
-    <div
-      className={`group relative w-[320px] shrink-0 rounded-2xl border ${t.border} ${t.card} p-6 overflow-hidden transition-all duration-300 hover:-translate-y-1`}
+    <CardWrapper
+      {...wrapperProps}
+      className={`group relative w-[320px] shrink-0 rounded-2xl border ${t.border} ${t.card} p-6 overflow-hidden transition-all duration-300 hover:-translate-y-1 block`}
     >
       {/* glow border on hover */}
       <div
@@ -168,12 +252,26 @@ function ReviewCard({ r, t }: { r: (typeof REVIEWS)[number]; t: any }) {
         }}
       />
       <div className="flex items-center gap-3 mb-4">
-        <div className={`w-10 h-10 rounded-full ${avatarColor(r.name)} flex items-center justify-center text-white font-semibold text-sm shrink-0`}>
+        {r.avatar ? (
+         <img
+            src={r.avatar}
+            alt={r.name}
+            referrerPolicy="no-referrer"
+            className="w-10 h-10 rounded-full shrink-0 object-cover"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+              e.currentTarget.nextElementSibling?.classList.remove("hidden");
+            }}
+          />
+        ) : null}
+        <div
+          className={`w-10 h-10 rounded-full ${avatarColor(r.name)} flex items-center justify-center text-white font-semibold text-sm shrink-0 ${r.avatar ? "hidden" : ""}`}
+        >
           {r.name.charAt(0)}
         </div>
         <div>
           <p className="font-semibold text-sm leading-tight">{r.name}</p>
-          <p className={`text-xs ${t.sub}`}>{r.tag}</p>
+          <p className={`text-xs ${t.sub}`}>{r.date}</p>
         </div>
         <div className="ml-auto flex text-amber-400">
           {[...Array(r.rating)].map((_, j) => (
@@ -182,7 +280,7 @@ function ReviewCard({ r, t }: { r: (typeof REVIEWS)[number]; t: any }) {
         </div>
       </div>
       <p className={`text-sm leading-relaxed ${t.sub}`}>"{r.text}"</p>
-    </div>
+    </CardWrapper>
   );
 }
 
@@ -364,134 +462,142 @@ export default function OptionXiLanding() {
       </section>
 
       {/* ---------------- Features (pinned, crossfading stage) ---------------- */}
-      <section id="features" className="relative">
-        <style>{`
-          @keyframes featureFadeIn { from { opacity: 0; } to { opacity: 1; } }
-          .feature-fade { animation: featureFadeIn 0.5s ease; }
-        `}</style>
+      {/* ---------------- Features (pinned, crossfading stage) ---------------- */}
+<section id="features" className="relative">
+  <style>{`
+    @keyframes featureFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .feature-fade { animation: featureFadeIn 0.5s ease; }
+  `}</style>
 
-        {/* Section intro — normal scroll, sits above the pinned stage */}
-        <div className="max-w-7xl mx-auto px-6 pt-24 pb-16">
-          <div className="max-w-2xl">
-            <span className="text-emerald-600 text-sm font-semibold uppercase tracking-wide">What you can do</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4 tracking-tight">Everything a self-taught trader needs</h2>
-            <p className={`${t.sub} text-lg`}>No jargon, no clutter — just the tools that help you understand the market and practice safely.</p>
-          </div>
-        </div>
+  {/* Section intro — normal scroll, sits above the pinned stage */}
+  <div className="max-w-7xl mx-auto px-6 pt-24 pb-16">
+    <div className="max-w-2xl">
+      <span className="text-emerald-600 text-sm font-semibold uppercase tracking-wide">What you can do</span>
+      <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4 tracking-tight">Everything a self-taught trader needs</h2>
+      <p className={`${t.sub} text-lg`}>No jargon, no clutter — just the tools that help you understand the market and practice safely.</p>
+    </div>
+  </div>
 
-        {/* Scroll runway: height = one screen per feature. Invisible triggers only — no visible movement. */}
-        <div className="relative" style={{ height: `${FEATURES_DETAILED.length * 100}vh` }}>
-          {FEATURES_DETAILED.map((_, i) => (
+  {/* Scroll runway: height = one screen per feature. Invisible triggers only — no visible movement. */}
+  <div className="relative" style={{ height: `${FEATURES_DETAILED.length * 100}vh` }}>
+    {FEATURES_DETAILED.map((_, i) => (
+      <div
+        key={i}
+        ref={(el) => { featureRefs.current[i] = el; }}
+        className="absolute w-full h-screen pointer-events-none"
+        style={{ top: `${i * 100}vh` }}
+      />
+    ))}
+
+    {/* The pinned stage itself — stays put, only content inside crossfades */}
+    <div className={`sticky top-0 h-screen flex items-center border-y ${t.border} ${t.bgAlt} overflow-hidden`}>
+      <div className="max-w-7xl mx-auto px-6 w-full flex lg:grid lg:grid-cols-2 gap-16 items-center justify-center">
+
+        {/* Left: text content — hidden on mobile, visible from lg up */}
+        <div className="hidden lg:block relative h-[28rem] xl:h-[26rem] pt-16 pb-16">
+          {FEATURES_DETAILED.map((f, i) => (
             <div
               key={i}
-              ref={(el) => { featureRefs.current[i] = el; }}
-              className="absolute w-full h-screen pointer-events-none"
-              style={{ top: `${i * 100}vh` }}
-            />
-          ))}
-
-          {/* The pinned stage itself — stays put, only content inside crossfades */}
-          <div className={`sticky top-0 h-screen flex items-center border-y ${t.border} ${t.bgAlt} overflow-hidden`}>
-            <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-16 items-center">
-              {/* Left: text content, crossfades only, no translation */}
-              <div className="relative h-[30rem] sm:h-[28rem] lg:h-[24rem] xl:h-[26rem] pt-16 pb-16">
-                {FEATURES_DETAILED.map((f, i) => (
-                  <div
-                      key={i}
-                      className="absolute inset-0 pt-3 sm:pt-4 transition-opacity duration-500 ease-in-out"
-                      style={{ opacity: activeFeature === i ? 1 : 0, pointerEvents: activeFeature === i ? "auto" : "none" }}
-                    >
-                    <div className={`w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-emerald-600/10 flex items-center justify-center mb-4 sm:mb-6`}>
-                      <f.icon size={22} className="text-emerald-600 sm:hidden" />
-                      <f.icon size={26} className="text-emerald-600 hidden sm:block" />
-                    </div>
-                    
-
-                    <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl mb-2.5 sm:mb-4 tracking-tight leading-tight">
-                      {f.title}
-                    </h3>
-                    <p className={`${t.sub} text-sm sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6 max-w-lg`}>
-                      {f.body}
-                    </p>
-                    <br/>
-
-                    <ul className="space-y-2 sm:space-y-3 mb-5 sm:mb-7">
-                      {f.points.map((pt, j) => (
-                        <li key={j} className="flex items-start gap-2 sm:gap-2.5 text-sm sm:text-base">
-                          <CheckCircle2 size={16} className="text-emerald-500 flex-shrink-0 mt-0.5 sm:hidden" />
-                          <CheckCircle2 size={18} className="text-emerald-500 flex-shrink-0 mt-0.5 hidden sm:block" />
-                          <span className={t.sub}>{pt}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <br/>
-                    <br/>
-
-                    <div className={`inline-flex items-baseline gap-2 rounded-xl border ${t.border} ${t.card} px-4 sm:px-5 py-2.5 sm:py-3`}>
-                      <span className="text-xl sm:text-2xl font-extrabold font-mono text-emerald-600">{f.stat.value}</span>
-                      <span className={`text-xs sm:text-sm ${t.sub}`}>{f.stat.label}</span>
-                    </div>
-                  </div>
-                ))}
-
-                
-
-                {/* Step indicator — now pinned to the reserved pb-16 zone, never overlaps text */}
-                <div className="absolute bottom-0 left-0 flex items-center gap-2 pb-1">
-                  {FEATURES_DETAILED.map((_, i) => (
-                    <div
-                      key={i}
-                      className={`h-1.5 rounded-full transition-all duration-500 ${
-                        activeFeature === i ? "w-10 bg-emerald-500" : `w-5 ${dark ? "bg-slate-700" : "bg-slate-300"}`
-                      }`}
-                    />
-                  ))}
-                </div>
+              className="absolute inset-0 pt-4 transition-opacity duration-500 ease-in-out"
+              style={{ opacity: activeFeature === i ? 1 : 0, pointerEvents: activeFeature === i ? "auto" : "none" }}
+            >
+              <div className="w-14 h-14 rounded-xl bg-emerald-600/10 flex items-center justify-center mb-6">
+                <f.icon size={26} className="text-emerald-600" />
               </div>
 
-              {/* Right: phone mockup, fixed position, only the screen content crossfades */}
-              <div className="hidden lg:flex justify-center items-center relative">
-                <div
-                  className={`relative w-80 aspect-[9/19.5] rounded-[2.6rem] border-[10px] ${dark ? "border-slate-800" : "border-slate-900"} bg-slate-900 shadow-2xl overflow-hidden`}
-                >
-                  <div className="relative w-full h-full">
-                    {FEATURE_SCREENSHOTS.map((shot, i) => (
-                      <img
-                        key={i}
-                        src={getSrc(shot)}
-                        alt={FEATURES_DETAILED[i].title}
-                        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out"
-                        style={{ opacity: activeFeature === i ? 1 : 0 }}
-                      />
-                    ))}
-                  </div>
-                </div>
+              <h3 className="font-bold text-3xl md:text-4xl mb-4 tracking-tight leading-tight">
+                {f.title}
+              </h3>
+              <p className={`${t.sub} text-base md:text-lg leading-relaxed mb-6 max-w-lg`}>
+                {f.body}
+              </p>
+              <br />
 
-                {/* Floating chip, crossfades with the same rhythm as the screen */}
-                <div className="absolute -left-10 top-12">
-                  {FEATURE_SCREENSHOTS.map((shot, i) => {
-                    const ChipIcon = shot.chip.icon;
-                    return (
-                      <div
-                        key={i}
-                        className={`flex items-center gap-2.5 rounded-xl border ${t.border} ${t.card} shadow-lg px-4 py-2.5 transition-opacity duration-500 ease-in-out`}
-                        style={{ opacity: activeFeature === i ? 1 : 0, position: i === 0 ? "relative" : "absolute", top: 0, left: 0 }}
-                      >
-                        <ChipIcon size={16} className="text-emerald-500" />
-                        <div className="text-sm whitespace-nowrap">
-                          <div className="font-semibold">{shot.chip.label}</div>
-                          <div className={t.sub}>{shot.chip.value}</div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+              <ul className="space-y-3 mb-7">
+                {f.points.map((pt, j) => (
+                  <li key={j} className="flex items-start gap-2.5 text-base">
+                    <CheckCircle2 size={18} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+                    <span className={t.sub}>{pt}</span>
+                  </li>
+                ))}
+              </ul>
+              <br />
+              <br />
+
+              <div className={`inline-flex items-baseline gap-2 rounded-xl border ${t.border} ${t.card} px-5 py-3`}>
+                <span className="text-2xl font-extrabold font-mono text-emerald-600">{f.stat.value}</span>
+                <span className={`text-sm ${t.sub}`}>{f.stat.label}</span>
               </div>
             </div>
+          ))}
+
+          {/* Step indicator */}
+          <div className="absolute bottom-0 left-0 flex items-center gap-2 pb-1">
+            {FEATURES_DETAILED.map((_, i) => (
+              <div
+                key={i}
+                className={`h-1.5 rounded-full transition-all duration-500 ${
+                  activeFeature === i ? "w-10 bg-emerald-500" : `w-5 ${dark ? "bg-slate-700" : "bg-slate-300"}`
+                }`}
+              />
+            ))}
           </div>
         </div>
-      </section>
 
+        {/* Right: phone mockup — visible on ALL screen sizes, sized per breakpoint */}
+        <div className="flex flex-col justify-center items-center relative py-10 lg:py-0">
+          <div
+            className={`relative w-48 sm:w-60 md:w-72 lg:w-80 aspect-[9/19.5] rounded-[2rem] sm:rounded-[2.3rem] lg:rounded-[2.6rem] border-[6px] sm:border-[8px] lg:border-[10px] ${dark ? "border-slate-800" : "border-slate-900"} bg-slate-900 shadow-2xl overflow-hidden`}
+          >
+            <div className="relative w-full h-full">
+              {FEATURE_SCREENSHOTS.map((shot, i) => (
+                <img
+                  key={i}
+                  src={getSrc(shot)}
+                  alt={FEATURES_DETAILED[i].title}
+                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out"
+                  style={{ opacity: activeFeature === i ? 1 : 0 }}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Floating chip — desktop only, avoids overflow issues on small screens */}
+          <div className="hidden lg:block absolute -left-10 top-12">
+            {FEATURE_SCREENSHOTS.map((shot, i) => {
+              const ChipIcon = shot.chip.icon;
+              return (
+                <div
+                  key={i}
+                  className={`flex items-center gap-2.5 rounded-xl border ${t.border} ${t.card} shadow-lg px-4 py-2.5 transition-opacity duration-500 ease-in-out`}
+                  style={{ opacity: activeFeature === i ? 1 : 0, position: i === 0 ? "relative" : "absolute", top: 0, left: 0 }}
+                >
+                  <ChipIcon size={16} className="text-emerald-500" />
+                  <div className="text-sm whitespace-nowrap">
+                    <div className="font-semibold">{shot.chip.label}</div>
+                    <div className={t.sub}>{shot.chip.value}</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Step indicator — mobile/tablet only, since text block (and its dots) is hidden */}
+          <div className="flex lg:hidden items-center gap-2 mt-6">
+            {FEATURES_DETAILED.map((_, i) => (
+              <div
+                key={i}
+                className={`h-1.5 rounded-full transition-all duration-500 ${
+                  activeFeature === i ? "w-8 bg-emerald-500" : `w-4 ${dark ? "bg-slate-700" : "bg-slate-300"}`
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* ---------------- How it works ---------------- */}
       <section id="how" className={`${t.bgAlt} border-y ${t.border} py-24`}>
@@ -646,7 +752,7 @@ export default function OptionXiLanding() {
               <Star size={18} fill="currentColor" strokeWidth={0} className="opacity-40" />
             </div>
             <span className="font-bold text-lg">4.2</span>
-            <span className={t.sub}>· 48 reviews</span>
+            <span className={t.sub}>· 56 reviews</span>
           </div>
         </div>
 
