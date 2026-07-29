@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 import {
-  ArrowRight, Shield, Zap, BarChart3, Bell, Trophy, LineChart,
+  ArrowRight, Shield, BarChart3, Bell, Trophy, LineChart,
   Star, CheckCircle2, Github, ChevronRight, Users,
   GraduationCap, Lock, Sparkles,
   BrainCircuit
@@ -547,8 +547,7 @@ export default function OptionXiLanding() {
         {/* Right: phone mockup — visible on ALL screen sizes, sized per breakpoint */}
         <div className="flex flex-col justify-center items-center relative py-10 lg:py-0">
           <div
-            className={`relative w-48 sm:w-60 md:w-72 lg:w-80 aspect-[9/19.5] rounded-[2rem] sm:rounded-[2.3rem] lg:rounded-[2.6rem] border-[6px] sm:border-[8px] lg:border-[10px] ${dark ? "border-slate-800" : "border-slate-900"} bg-slate-900 shadow-2xl overflow-hidden`}
-          >
+           className={`relative w-56 sm:w-60 md:w-72 lg:w-80 aspect-[9/19.5] rounded-[2rem] sm:rounded-[2.3rem] lg:rounded-[2.6rem] border-8 sm:border-8 lg:border-[10px] ${dark ? "border-slate-800" : "border-slate-900"} bg-slate-900 shadow-2xl overflow-hidden`}>
             <div className="relative w-full h-full">
               {FEATURE_SCREENSHOTS.map((shot, i) => (
                 <img
