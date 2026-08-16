@@ -105,14 +105,6 @@ const STEPS = [
 
 const PLANS = [
   {
-    key: "basic",
-    name: "Basic",
-    tagline: "Stay updated on the market",
-    price: 400,
-    popular: false,
-    features: ["Market sentiment alerts", "News alerts", "Up to 30 stock screeners"],
-  },
-  {
     key: "pro",
     name: "Pro",
     tagline: "For active, hands-on traders",
@@ -311,8 +303,26 @@ export default function OptionXiLanding() {
   const getSrc = useThemedSrc();
 
   useEffect(() => setMounted(true), []);
+  const [launchingPlanKey, setLaunchingPlanKey] = useState<string | null>(null);
 
-  
+  async function handleChoosePlan(plan: (typeof PLANS)[number]) {
+    setLaunchingPlanKey(plan.key);
+    try {
+      // 1) Open a prefilled support email
+      const subject = `Subscribe to ${plan.name} plan`;
+      const body = `Hi OptionXi, I'd like to subscribe to the ${plan.name} plan (₹${plan.price}/month).`;
+      window.open(
+        `mailto:support@optionxi.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
+        "_blank",
+        "noopener,noreferrer"
+      );
+    } catch (err) {
+      console.error("Could not start checkout:", err);
+    } finally {
+      setLaunchingPlanKey(null);
+    }
+  }
+    
 
   // Avoid a flash of the wrong theme before next-themes has resolved on the client
   const dark = mounted && resolvedTheme === "dark";
@@ -462,141 +472,140 @@ export default function OptionXiLanding() {
       </section>
 
       {/* ---------------- Features (pinned, crossfading stage) ---------------- */}
-      {/* ---------------- Features (pinned, crossfading stage) ---------------- */}
-<section id="features" className="relative">
-  <style>{`
-    @keyframes featureFadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .feature-fade { animation: featureFadeIn 0.5s ease; }
-  `}</style>
+      <section id="features" className="relative">
+        <style>{`
+          @keyframes featureFadeIn { from { opacity: 0; } to { opacity: 1; } }
+          .feature-fade { animation: featureFadeIn 0.5s ease; }
+        `}</style>
 
-  {/* Section intro — normal scroll, sits above the pinned stage */}
-  <div className="max-w-7xl mx-auto px-6 pt-24 pb-16">
-    <div className="max-w-2xl">
-      <span className="text-emerald-600 text-sm font-semibold uppercase tracking-wide">What you can do</span>
-      <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4 tracking-tight">Everything a self-taught trader needs</h2>
-      <p className={`${t.sub} text-lg`}>No jargon, no clutter — just the tools that help you understand the market and practice safely.</p>
-    </div>
-  </div>
+        {/* Section intro — normal scroll, sits above the pinned stage */}
+        <div className="max-w-7xl mx-auto px-6 pt-24 pb-16">
+          <div className="max-w-2xl">
+            <span className="text-emerald-600 text-sm font-semibold uppercase tracking-wide">What you can do</span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4 tracking-tight">Everything a self-taught trader needs</h2>
+            <p className={`${t.sub} text-lg`}>No jargon, no clutter — just the tools that help you understand the market and practice safely.</p>
+          </div>
+        </div>
 
-  {/* Scroll runway: height = one screen per feature. Invisible triggers only — no visible movement. */}
-  <div className="relative" style={{ height: `${FEATURES_DETAILED.length * 100}vh` }}>
-    {FEATURES_DETAILED.map((_, i) => (
-      <div
-        key={i}
-        ref={(el) => { featureRefs.current[i] = el; }}
-        className="absolute w-full h-screen pointer-events-none"
-        style={{ top: `${i * 100}vh` }}
-      />
-    ))}
-
-    {/* The pinned stage itself — stays put, only content inside crossfades */}
-    <div className={`sticky top-0 h-screen flex items-center border-y ${t.border} ${t.bgAlt} overflow-hidden`}>
-      <div className="max-w-7xl mx-auto px-6 w-full flex lg:grid lg:grid-cols-2 gap-16 items-center justify-center">
-
-        {/* Left: text content — hidden on mobile, visible from lg up */}
-        <div className="hidden lg:block relative h-[28rem] xl:h-[26rem] pt-16 pb-16">
-          {FEATURES_DETAILED.map((f, i) => (
+        {/* Scroll runway: height = one screen per feature. Invisible triggers only — no visible movement. */}
+        <div className="relative" style={{ height: `${FEATURES_DETAILED.length * 100}vh` }}>
+          {FEATURES_DETAILED.map((_, i) => (
             <div
               key={i}
-              className="absolute inset-0 pt-4 transition-opacity duration-500 ease-in-out"
-              style={{ opacity: activeFeature === i ? 1 : 0, pointerEvents: activeFeature === i ? "auto" : "none" }}
-            >
-              <div className="w-14 h-14 rounded-xl bg-emerald-600/10 flex items-center justify-center mb-6">
-                <f.icon size={26} className="text-emerald-600" />
-              </div>
-
-              <h3 className="font-bold text-3xl md:text-4xl mb-4 tracking-tight leading-tight">
-                {f.title}
-              </h3>
-              <p className={`${t.sub} text-base md:text-lg leading-relaxed mb-6 max-w-lg`}>
-                {f.body}
-              </p>
-              <br />
-
-              <ul className="space-y-3 mb-7">
-                {f.points.map((pt, j) => (
-                  <li key={j} className="flex items-start gap-2.5 text-base">
-                    <CheckCircle2 size={18} className="text-emerald-500 flex-shrink-0 mt-0.5" />
-                    <span className={t.sub}>{pt}</span>
-                  </li>
-                ))}
-              </ul>
-              <br />
-              <br />
-
-              <div className={`inline-flex items-baseline gap-2 rounded-xl border ${t.border} ${t.card} px-5 py-3`}>
-                <span className="text-2xl font-extrabold font-mono text-emerald-600">{f.stat.value}</span>
-                <span className={`text-sm ${t.sub}`}>{f.stat.label}</span>
-              </div>
-            </div>
+              ref={(el) => { featureRefs.current[i] = el; }}
+              className="absolute w-full h-screen pointer-events-none"
+              style={{ top: `${i * 100}vh` }}
+            />
           ))}
 
-          {/* Step indicator */}
-          <div className="absolute bottom-0 left-0 flex items-center gap-2 pb-1">
-            {FEATURES_DETAILED.map((_, i) => (
-              <div
-                key={i}
-                className={`h-1.5 rounded-full transition-all duration-500 ${
-                  activeFeature === i ? "w-10 bg-emerald-500" : `w-5 ${dark ? "bg-slate-700" : "bg-slate-300"}`
-                }`}
-              />
-            ))}
-          </div>
-        </div>
+          {/* The pinned stage itself — stays put, only content inside crossfades */}
+          <div className={`sticky top-0 h-screen flex items-center border-y ${t.border} ${t.bgAlt} overflow-hidden`}>
+            <div className="max-w-7xl mx-auto px-6 w-full flex lg:grid lg:grid-cols-2 gap-16 items-center justify-center">
 
-        {/* Right: phone mockup — visible on ALL screen sizes, sized per breakpoint */}
-        <div className="flex flex-col justify-center items-center relative py-10 lg:py-0">
-          <div
-           className={`relative w-56 sm:w-60 md:w-72 lg:w-80 aspect-[9/19.5] rounded-[2rem] sm:rounded-[2.3rem] lg:rounded-[2.6rem] border-8 sm:border-8 lg:border-[10px] ${dark ? "border-slate-800" : "border-slate-900"} bg-slate-900 shadow-2xl overflow-hidden`}>
-            <div className="relative w-full h-full">
-              {FEATURE_SCREENSHOTS.map((shot, i) => (
-                <img
-                  key={i}
-                  src={getSrc(shot)}
-                  alt={FEATURES_DETAILED[i].title}
-                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out"
-                  style={{ opacity: activeFeature === i ? 1 : 0 }}
-                />
-              ))}
-            </div>
-          </div>
+              {/* Left: text content — hidden on mobile, visible from lg up */}
+              <div className="hidden lg:block relative h-[28rem] xl:h-[26rem] pt-16 pb-16">
+                {FEATURES_DETAILED.map((f, i) => (
+                  <div
+                    key={i}
+                    className="absolute inset-0 pt-4 transition-opacity duration-500 ease-in-out"
+                    style={{ opacity: activeFeature === i ? 1 : 0, pointerEvents: activeFeature === i ? "auto" : "none" }}
+                  >
+                    <div className="w-14 h-14 rounded-xl bg-emerald-600/10 flex items-center justify-center mb-6">
+                      <f.icon size={26} className="text-emerald-600" />
+                    </div>
 
-          {/* Floating chip — desktop only, avoids overflow issues on small screens */}
-          <div className="hidden lg:block absolute -left-10 top-12">
-            {FEATURE_SCREENSHOTS.map((shot, i) => {
-              const ChipIcon = shot.chip.icon;
-              return (
+                    <h3 className="font-bold text-3xl md:text-4xl mb-4 tracking-tight leading-tight">
+                      {f.title}
+                    </h3>
+                    <p className={`${t.sub} text-base md:text-lg leading-relaxed mb-6 max-w-lg`}>
+                      {f.body}
+                    </p>
+                    <br />
+
+                    <ul className="space-y-3 mb-7">
+                      {f.points.map((pt, j) => (
+                        <li key={j} className="flex items-start gap-2.5 text-base">
+                          <CheckCircle2 size={18} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+                          <span className={t.sub}>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <br />
+                    <br />
+
+                    <div className={`inline-flex items-baseline gap-2 rounded-xl border ${t.border} ${t.card} px-5 py-3`}>
+                      <span className="text-2xl font-extrabold font-mono text-emerald-600">{f.stat.value}</span>
+                      <span className={`text-sm ${t.sub}`}>{f.stat.label}</span>
+                    </div>
+                  </div>
+                ))}
+
+                {/* Step indicator */}
+                <div className="absolute bottom-0 left-0 flex items-center gap-2 pb-1">
+                  {FEATURES_DETAILED.map((_, i) => (
+                    <div
+                      key={i}
+                      className={`h-1.5 rounded-full transition-all duration-500 ${
+                        activeFeature === i ? "w-10 bg-emerald-500" : `w-5 ${dark ? "bg-slate-700" : "bg-slate-300"}`
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Right: phone mockup — visible on ALL screen sizes, sized per breakpoint */}
+              <div className="flex flex-col justify-center items-center relative py-10 lg:py-0">
                 <div
-                  key={i}
-                  className={`flex items-center gap-2.5 rounded-xl border ${t.border} ${t.card} shadow-lg px-4 py-2.5 transition-opacity duration-500 ease-in-out`}
-                  style={{ opacity: activeFeature === i ? 1 : 0, position: i === 0 ? "relative" : "absolute", top: 0, left: 0 }}
-                >
-                  <ChipIcon size={16} className="text-emerald-500" />
-                  <div className="text-sm whitespace-nowrap">
-                    <div className="font-semibold">{shot.chip.label}</div>
-                    <div className={t.sub}>{shot.chip.value}</div>
+                className={`relative w-56 sm:w-60 md:w-72 lg:w-80 aspect-[9/19.5] rounded-[2rem] sm:rounded-[2.3rem] lg:rounded-[2.6rem] border-8 sm:border-8 lg:border-[10px] ${dark ? "border-slate-800" : "border-slate-900"} bg-slate-900 shadow-2xl overflow-hidden`}>
+                  <div className="relative w-full h-full">
+                    {FEATURE_SCREENSHOTS.map((shot, i) => (
+                      <img
+                        key={i}
+                        src={getSrc(shot)}
+                        alt={FEATURES_DETAILED[i].title}
+                        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out"
+                        style={{ opacity: activeFeature === i ? 1 : 0 }}
+                      />
+                    ))}
                   </div>
                 </div>
-              );
-            })}
-          </div>
 
-          {/* Step indicator — mobile/tablet only, since text block (and its dots) is hidden */}
-          <div className="flex lg:hidden items-center gap-2 mt-6">
-            {FEATURES_DETAILED.map((_, i) => (
-              <div
-                key={i}
-                className={`h-1.5 rounded-full transition-all duration-500 ${
-                  activeFeature === i ? "w-8 bg-emerald-500" : `w-4 ${dark ? "bg-slate-700" : "bg-slate-300"}`
-                }`}
-              />
-            ))}
+                {/* Floating chip — desktop only, avoids overflow issues on small screens */}
+                <div className="hidden lg:block absolute -left-10 top-12">
+                  {FEATURE_SCREENSHOTS.map((shot, i) => {
+                    const ChipIcon = shot.chip.icon;
+                    return (
+                      <div
+                        key={i}
+                        className={`flex items-center gap-2.5 rounded-xl border ${t.border} ${t.card} shadow-lg px-4 py-2.5 transition-opacity duration-500 ease-in-out`}
+                        style={{ opacity: activeFeature === i ? 1 : 0, position: i === 0 ? "relative" : "absolute", top: 0, left: 0 }}
+                      >
+                        <ChipIcon size={16} className="text-emerald-500" />
+                        <div className="text-sm whitespace-nowrap">
+                          <div className="font-semibold">{shot.chip.label}</div>
+                          <div className={t.sub}>{shot.chip.value}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Step indicator — mobile/tablet only, since text block (and its dots) is hidden */}
+                <div className="flex lg:hidden items-center gap-2 mt-6">
+                  {FEATURES_DETAILED.map((_, i) => (
+                    <div
+                      key={i}
+                      className={`h-1.5 rounded-full transition-all duration-500 ${
+                        activeFeature === i ? "w-8 bg-emerald-500" : `w-4 ${dark ? "bg-slate-700" : "bg-slate-300"}`
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* ---------------- How it works ---------------- */}
       <section id="how" className={`${t.bgAlt} border-y ${t.border} py-24`}>
@@ -720,11 +729,13 @@ export default function OptionXiLanding() {
                     </ul>
 
                     <button
-                      className={`w-full py-3 rounded-xl font-semibold transition-colors ${
+                      onClick={() => handleChoosePlan(p)}
+                      disabled={launchingPlanKey === p.key}
+                      className={`w-full py-3 rounded-xl font-semibold transition-colors disabled:opacity-60 ${
                         p.popular ? "bg-emerald-600 hover:bg-emerald-700 text-white" : `border ${t.border} ${t.navHover}`
                       }`}
                     >
-                      {p.price === 0 ? "Get started free" : `Choose ${p.name}`}
+                      {launchingPlanKey === p.key ? "Opening…" : `Choose ${p.name}`}
                     </button>
                   </div>
                 </div>
