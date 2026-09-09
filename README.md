@@ -1,4 +1,6 @@
-# OptionXi Website [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/1nbbz.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
+# OptionXi Website [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/1nbbz.svg)](https://uptime.betterstack.com/?utm_source=status_badge) 
+
+<a href="https://saasbrowser.com/en/saas/690769/optionxi" target="_blank" rel="nofollow noopener"><img src="https://static-files.saasbrowser.com/saas-browser-badge-14.svg" alt="OptionXi - SaaS database" width="200" /></a>
 
 This is the Nxt Js 14 website, for optionxi. Following is the procedure to design your own version of the website. Follow the installation steps or clone it and use it for your personel projects.
 
