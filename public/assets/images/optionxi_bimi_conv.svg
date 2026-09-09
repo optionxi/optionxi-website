@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg viewBox="0 0 400 400" version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg">
+  <title>bimi-svg-tiny-12-ps</title>
+  <defs/>
+  <g>
+    <circle cx="200" cy="200" r="150" fill="none" stroke="#2D0049" stroke-width="20"/>
+    <circle cx="200" cy="200" r="90" fill="none" stroke="#2D0049" stroke-width="20"/>
+    <circle cx="200" cy="200" r="120" fill="none" stroke="#2D0049" stroke-width="20"/>
+  </g>
+  <text x="200" y="200" font-family="Arial, sans-serif" font-size="70" font-weight="bold" text-anchor="middle" fill="#4B0082"/>
+</svg>
