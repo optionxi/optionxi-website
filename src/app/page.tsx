@@ -105,6 +105,22 @@ const STEPS = [
 
 const PLANS = [
   {
+    key: "fre",
+    name: "Free",
+    tagline: "For new traders",
+    price: 0,
+    popular: false,
+    features: ["Virtual Trading","Basic stock screening", "Limited alerts"],
+  },
+  {
+    key: "pro",
+    name: "Pro",
+    tagline: "For active, hands-on traders",
+    price: 800,
+    popular: true,
+    features: ["Everything in Basic", "Stock pick alerts", "Up to 50 stock screeners"],
+  },
+  {
     key: "pro",
     name: "Pro",
     tagline: "For active, hands-on traders",
