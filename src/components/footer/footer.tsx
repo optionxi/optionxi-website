@@ -181,7 +181,7 @@ const Footer = () => {
           <div className="text-[11px] font-semibold tracking-[0.14em] text-slate-400 dark:text-slate-500 uppercase mb-2">
             About OptionXi
           </div>
-          <p className="text-[12.5px] leading-relaxed text-slate-500 dark:text-slate-400 max-w-4xl">
+          <p className="text-[12.5px] leading-relaxed text-slate-500 dark:text-slate-400 max-w-6xl">
             OptionXi is India&apos;s open source virtual trading platform designed for stock market education
             and simulation. Our platform provides comprehensive tools for learning NSE stock trading, Nifty 50
             strategies, and options trading on Bank Nifty and Nifty indices. With features like advanced stock
@@ -197,7 +197,7 @@ const Footer = () => {
           <div className="text-[11px] font-semibold tracking-[0.14em] text-slate-400 dark:text-slate-500 uppercase mb-2">
             Popular Stocks
           </div>
-          <div className="text-[12px] leading-loose text-slate-400 dark:text-slate-500 max-w-5xl">
+          <div className="text-[12px] leading-loose text-slate-400 dark:text-slate-500 max-w-6xl">
             {popularStocks.map((symbol, i) => (
               <span key={symbol} className="inline-block">
                 <a

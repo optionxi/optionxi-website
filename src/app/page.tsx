@@ -30,7 +30,7 @@ const FEATURES_DETAILED = [
       "Practice with virtual funds and zero risk",
       "Track your orders, portfolio and P&L",
     ],
-    stat: { label: "Paper traders active", value: "9,000+" },
+    stat: { label: "Paper traders active", value: "10,000+" },
   },
   {
     icon: BarChart3,
@@ -111,14 +111,6 @@ const PLANS = [
     price: 0,
     popular: false,
     features: ["Virtual Trading","Basic stock screening", "Limited alerts"],
-  },
-  {
-    key: "pro",
-    name: "Pro",
-    tagline: "For active, hands-on traders",
-    price: 800,
-    popular: true,
-    features: ["Everything in Basic", "Stock pick alerts", "Up to 50 stock screeners"],
   },
   {
     key: "pro",
@@ -425,7 +417,7 @@ export default function OptionXiLanding() {
                   </div>
                   <span><strong className={t.text}>4.2</strong> on Google Play</span>
                 </div>
-                <div className="flex items-center gap-2"><Users size={15} /> 9,000+ downloads</div>
+                <div className="flex items-center gap-2"><Users size={15} /> 10,000+ downloads</div>
                 <div className="flex items-center gap-2"><Lock size={15} /> Secure Google sign-in</div>
               </div>
             </div>
