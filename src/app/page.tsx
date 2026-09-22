@@ -105,7 +105,7 @@ const STEPS = [
 
 const PLANS = [
   {
-    key: "fre",
+    key: "free",
     name: "Free",
     tagline: "For new traders",
     price: 0,
