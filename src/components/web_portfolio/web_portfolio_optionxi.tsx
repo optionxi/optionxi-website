@@ -11,6 +11,7 @@ import {
   Bell,
   MessageCircle,
   ChevronRight,
+  Clock,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase-client";
 
@@ -362,17 +363,18 @@ export default function PortfolioSection() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         {/* Header */}
         <div className="mb-8 text-center">
-          <Pill>Stock Picks</Pill>
+          <Pill>Stocks AI Picked</Pill>
           <h2 className="mx-auto mt-4 max-w-2xl text-3xl font-semibold tracking-tight sm:mt-6 sm:text-4xl md:text-5xl">
-            Every pick. Tracked.{" "}
+            See what our AI picked,{" "}
             <span className="text-emerald-600 dark:text-emerald-400">
-              On the record.
+              and why.
             </span>
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-base text-zinc-600 dark:text-zinc-400 sm:mt-4 sm:text-lg">
-            No crystal ball — just stocks that clear a technical checklist:
-            clean breakouts, rising volume, strong momentum. Every pick is
-            tracked against real prices, wins and losses alike.
+            Our AI scans the market using technical indicators and sends you a
+            notification when something interesting shows up. No more hours of
+            research — just open the app and learn. Built for education, not
+            as financial advice.
           </p>
         </div>
 
@@ -382,7 +384,7 @@ export default function PortfolioSection() {
             className="inline-flex items-center gap-2 rounded-full bg-zinc-900 px-5 py-3 text-xs font-semibold text-white transition hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200 sm:px-7 sm:py-3.5 sm:text-sm"
           >
             <Bell size={16} />
-            Subscribe to get notified
+            Notify me when AI picks a stock
           </button>
         </div>
         <br/>
@@ -391,19 +393,21 @@ export default function PortfolioSection() {
           {/* ------------------------- LEFT: live picks ------------------------- */}
           <div className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/60 sm:rounded-3xl sm:p-8">
             <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400 sm:text-xs">
-              {selectedDate ? "Picks for that day" : "Live picks"}
+              {selectedDate ? "Stocks we picked that day" : "Live picks"}
             </p>
             <h3 className="mt-2 text-xl font-semibold sm:mt-3 sm:text-2xl">
-              {selectedDate ? fullDayLabel(selectedDate) : "Pick. Track. Repeat."}
+              {selectedDate ? fullDayLabel(selectedDate) : "Pick. Learn. Repeat."}
             </h3>
             <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400 sm:text-base">
               {selectedDate
-                ? `${selectedDayMeta?.total_picks ?? displayedPicks.length} pick${
+                ? `${
+                    selectedDayMeta?.total_picks ?? displayedPicks.length
+                  } stock${
                     (selectedDayMeta?.total_picks ?? displayedPicks.length) === 1
                       ? ""
                       : "s"
-                  } that day, scored against real prices — not a forecast, just what actually happened.`
-                : "Each trading day our screener scans for stocks breaking out with strong technicals — then we track the entry price and how it plays out, live."}
+                  } the AI flagged that day. We show you what happened next so you can learn from it — this is a record, not a recommendation.`
+                : "Every trading day, our AI scans for stocks showing interesting technical setups. When it finds one, it picks it, records the price, and sends you a notification so you don't miss it."}
             </p>
 
             {selectedDate ? (
@@ -412,7 +416,7 @@ export default function PortfolioSection() {
                 className="mt-4 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs font-medium text-zinc-700 transition hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800/60 dark:text-zinc-200 dark:hover:bg-zinc-800 sm:mt-6 sm:px-4 sm:py-2 sm:text-sm"
               >
                 <ArrowLeft size={14} />
-                Back to live picks
+                Back to today's picks
               </button>
             ) : (
               <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs dark:border-zinc-700 dark:bg-zinc-800/60 sm:mt-6 sm:px-4 sm:py-2 sm:text-sm">
@@ -458,8 +462,8 @@ export default function PortfolioSection() {
               {!loading && !errored && displayedPicks.length === 0 && (
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 sm:text-sm">
                   {selectedDate
-                    ? "No picks recorded for that day."
-                    : "No picks scored yet — check back once the market opens."}
+                    ? "No AI picks were recorded for that day."
+                    : "No AI picks yet — check back once the market opens."}
                 </p>
               )}
 
@@ -494,7 +498,7 @@ export default function PortfolioSection() {
                         <p className="truncate text-xs font-semibold sm:text-sm">
                           {parsed.symbol}{" "}
                           <span className="font-normal text-zinc-500 dark:text-zinc-400">
-                            picked · {bullish ? "Long" : "Short"}
+                            flagged · {bullish ? "Long" : "Short"}
                           </span>
                         </p>
 
@@ -514,24 +518,34 @@ export default function PortfolioSection() {
                         {p.pnl_pcnt.toFixed(2)}%
                       </span>
 
-                      <span
-                        className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full sm:h-7 sm:w-7 ${
-                          p.status === "win"
-                            ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
-                            : p.status === "loss"
-                              ? "bg-red-500/15 text-red-500 dark:text-red-400"
-                              : "bg-zinc-300/40 text-zinc-500 dark:bg-zinc-700/40 dark:text-zinc-400"
-                        }`}
-                        title={p.status === "pending" ? "Market still open" : p.status}
-                      >
-                        {p.status === "win" ? (
-                          <Check size={13} />
-                        ) : p.status === "loss" ? (
-                          <X size={13} />
-                        ) : (
-                          <span className="text-[9px] font-bold">…</span>
-                        )}
-                      </span>
+                      {p.status === "pending" ? (
+                        <span
+                          className="flex h-6 shrink-0 items-center gap-1 rounded-full bg-amber-500/15 px-2 text-[9px] font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-400 sm:h-7 sm:px-2.5 sm:text-[10px]"
+                          title="Live — result not in yet"
+                        >
+                          <Clock size={11} className="animate-pulse" />
+                          <span className="hidden sm:inline">Live</span>
+                        </span>
+                      ) : (
+                        <span
+                          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full sm:h-7 sm:w-7 ${
+                            p.status === "win"
+                              ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
+                              : "bg-red-500/15 text-red-500 dark:text-red-400"
+                          }`}
+                          title={
+                            p.status === "win"
+                              ? "Moved up after pick"
+                              : "Moved down after pick"
+                          }
+                        >
+                          {p.status === "win" ? (
+                            <Check size={13} />
+                          ) : (
+                            <X size={13} />
+                          )}
+                        </span>
+                      )}
                     </li>
                   );
                 }
@@ -544,10 +558,10 @@ export default function PortfolioSection() {
             <div className="flex flex-wrap items-start justify-between gap-2 sm:gap-3">
               <div>
                 <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400 sm:text-xs">
-                  14-day accuracy
+                  Last 14 days
                 </p>
                 <h3 className="mt-2 flex items-center gap-2 text-xl font-semibold sm:mt-3 sm:text-2xl">
-                  Two weeks, scored.
+                  How our AI did.
                   <TrendingUp className="h-5 w-5 text-emerald-500 sm:h-6 sm:w-6" />
                 </h3>
               </div>
@@ -558,10 +572,10 @@ export default function PortfolioSection() {
               )}
             </div>
             <p className="mt-2 text-xs text-zinc-600 dark:text-zinc-400 sm:text-sm md:text-base">
-              &ldquo;Accuracy&rdquo; just means how many picks that day turned
-              out to be winners. Green days hit 60%+, red days we own too.
-              Weekends and market holidays sit greyed out. Tap a trading day
-              to see exactly which stocks were picked.
+              Each box is a day. The number in it tells you how many of that
+              day&apos;s stocks went up after the AI picked them. Green means most of
+              them went up. Red means most of them went down — we show those too,
+              because you learn from both. Tap any day to see which stocks the AI chose.
             </p>
 
             <div className="mt-4 rounded-xl border border-zinc-200 p-3 dark:border-zinc-800 sm:mt-6 sm:rounded-2xl sm:p-4">
@@ -610,11 +624,11 @@ export default function PortfolioSection() {
                           title={
                             d
                               ? pct !== null
-                                ? `${fullDayLabel(cell.date)} · ${pct}% · ${d.wins}W / ${d.losses}L${
+                                ? `${fullDayLabel(cell.date)} · ${pct}% moved up · ${d.wins} up / ${d.losses} down${
                                     d.has_pending ? " · still live" : ""
                                   }`
                                 : clickable
-                                ? `${fullDayLabel(cell.date)} · no result yet${d.has_pending ? " · live" : ""}`
+                                ? `${fullDayLabel(cell.date)} · waiting on results${d.has_pending ? " · live" : ""}`
                                 : `${fullDayLabel(cell.date)} · no picks`
                               : `${fullDayLabel(cell.date)} · weekend / holiday`
                           }
@@ -656,16 +670,16 @@ export default function PortfolioSection() {
 
               <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[10px] text-zinc-500 dark:text-zinc-400 sm:mt-4 sm:gap-x-4 sm:gap-y-2 sm:text-xs">
                 <span className="flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded bg-emerald-500 sm:h-3 sm:w-3" /> 60%+ win day
+                  <span className="h-2.5 w-2.5 rounded bg-emerald-500 sm:h-3 sm:w-3" /> 60%+ moved up
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded bg-red-500/85 sm:h-3 sm:w-3" /> Losing day
+                  <span className="h-2.5 w-2.5 rounded bg-red-500/85 sm:h-3 sm:w-3" /> More moved down
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="h-2.5 w-2.5 rounded bg-zinc-100 dark:bg-zinc-800/40 sm:h-3 sm:w-3" /> Weekend / holiday
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Flame size={10} className="text-amber-400 sm:h-3 sm:w-3" /> Still live
+                  <Clock size={10} className="text-amber-500 sm:h-3 sm:w-3" /> Result pending
                 </span>
               </div>
             </div>
@@ -687,10 +701,27 @@ export default function PortfolioSection() {
                 </div>
               ))}
             </div>
+
+            <p className="mt-3 text-center text-[10px] leading-relaxed text-zinc-400 dark:text-zinc-500 sm:mt-4 sm:text-[11px]">
+              Past results don&apos;t guarantee future outcomes. OptionXi is an
+              educational tool — not investment advice. Always do your own
+              research before taking any trade.
+            </p>
           </div>
         </div>
 
-        
+        <p className="mx-auto mt-8 max-w-3xl text-center text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-400 sm:mt-10 sm:text-xs">
+          <strong className="font-semibold text-zinc-700 dark:text-zinc-300">
+            Disclaimer:
+          </strong>{" "}
+          OptionXi is intended for educational and informational purposes only.
+          All stock picks shown are generated by our technical screening tool
+          and are shared to help users learn how indicators behave in real
+          markets. Nothing here is a recommendation, tip, or solicitation to
+          buy or sell any security. Markets carry risk, you are solely
+          responsible for your own decisions. Please consult a SEBI-registered
+          advisor before investing.
+        </p>
       </div>
 
       {/* ------------------------- Subscribe dialog ------------------------- */}
@@ -709,7 +740,7 @@ export default function PortfolioSection() {
                   <Bell size={14} />
                 </span>
                 <h4 className="text-base font-semibold sm:text-lg">
-                  Get notified for every pick
+                  Get a ping when the AI picks one
                 </h4>
               </div>
               <button
@@ -723,7 +754,8 @@ export default function PortfolioSection() {
 
             <p className="mt-3 text-xs text-zinc-600 dark:text-zinc-400 sm:text-sm">
               OptionXi is available on the Play Store and on the web — pick
-              whichever works for you.
+              whichever works for you. You&apos;ll get a notification every
+              time the AI flags a new stock. For learning, not for tips.
             </p>
 
             {/* Store buttons — same style as the landing page */}
