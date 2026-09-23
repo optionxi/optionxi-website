@@ -9,7 +9,7 @@ import {
   BrainCircuit
 } from "lucide-react";
 import IndicesTicker from "@/components/tickers/indices-ticker";
-import StockPicksSection from "@/components/app_working/optionxi_app_working";
+import StockPicksSection from "@/components/web_portfolio/web_portfolio_optionxi";
 
 /* ------------------------------------------------------------------ */
 /*  Data pulled from the live Play Store listing + subscription CSV    */
