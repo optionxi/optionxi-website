@@ -78,11 +78,12 @@ const POLL_MS = 2 * 60 * 1000;
 
 const WEEKDAY_HEADERS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-// Slow "storytelling" reveal: picks land one at a time, then the demo
-// auto-selects a previous day and reveals that day's picks too.
+// Slow "storytelling" reveal: each pick lands, then its % and status badge
+// appear together, then the next pick lands, and so on.
 const AUTOPLAY_REVEAL_COUNT = 4; // stocks shown per day before advancing
-const AUTOPLAY_REVEAL_INTERVAL_MS = 1000; // gap between each stock appearing
-const AUTOPLAY_DAY_HOLD_MS = 1400; // pause once a day's stocks are all shown
+const AUTOPLAY_ITEM_INTERVAL_MS = 2000; // gap between each stock + its result
+const AUTOPLAY_STATUS_DELAY_MS = 800; // delay after a stock appears before its % + status show
+const AUTOPLAY_DAY_HOLD_MS = 6000; // pause once a day's stocks are all shown
 const AUTOPLAY_EMPTY_DAY_SKIP_MS = 500; // skip quickly past days with no picks
 
 /* ------------------------------------------------------------------ */
@@ -186,6 +187,8 @@ export default function PortfolioSection() {
   const [autoPlaying, setAutoPlaying] = useState(true);
   const [cycleIndex, setCycleIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(0);
+  // Tracks which pick rows have had their result (% + status) revealed yet.
+  const [statusReadyCount, setStatusReadyCount] = useState(0);
 
   // Subscribe dialog (Play Store / Web / support).
   const [showSubscribeDialog, setShowSubscribeDialog] = useState(false);
@@ -298,8 +301,8 @@ export default function PortfolioSection() {
     setSelectedDate(date);
   }, [autoPlaying, loading, cycleIndex, autoplaySequence]);
 
-  // Reveal ticker: one stock every second, then hold, then move to the
-  // next day in the sequence (and loop back to live once it runs out).
+  // Reveal ticker: item → % + status → item → % + status ... then hold,
+  // then move to the next day in the sequence (and loop back to live).
   useEffect(() => {
     if (!autoPlaying || loading || errored || autoplaySequence.length === 0) {
       return;
@@ -310,25 +313,49 @@ export default function PortfolioSection() {
     if (cap === 0) {
       const t = setTimeout(() => {
         setVisibleCount(0);
+        setStatusReadyCount(0);
         setCycleIndex((i) => (i + 1) % autoplaySequence.length);
       }, AUTOPLAY_EMPTY_DAY_SKIP_MS);
       return () => clearTimeout(t);
     }
 
-    if (visibleCount < cap) {
+    // Phase 1: item is visible but its result hasn't shown yet.
+    // Wait STATUS_DELAY, then reveal this item's % + status together.
+    if (visibleCount > 0 && statusReadyCount < visibleCount) {
       const t = setTimeout(
-        () => setVisibleCount((c) => c + 1),
-        AUTOPLAY_REVEAL_INTERVAL_MS
+        () => setStatusReadyCount((c) => c + 1),
+        AUTOPLAY_STATUS_DELAY_MS
       );
       return () => clearTimeout(t);
     }
 
+    // Phase 2: current item fully settled (item + result). If we still
+    // have more items to show, wait the full interval before revealing
+    // the next item.
+    if (visibleCount < cap) {
+      const t = setTimeout(
+        () => setVisibleCount((c) => c + 1),
+        AUTOPLAY_ITEM_INTERVAL_MS
+      );
+      return () => clearTimeout(t);
+    }
+
+    // Phase 3: all items revealed with their results. Hold, then advance.
     const t = setTimeout(() => {
       setVisibleCount(0);
+      setStatusReadyCount(0);
       setCycleIndex((i) => (i + 1) % autoplaySequence.length);
     }, AUTOPLAY_DAY_HOLD_MS);
     return () => clearTimeout(t);
-  }, [autoPlaying, loading, errored, visibleCount, displayedPicks, autoplaySequence]);
+  }, [
+    autoPlaying,
+    loading,
+    errored,
+    visibleCount,
+    statusReadyCount,
+    displayedPicks,
+    autoplaySequence,
+  ]);
 
   // What actually gets rendered: capped to visibleCount while auto-playing,
   // shown in full once the user takes over manually.
@@ -341,18 +368,21 @@ export default function PortfolioSection() {
     if (d.total_picks === 0) return;
     setAutoPlaying(false);
     setVisibleCount(MAX_LIVE_PICKS);
+    setStatusReadyCount(MAX_LIVE_PICKS);
     setSelectedDate((cur) => (cur === d.pick_date ? null : d.pick_date));
   };
 
   const goToLive = () => {
     setAutoPlaying(false);
     setVisibleCount(MAX_LIVE_PICKS);
+    setStatusReadyCount(MAX_LIVE_PICKS);
     setSelectedDate(null);
   };
 
   const resumeAutoplay = () => {
     setCycleIndex(0);
     setVisibleCount(0);
+    setStatusReadyCount(0);
     setAutoPlaying(true);
   };
 
@@ -365,7 +395,7 @@ export default function PortfolioSection() {
         <div className="mb-8 text-center">
           <Pill>Stocks AI Picked</Pill>
           <h2 className="mx-auto mt-4 max-w-2xl text-3xl font-semibold tracking-tight sm:mt-6 sm:text-4xl md:text-5xl">
-            See what our AI picked,{" "}
+            See trending stocks,{" "}
             <span className="text-emerald-600 dark:text-emerald-400">
               and why.
             </span>
@@ -390,170 +420,7 @@ export default function PortfolioSection() {
         <br/>
 
         <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
-          {/* ------------------------- LEFT: live picks ------------------------- */}
-          <div className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/60 sm:rounded-3xl sm:p-8">
-            <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400 sm:text-xs">
-              {selectedDate ? "Stocks we picked that day" : "Live picks"}
-            </p>
-            <h3 className="mt-2 text-xl font-semibold sm:mt-3 sm:text-2xl">
-              {selectedDate ? fullDayLabel(selectedDate) : "Pick. Learn. Repeat."}
-            </h3>
-            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400 sm:text-base">
-              {selectedDate
-                ? `${
-                    selectedDayMeta?.total_picks ?? displayedPicks.length
-                  } stock${
-                    (selectedDayMeta?.total_picks ?? displayedPicks.length) === 1
-                      ? ""
-                      : "s"
-                  } the AI flagged that day. We show you what happened next so you can learn from it — this is a record, not a recommendation.`
-                : "Every trading day, our AI scans for stocks showing interesting technical setups. When it finds one, it picks it, records the price, and sends you a notification so you don't miss it."}
-            </p>
-
-            {selectedDate ? (
-              <button
-                onClick={goToLive}
-                className="mt-4 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs font-medium text-zinc-700 transition hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800/60 dark:text-zinc-200 dark:hover:bg-zinc-800 sm:mt-6 sm:px-4 sm:py-2 sm:text-sm"
-              >
-                <ArrowLeft size={14} />
-                Back to today's picks
-              </button>
-            ) : (
-              <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs dark:border-zinc-700 dark:bg-zinc-800/60 sm:mt-6 sm:px-4 sm:py-2 sm:text-sm">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                </span>
-                <span className="font-medium">optionxi.com/live</span>
-                <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-                  Live
-                </span>
-              </div>
-            )}
-
-            {!autoPlaying && (
-              <button
-                onClick={resumeAutoplay}
-                className="ml-2 mt-4 inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-600 hover:underline dark:text-emerald-400 sm:ml-3 sm:mt-6 sm:text-xs"
-              >
-                ▶ Resume auto-play
-              </button>
-            )}
-
-            <ul
-              className={`mt-4 space-y-2 sm:mt-6 sm:space-y-3 ${
-                selectedDate ? "max-h-80 overflow-y-auto pr-1 sm:max-h-96" : ""
-              }`}
-            >
-              {loading &&
-                Array.from({ length: 3 }).map((_, i) => (
-                  <li
-                    key={i}
-                    className="h-14 animate-pulse rounded-xl bg-zinc-100 dark:bg-zinc-800/40 sm:h-16 sm:rounded-2xl"
-                  />
-                ))}
-
-              {!loading && errored && (
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 sm:text-sm">
-                  Couldn&apos;t load picks right now.
-                </p>
-              )}
-
-              {!loading && !errored && displayedPicks.length === 0 && (
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 sm:text-sm">
-                  {selectedDate
-                    ? "No AI picks were recorded for that day."
-                    : "No AI picks yet — check back once the market opens."}
-                </p>
-              )}
-
-              {!loading &&
-                !errored &&
-                revealedPicks.map((p, i) => {
-                  const bullish = p.sentiment === "BULLISH";
-                  const parsed = parseSymbol(p.symbol);
-
-                  const logoUrl = `${process.env.NEXT_PUBLIC_S3_BUCKET_URL}/${parsed.symbol}.png`;
-
-                  return (
-                    <li
-                      key={pickKey(p)}
-                      style={{ animationDelay: `${i * 90}ms` }}
-                      className="opxi-enter-row flex items-center gap-2 rounded-xl border border-zinc-200 bg-zinc-50/60 px-3 py-2.5 dark:border-zinc-800 dark:bg-zinc-950/40 sm:gap-4 sm:rounded-2xl sm:px-4 sm:py-3"
-                    >
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800 sm:h-10 sm:w-10">
-                        <img
-                          src={logoUrl}
-                          alt={`${parsed.symbol} logo`}
-                          className="h-full w-full object-contain p-1 sm:p-1.5"
-                          onError={(e) => {
-                            e.currentTarget.style.display = "none";
-                            e.currentTarget.parentElement!.innerText =
-                              parsed.symbol.slice(0, 2);
-                          }}
-                        />
-                      </div>
-
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-xs font-semibold sm:text-sm">
-                          {parsed.symbol}{" "}
-                          <span className="font-normal text-zinc-500 dark:text-zinc-400">
-                            flagged · {bullish ? "Long" : "Short"}
-                          </span>
-                        </p>
-
-                        <p className="truncate text-[10px] text-zinc-500 dark:text-zinc-400 sm:text-xs">
-                          {dayLabel(p.pick_date)} · {timeIST(p.entry_time)}
-                        </p>
-                      </div>
-
-                      <span
-                        className={`text-xs font-semibold tabular-nums sm:text-sm ${
-                          p.pnl_pcnt >= 0
-                            ? "text-emerald-600 dark:text-emerald-400"
-                            : "text-red-500 dark:text-red-400"
-                        }`}
-                      >
-                        {p.pnl_pcnt >= 0 ? "+" : ""}
-                        {p.pnl_pcnt.toFixed(2)}%
-                      </span>
-
-                      {p.status === "pending" ? (
-                        <span
-                          className="flex h-6 shrink-0 items-center gap-1 rounded-full bg-amber-500/15 px-2 text-[9px] font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-400 sm:h-7 sm:px-2.5 sm:text-[10px]"
-                          title="Live — result not in yet"
-                        >
-                          <Clock size={11} className="animate-pulse" />
-                          <span className="hidden sm:inline">Live</span>
-                        </span>
-                      ) : (
-                        <span
-                          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full sm:h-7 sm:w-7 ${
-                            p.status === "win"
-                              ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
-                              : "bg-red-500/15 text-red-500 dark:text-red-400"
-                          }`}
-                          title={
-                            p.status === "win"
-                              ? "Moved up after pick"
-                              : "Moved down after pick"
-                          }
-                        >
-                          {p.status === "win" ? (
-                            <Check size={13} />
-                          ) : (
-                            <X size={13} />
-                          )}
-                        </span>
-                      )}
-                    </li>
-                  );
-                }
-                )}
-            </ul>
-          </div>
-
-          {/* ------------------------- RIGHT: 14-day accuracy calendar ------------------------- */}
+          {/* ------------------------- LEFT: 14-day accuracy calendar ------------------------- */}
           <div className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/60 sm:rounded-3xl sm:p-8">
             <div className="flex flex-wrap items-start justify-between gap-2 sm:gap-3">
               <div>
@@ -561,7 +428,7 @@ export default function PortfolioSection() {
                   Last 14 days
                 </p>
                 <h3 className="mt-2 flex items-center gap-2 text-xl font-semibold sm:mt-3 sm:text-2xl">
-                  How our AI did.
+                  Check our past portfolio
                   <TrendingUp className="h-5 w-5 text-emerald-500 sm:h-6 sm:w-6" />
                 </h3>
               </div>
@@ -572,10 +439,7 @@ export default function PortfolioSection() {
               )}
             </div>
             <p className="mt-2 text-xs text-zinc-600 dark:text-zinc-400 sm:text-sm md:text-base">
-              Each box is a day. The number in it tells you how many of that
-              day&apos;s stocks went up after the AI picked them. Green means most of
-              them went up. Red means most of them went down — we show those too,
-              because you learn from both. Tap any day to see which stocks the AI chose.
+             See which stocks the AI picked and how those picks performed each day.
             </p>
 
             <div className="mt-4 rounded-xl border border-zinc-200 p-3 dark:border-zinc-800 sm:mt-6 sm:rounded-2xl sm:p-4">
@@ -708,6 +572,185 @@ export default function PortfolioSection() {
               research before taking any trade.
             </p>
           </div>
+
+          {/* ------------------------- RIGHT: live picks ------------------------- */}
+          <div className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/60 sm:rounded-3xl sm:p-8">
+            <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400 sm:text-xs">
+              {selectedDate ? "Stocks we picked that day" : "Live picks"}
+            </p>
+            <h3 className="mt-2 text-xl font-semibold sm:mt-3 sm:text-2xl">
+              {selectedDate ? fullDayLabel(selectedDate) : "Pick. Learn. Repeat."}
+            </h3>
+            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400 sm:text-base">
+              {selectedDate
+                ? `${
+                    selectedDayMeta?.total_picks ?? displayedPicks.length
+                  } stock${
+                    (selectedDayMeta?.total_picks ?? displayedPicks.length) === 1
+                      ? ""
+                      : "s"
+                  } the AI flagged that day. We show you what happened next so you can learn from it — this is a record, not a recommendation.`
+                : "Every trading day, our AI scans for stocks showing interesting technical setups. When it finds one, it picks it, records the price, and sends you a notification so you don't miss it."}
+            </p>
+
+            {selectedDate ? (
+              <button
+                onClick={goToLive}
+                className="mt-4 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs font-medium text-zinc-700 transition hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800/60 dark:text-zinc-200 dark:hover:bg-zinc-800 sm:mt-6 sm:px-4 sm:py-2 sm:text-sm"
+              >
+                <ArrowLeft size={14} />
+                Back to today's picks
+              </button>
+            ) : (
+              <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs dark:border-zinc-700 dark:bg-zinc-800/60 sm:mt-6 sm:px-4 sm:py-2 sm:text-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
+                <span className="font-medium">optionxi.com/live</span>
+                <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                  Live
+                </span>
+              </div>
+            )}
+
+            {!autoPlaying && (
+              <button
+                onClick={resumeAutoplay}
+                className="ml-2 mt-4 inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-600 hover:underline dark:text-emerald-400 sm:ml-3 sm:mt-6 sm:text-xs"
+              >
+                ▶ Resume auto-play
+              </button>
+            )}
+
+            <ul
+              className={`mt-4 space-y-2 sm:mt-6 sm:space-y-3 ${
+                selectedDate ? "max-h-80 overflow-y-auto pr-1 sm:max-h-96" : ""
+              }`}
+            >
+              {loading &&
+                Array.from({ length: 3 }).map((_, i) => (
+                  <li
+                    key={i}
+                    className="h-14 animate-pulse rounded-xl bg-zinc-100 dark:bg-zinc-800/40 sm:h-16 sm:rounded-2xl"
+                  />
+                ))}
+
+              {!loading && errored && (
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 sm:text-sm">
+                  Couldn&apos;t load picks right now.
+                </p>
+              )}
+
+              {!loading && !errored && displayedPicks.length === 0 && (
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 sm:text-sm">
+                  {selectedDate
+                    ? "No AI picks were recorded for that day."
+                    : "No AI picks yet — check back once the market opens."}
+                </p>
+              )}
+
+              {!loading &&
+                !errored &&
+                revealedPicks.map((p, i) => {
+                  const bullish = p.sentiment === "BULLISH";
+                  const parsed = parseSymbol(p.symbol);
+
+                  const logoUrl = `${process.env.NEXT_PUBLIC_S3_BUCKET_URL}/${parsed.symbol}.png`;
+
+                  // Result (both % and tick/wrong/live) appears together
+                  // once auto-play reaches this row's status phase. When
+                  // the user takes over manually, all rows are ready.
+                  const showStatus = !autoPlaying || i < statusReadyCount;
+
+                  return (
+                    <li
+                      key={pickKey(p)}
+                      className="opxi-enter-row flex items-center gap-2 rounded-xl border border-zinc-200 bg-zinc-50/60 px-3 py-2.5 dark:border-zinc-800 dark:bg-zinc-950/40 sm:gap-4 sm:rounded-2xl sm:px-4 sm:py-3"
+                    >
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800 sm:h-10 sm:w-10">
+                        <img
+                          src={logoUrl}
+                          alt={`${parsed.symbol} logo`}
+                          className="h-full w-full object-contain p-1 sm:p-1.5"
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                            e.currentTarget.parentElement!.innerText =
+                              parsed.symbol.slice(0, 2);
+                          }}
+                        />
+                      </div>
+
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-xs font-semibold sm:text-sm">
+                          {parsed.symbol}{" "}
+                          <span className="font-normal text-zinc-500 dark:text-zinc-400">
+                            flagged · {bullish ? "Long" : "Short"}
+                          </span>
+                        </p>
+
+                        <p className="truncate text-[10px] text-zinc-500 dark:text-zinc-400 sm:text-xs">
+                          {dayLabel(p.pick_date)} · {timeIST(p.entry_time)}
+                        </p>
+                      </div>
+
+                      {/* % + status badge reveal together as one "result" unit */}
+                      {showStatus ? (
+                        <div className="opxi-enter-status flex shrink-0 items-center gap-2 sm:gap-3">
+                          <span
+                            className={`text-xs font-semibold tabular-nums sm:text-sm ${
+                              p.pnl_pcnt >= 0
+                                ? "text-emerald-600 dark:text-emerald-400"
+                                : "text-red-500 dark:text-red-400"
+                            }`}
+                          >
+                            {p.pnl_pcnt >= 0 ? "+" : ""}
+                            {p.pnl_pcnt.toFixed(2)}%
+                          </span>
+
+                          {p.status === "pending" ? (
+                            <span
+                              className="flex h-6 shrink-0 items-center gap-1 rounded-full bg-amber-500/15 px-2 text-[9px] font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-400 sm:h-7 sm:px-2.5 sm:text-[10px]"
+                              title="Live — result not in yet"
+                            >
+                              <Clock size={11} className="animate-pulse" />
+                              <span className="hidden sm:inline">Live</span>
+                            </span>
+                          ) : (
+                            <span
+                              className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full sm:h-7 sm:w-7 ${
+                                p.status === "win"
+                                  ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
+                                  : "bg-red-500/15 text-red-500 dark:text-red-400"
+                              }`}
+                              title={
+                                p.status === "win"
+                                  ? "Moved up after pick"
+                                  : "Moved down after pick"
+                              }
+                            >
+                              {p.status === "win" ? (
+                                <Check size={13} />
+                              ) : (
+                                <X size={13} />
+                              )}
+                            </span>
+                          )}
+                        </div>
+                      ) : (
+                        // Reserve the same footprint so the row doesn't
+                        // reflow when the result lands.
+                        <span
+                          className="h-6 w-16 shrink-0 sm:h-7 sm:w-20"
+                          aria-hidden="true"
+                        />
+                      )}
+                    </li>
+                  );
+                }
+                )}
+            </ul>
+          </div>
         </div>
 
         <p className="mx-auto mt-8 max-w-3xl text-center text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-400 sm:mt-10 sm:text-xs">
@@ -782,7 +825,7 @@ export default function PortfolioSection() {
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-200 px-4 py-3 font-semibold text-zinc-900 transition-colors hover:bg-emerald-500/5 dark:border-zinc-700 dark:text-zinc-50 sm:px-5 sm:py-3.5"
               >
                 <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs sm:text-sm">Open Web Terminal</span>
+                <span className="text-xs sm:text-sm">Open Webapp</span>
                 <ChevronRight size={14} className="shrink-0 sm:h-4 sm:w-4" />
               </a>
             </div>
@@ -819,6 +862,16 @@ export default function PortfolioSection() {
             transform: scale(1);
           }
         }
+        @keyframes opxiStatusIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
         .opxi-enter-row {
           opacity: 0;
           animation: opxiRowIn 0.45s ease forwards;
@@ -826,6 +879,9 @@ export default function PortfolioSection() {
         .opxi-enter-day {
           opacity: 0;
           animation: opxiDayIn 0.35s ease forwards;
+        }
+        .opxi-enter-status {
+          animation: opxiStatusIn 0.3s ease forwards;
         }
       `}</style>
     </section>

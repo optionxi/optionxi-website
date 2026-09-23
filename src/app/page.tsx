@@ -382,9 +382,7 @@ export default function OptionXiLanding() {
               </h1>
 
               <p className={`text-lg ${t.sub} max-w-xl mb-8 leading-relaxed`}>
-                OptionXi is a free virtual trading app for the Indian stock market. Screen stocks, get
-                real-time alerts, and practice with live NIFTY &amp; BankNifty prices — then connect a real
-                broker whenever you're ready to trade for real.
+                You can explore stocks, get market alerts, and practice with previous option prices — try it out for free.              
               </p>
 
               <div className="flex flex-wrap items-center gap-4 mb-8">
