@@ -9,6 +9,7 @@ import {
   BrainCircuit
 } from "lucide-react";
 import IndicesTicker from "@/components/tickers/indices-ticker";
+import StockPicksSection from "@/components/app_working/optionxi_app_working";
 
 /* ------------------------------------------------------------------ */
 /*  Data pulled from the live Play Store listing + subscription CSV    */
@@ -478,6 +479,8 @@ export default function OptionXiLanding() {
         {/* Ticker marquee — signature element */}
         <IndicesTicker theme={t} />
       </section>
+
+      <StockPicksSection/>
 
       {/* ---------------- Features (pinned, crossfading stage) ---------------- */}
       <section id="features" className="relative">
