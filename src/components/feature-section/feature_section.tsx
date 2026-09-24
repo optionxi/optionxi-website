@@ -348,7 +348,7 @@ export default function FeatureSection() {
             <div className={`rounded-2xl border ${t.border} ${t.card} grid lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x ${t.divide} overflow-hidden transition-colors duration-300`}>
               {/* Col 1 — Watching (always visible) */}
               <div className="p-6 lg:min-h-[440px]">
-                <p className={`text-sm ${t.sub}`}>Watching</p>
+                <p className={`text-sm ${t.sub}`}>Stock Watchlists</p>
                 <p className="text-xl font-semibold mt-1 mb-1">2,000+ stocks</p>
                 <p className={`text-sm ${t.subtle} mb-5`}>{sc.scanName}</p>
 
@@ -383,7 +383,7 @@ export default function FeatureSection() {
 
               {/* Col 2 — Checks (hidden on mobile) */}
               <div className="hidden lg:block p-6 lg:min-h-[440px]">
-                <p className={`text-sm ${t.sub}`}>Checks</p>
+                <p className={`text-sm ${t.sub}`}>Screeners</p>
                 <p className="text-xl font-semibold mt-1 mb-1">Only what passes</p>
                 <p className={`text-sm ${t.subtle} mb-5`}>Every check narrows the list</p>
 
@@ -423,7 +423,7 @@ export default function FeatureSection() {
 
               {/* Col 3 — Trending (hidden on mobile) */}
               <div className="hidden lg:flex p-6 lg:min-h-[440px] flex-col">
-                <p className={`text-sm ${t.sub}`}>Trending</p>
+                <p className={`text-sm ${t.sub}`}>Notifications</p>
                 <p className="text-xl font-semibold mt-1 mb-1">Worth a look</p>
                 <p className={`text-sm ${t.subtle} mb-5`}>Passed every check</p>
 
@@ -510,7 +510,7 @@ export default function FeatureSection() {
 
               <div className="relative pt-16 px-4 z-10">
                 <div className="text-center mb-6">
-                  <p className={`text-xs ${t.phoneTimeSub}`}>Market open</p>
+                  <p className={`text-xs ${t.phoneTimeSub}`}>Market demo</p>
                   <p className={`text-6xl font-light tracking-tight tabular-nums ${t.phoneTime}`}>9:41</p>
                 </div>
 

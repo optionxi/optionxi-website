@@ -405,7 +405,7 @@ export default function HeroFeature() {
 
                 <div className="relative pt-12 px-3.5 z-10">
                   <div className="text-center mb-5">
-                    <p className={`text-xs ${L.timeSub}`}>Market open</p>
+                    <p className={`text-xs ${L.timeSub}`}>Market demo</p>
                     <p className={`text-5xl font-light tracking-tight tabular-nums ${L.time}`}>9:41</p>
                   </div>
 
