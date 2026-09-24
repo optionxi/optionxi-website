@@ -11,6 +11,7 @@ import {
 import IndicesTicker from "@/components/tickers/indices-ticker";
 import StockPicksSection from "@/components/web_portfolio/web_portfolio_optionxi";
 import FeatureSection from "@/components/feature-section/feature_section";
+import HeroFeature from "@/components/hero-section/hero_section";
 
 /* ------------------------------------------------------------------ */
 /*  Data pulled from the live Play Store listing + subscription CSV    */
@@ -360,124 +361,7 @@ export default function OptionXiLanding() {
       `}</style>
 
       {/* ---------------- Hero ---------------- */}
-      <section className="relative overflow-hidden">
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: dark
-              ? "radial-gradient(600px circle at 80% -10%, rgba(16,185,129,0.15), transparent 60%)"
-              : "radial-gradient(600px circle at 80% -10%, rgba(16,185,129,0.10), transparent 60%)",
-          }}
-        />
-        <div className="max-w-7xl mx-auto px-6 pt-16 pb-8 relative">
-          <div className="grid lg:grid-cols-2 gap-14 items-center">
-            <div>
-              <div className={`inline-flex items-center gap-2 rounded-full border ${t.border} ${t.bgAlt} px-3 py-1 text-xs font-medium mb-6`}>
-                <Github size={13} className="text-emerald-500" />
-                <span className={t.sub}>Open source · Made in India</span>
-              </div>
-
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight mb-6">
-                Learn the market before
-                <span className="block text-emerald-600">you risk a rupee.</span>
-              </h1>
-
-              <p className={`text-lg ${t.sub} max-w-xl mb-8 leading-relaxed`}>
-                You can explore stocks, get market alerts, and practice with previous option prices — try it out for free.              
-              </p>
-
-              <div className="flex flex-wrap items-center gap-4 mb-8">
-                
-                <a  href="https://play.google.com/store/apps/details?id=com.optionxi.app"
-                  target="_blank" rel="noreferrer"
-                  className="transition-transform hover:scale-105"
-                >
-                  <img
-                    src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-                    alt="Get it on Google Play"
-                    className="h-16 w-auto"
-                  />
-                </a>
-                
-                <a  href="https://app.optionxi.com"
-                  target="_blank" rel="noreferrer"
-                  className={`inline-flex items-center gap-2 border ${t.border} px-6 py-4 rounded-xl font-semibold ${t.navHover} transition-colors`}
-                >
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  Open Web Terminal
-                  <ChevronRight size={16} />
-                </a>
-              </div>
-
-              <div className={`flex flex-wrap gap-x-8 gap-y-3 text-sm ${t.sub}`}>
-                <div className="flex items-center gap-2">
-                  <div className="flex text-amber-400">
-                    {[...Array(4)].map((_, i) => <Star key={i} size={14} fill="currentColor" strokeWidth={0} />)}
-                    <Star size={14} fill="currentColor" strokeWidth={0} className="opacity-40" />
-                  </div>
-                  <span><strong className={t.text}>4.2</strong> on Google Play</span>
-                </div>
-                <div className="flex items-center gap-2"><Users size={15} /> 10,000+ downloads</div>
-                <div className="flex items-center gap-2"><Lock size={15} /> Secure Google sign-in</div>
-              </div>
-            </div>
-
-            {/* Phone mock with floating stat chips */}
-            <div className="relative flex justify-center lg:justify-end">
-              {/* Back phone — angled, offset behind */}
-              <div
-                className={`hidden sm:block absolute w-60 aspect-[9/19.5] rounded-[2rem] border-8 ${dark ? "border-slate-800" : "border-slate-900"} bg-slate-900 shadow-xl overflow-hidden opacity-90`}
-                style={{ transform: "rotate(-20deg) translate(-148px, -38px)", zIndex: 0 }}
-              >
-                <img
-                  src={getSrc(MAINSCREENSHOTS[1])}
-                  alt="OptionXi app screenshot — AI analysis"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Front phone */}
-              <div
-                className={`relative w-64 aspect-[9/19.5] rounded-[2.2rem] border-8 ${dark ? "border-slate-800" : "border-slate-900"} bg-slate-900 shadow-2xl overflow-hidden`}
-                style={{ zIndex: 1 }}
-              >
-                <img
-                  src={getSrc(MAINSCREENSHOTS[0])}
-                  alt="OptionXi app screenshot"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-
-              <div className={`hidden sm:flex absolute -left-6 top-10 items-center gap-2 rounded-xl border ${t.border} ${t.card} shadow-lg px-3 py-2 z-10`}>
-                <Sparkles size={14} className="text-emerald-500" />
-                <div className="text-xs">
-                  <div className="font-semibold">Breakout alert</div>
-                  <div className={t.sub}>RELIANCE +1.12%</div>
-                </div>
-              </div>
-
-              <div className={`hidden sm:flex absolute -right-4 bottom-16 items-center gap-2 rounded-xl border ${t.border} ${t.card} shadow-lg px-3 py-2 z-10`}>
-                <Trophy size={14} className="text-amber-500" />
-                <div className="text-xs">
-                  <div className="font-semibold">Leaderboard</div>
-                  <div className={t.sub}>You're #24 today</div>
-                </div>
-              </div>
-
-              <div className={`hidden lg:flex absolute -right-10 top-6 items-center gap-2 rounded-xl border ${t.border} ${t.card} shadow-lg px-3 py-2 z-10`}>
-                <BrainCircuit size={14} className="text-violet-500" />
-                <div className="text-xs">
-                  <div className="font-semibold">AI Analysis</div>
-                  <div className={t.sub}>Bullish bias · 82%</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Ticker marquee — signature element */}
-        <IndicesTicker theme={t} />
-      </section>
+      <HeroFeature/>
       
        {/* ---------------- Features (pinned, crossfading stage) ---------------- */}
       <FeatureSection/>
