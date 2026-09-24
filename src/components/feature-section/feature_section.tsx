@@ -150,6 +150,8 @@ function tokens(dark: boolean) {
         notifBody: "text-neutral-400",
         homeBar: "bg-white/30",
         phoneShadow: "shadow-black/60",
+        heading: "text-neutral-50",
+        headingAccent: "text-emerald-400",
       }
     : {
         section: "bg-slate-50 text-slate-900",
@@ -190,6 +192,8 @@ function tokens(dark: boolean) {
         notifBody: "text-slate-500",
         homeBar: "bg-slate-900/25",
         phoneShadow: "shadow-slate-900/25",
+        heading: "text-slate-900",
+        headingAccent: "text-emerald-600",
       };
 }
 
@@ -328,8 +332,9 @@ export default function FeatureSection() {
 
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="max-w-2xl mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            We watch thousands of stocks. You hear about one.
+          <h2 className={`text-3xl md:text-4xl font-bold tracking-tight mb-4 ${t.heading}`}>
+            We watch thousands of stocks.{" "}
+            <span className={t.headingAccent}>You hear about one.</span>
           </h2>
           <p className={`${t.sub} text-lg`}>
             OptionXi tracks the market all day, filters out the noise and sends an alert
@@ -341,7 +346,7 @@ export default function FeatureSection() {
           {/* ---------------- Left: pipeline card ---------------- */}
           <div>
             <div className={`rounded-2xl border ${t.border} ${t.card} grid lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x ${t.divide} overflow-hidden transition-colors duration-300`}>
-              {/* Col 1 — Watching */}
+              {/* Col 1 — Watching (always visible) */}
               <div className="p-6 lg:min-h-[440px]">
                 <p className={`text-sm ${t.sub}`}>Watching</p>
                 <p className="text-xl font-semibold mt-1 mb-1">2,000+ stocks</p>
@@ -376,8 +381,8 @@ export default function FeatureSection() {
                 </ul>
               </div>
 
-              {/* Col 2 — Checks */}
-              <div className="p-6 lg:min-h-[440px]">
+              {/* Col 2 — Checks (hidden on mobile) */}
+              <div className="hidden lg:block p-6 lg:min-h-[440px]">
                 <p className={`text-sm ${t.sub}`}>Checks</p>
                 <p className="text-xl font-semibold mt-1 mb-1">Only what passes</p>
                 <p className={`text-sm ${t.subtle} mb-5`}>Every check narrows the list</p>
@@ -416,8 +421,8 @@ export default function FeatureSection() {
                 </ul>
               </div>
 
-              {/* Col 3 — Trending */}
-              <div className="p-6 lg:min-h-[440px] flex flex-col">
+              {/* Col 3 — Trending (hidden on mobile) */}
+              <div className="hidden lg:flex p-6 lg:min-h-[440px] flex-col">
                 <p className={`text-sm ${t.sub}`}>Trending</p>
                 <p className="text-xl font-semibold mt-1 mb-1">Worth a look</p>
                 <p className={`text-sm ${t.subtle} mb-5`}>Passed every check</p>
@@ -483,7 +488,7 @@ export default function FeatureSection() {
             </div>
           </div>
 
-          {/* ---------------- Right: phone with notifications ---------------- */}
+          {/* ---------------- Right: phone with notifications (always visible) ---------------- */}
           <div className="flex justify-center">
             <div
               className={`relative w-[280px] sm:w-[300px] aspect-[9/19.5] rounded-[2.8rem] border-[10px] ${t.phoneBorder} ${t.phoneScreen} shadow-2xl ${t.phoneShadow} overflow-hidden transition-colors duration-300`}

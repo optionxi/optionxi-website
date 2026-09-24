@@ -380,7 +380,7 @@ export default function HeroFeature() {
           {/* ---------------- Right: phone mockups ---------------- */}
           <div className="relative flex justify-center lg:justify-end" aria-hidden="true">
             {/* Both phones are anchored bottom-0 so their bottoms line up */}
-            <div className="relative w-[300px] sm:w-[560px] h-[556px]">
+            <div className="relative w-64 sm:w-[560px] h-[556px]">
 
               {/* ===== Back phone (angled): notifications ===== */}
               <PhoneFrame
@@ -445,7 +445,7 @@ export default function HeroFeature() {
               <PhoneFrame
                 dark={dark}
                 label="OptionXi virtual trading"
-                className="absolute bottom-0 right-0 w-64"
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:right-0 w-64"
                 style={{ zIndex: 1 }}
               >
                 <div className={`absolute inset-0 ${P.bg} ${P.text} transition-colors duration-300`}>

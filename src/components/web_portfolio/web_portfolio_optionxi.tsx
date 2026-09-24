@@ -779,9 +779,9 @@ export default function PortfolioSection() {
           >
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 sm:h-9 sm:w-9">
+                {/* <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 sm:h-9 sm:w-9">
                   <Bell size={14} />
-                </span>
+                </span> */}
                 <h4 className="text-base font-semibold sm:text-lg">
                   Get a ping when the AI picks one
                 </h4>
@@ -832,7 +832,7 @@ export default function PortfolioSection() {
 
             <a
               href="mailto:support@optionxi.com"
-              className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-zinc-900 px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200 sm:mt-5 sm:py-3 sm:text-sm"
+              className="mt-4 flex items-center justify-center gap-1.5 text-xs font-medium text-zinc-600 underline underline-offset-2 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white sm:mt-5 sm:text-sm"
             >
               <MessageCircle size={14} />
               Chat with support
