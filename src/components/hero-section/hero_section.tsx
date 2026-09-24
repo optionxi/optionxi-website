@@ -379,14 +379,17 @@ export default function HeroFeature() {
 
           {/* ---------------- Right: phone mockups ---------------- */}
           <div className="relative flex justify-center lg:justify-end" aria-hidden="true">
-            {/* Both phones are anchored bottom-0 so their bottoms line up */}
-            <div className="relative w-64 sm:w-[560px] h-[556px]">
+            {/* Both phones are anchored bottom-0 so their bottoms line up.
+                On sm–lg (tablet), we shrink the composition box and pull the
+                back phone left so the pair stays visually centered instead of
+                drifting right when the grid collapses to one column. */}
+            <div className="relative w-64 sm:w-[420px] lg:w-[560px] h-[556px]">
 
               {/* ===== Back phone (angled): notifications ===== */}
               <PhoneFrame
                 dark={dark}
                 label="OptionXi alerts arriving"
-                className="hidden sm:block absolute bottom-6 left-[188px] w-60"
+                className="hidden sm:block absolute bottom-6 sm:left-[48px] lg:left-[188px] w-60"
                 style={{
                   transform: `rotate(${TILT}deg)`,
                   transformOrigin: "bottom center",
