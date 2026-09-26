@@ -14,6 +14,7 @@ import {
   Clock,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase-client";
+import PriceChartSheet from "./price_chart_sheet";
 
 interface ParsedSymbol {
   exchange: string;
@@ -181,6 +182,7 @@ export default function PortfolioSection() {
   const [loading, setLoading] = useState(true);
   const [errored, setErrored] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [chartPick, setChartPick] = useState<PortfolioRow | null>(null);
 
   // Slow-reveal / auto-cycle state: picks appear one at a time, then the
   // demo hops to the next previous day and reveals its picks too.
@@ -663,10 +665,28 @@ export default function PortfolioSection() {
                   // the user takes over manually, all rows are ready.
                   const showStatus = !autoPlaying || i < statusReadyCount;
 
+                  // Only picks with a final result (win/loss) have candle
+                  // data worth showing — a pending pick's outcome isn't
+                  // in yet, so the row isn't clickable while it's live.
+                  const isClickable = p.status !== "pending";
+
                   return (
                     <li
                       key={pickKey(p)}
-                      className="opxi-enter-row flex items-center gap-2 rounded-xl border border-zinc-200 bg-zinc-50/60 px-3 py-2.5 dark:border-zinc-800 dark:bg-zinc-950/40 sm:gap-4 sm:rounded-2xl sm:px-4 sm:py-3"
+                      onClick={() => isClickable && setChartPick(p)}
+                      role={isClickable ? "button" : undefined}
+                      tabIndex={isClickable ? 0 : undefined}
+                      onKeyDown={(e) => {
+                        if (isClickable && (e.key === "Enter" || e.key === " ")) {
+                          e.preventDefault();
+                          setChartPick(p);
+                        }
+                      }}
+                      className={`opxi-enter-row flex items-center gap-2 rounded-xl border border-zinc-200 bg-zinc-50/60 px-3 py-2.5 dark:border-zinc-800 dark:bg-zinc-950/40 sm:gap-4 sm:rounded-2xl sm:px-4 sm:py-3 ${
+                        isClickable
+                          ? "cursor-pointer transition hover:border-zinc-300 hover:bg-zinc-100/60 dark:hover:border-zinc-700 dark:hover:bg-zinc-900"
+                          : ""
+                      }`}
                     >
                       <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800 sm:h-10 sm:w-10">
                         <img
@@ -779,9 +799,6 @@ export default function PortfolioSection() {
           >
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
-                {/* <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 sm:h-9 sm:w-9">
-                  <Bell size={14} />
-                </span> */}
                 <h4 className="text-base font-semibold sm:text-lg">
                   Get a ping when the AI picks one
                 </h4>
@@ -840,6 +857,9 @@ export default function PortfolioSection() {
           </div>
         </div>
       )}
+
+      {/* ------------------------- Per-pick candle chart bottom sheet ------------------------- */}
+      <PriceChartSheet pick={chartPick} onClose={() => setChartPick(null)} />
 
       <style jsx>{`
         @keyframes opxiRowIn {
