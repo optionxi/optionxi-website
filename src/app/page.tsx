@@ -12,6 +12,12 @@ import IndicesTicker from "@/components/tickers/indices-ticker";
 import StockPicksSection from "@/components/web_portfolio/web_portfolio_optionxi";
 import FeatureSection from "@/components/feature-section/feature_section";
 import HeroFeature from "@/components/hero-section/hero_section";
+import OptionChainFeature from "@/components/feature-list/ft-optionchain";
+import BreakoutAlerts from "@/components/feature-list/ft-berakout-alert";
+import AlgoBuilder from "@/components/feature-list/ft-algo-builder";
+import StrategyBuilder from "@/components/feature-list/ft-statergy-builder";
+import HowItWorksSection from "@/components/how-it-works/how-it-works-section";
+import PricingSection from "@/components/pricing/pricing-section";
 
 /* ------------------------------------------------------------------ */
 /*  Data pulled from the live Play Store listing + subscription CSV    */
@@ -369,149 +375,17 @@ export default function OptionXiLanding() {
       {/* ---------------- Stock Picks Portfolio ---------------- */}
       <StockPicksSection/>
 
-     
+      {/* ---------------- Feature List ---------------- */}
+      <OptionChainFeature/>
+      <BreakoutAlerts/>
+      <AlgoBuilder/>
+      <StrategyBuilder/>
 
       {/* ---------------- How it works ---------------- */}
-      <section id="how" className={`${t.bgAlt} border-y ${t.border} py-24`}>
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="max-w-2xl mb-16">
-            <span className="text-emerald-600 dark:text-emerald-400 text-sm font-semibold uppercase tracking-wide">
-              The process
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2 tracking-tight">
-              Three steps from curious to confident
-            </h2>
-          </div>
-
-          <div className="relative grid md:grid-cols-3 gap-8 md:gap-6">
-            {/* connecting line across the row, desktop only */}
-            <div
-              className="hidden md:block absolute top-6 left-0 right-0 h-px bg-gradient-to-r from-emerald-500/0 via-emerald-500/30 to-emerald-500/0"
-              aria-hidden="true"
-            />
-
-            {STEPS.map((s, i) => (
-              <div
-                key={i}
-                className={`group relative rounded-2xl border ${t.border} ${t.bg ?? "bg-white dark:bg-neutral-900"} p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/10 hover:border-emerald-500/40`}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-600 text-white font-mono font-bold text-sm shrink-0 shadow-sm shadow-emerald-600/30">
-                    {s.n}
-                  </div>
-                  {i < STEPS.length - 1 && (
-                    <ArrowRight
-                      size={16}
-                      className="hidden md:block text-emerald-600/40 dark:text-emerald-400/40 ml-auto group-hover:translate-x-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-all duration-300"
-                    />
-                  )}
-                </div>
-
-                <h3 className="text-xl font-bold mb-2 tracking-tight">{s.title}</h3>
-                <p className={`${t.sub} leading-relaxed text-sm`}>{s.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HowItWorksSection/>
 
       {/* ---------------- Pricing ---------------- */}
-      <section id="pricing" className={`relative ${t.bgAlt} border-y ${t.border} py-24 overflow-hidden`}>
-        {/* faint grid texture backdrop */}
-        <div
-          className="absolute inset-0 opacity-[0.4] pointer-events-none"
-          style={{
-            backgroundImage: `linear-gradient(${dark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.04)"} 1px, transparent 1px), linear-gradient(90deg, ${dark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.04)"} 1px, transparent 1px)`,
-            backgroundSize: "40px 40px",
-            maskImage: "radial-gradient(ellipse 70% 60% at 50% 0%, black, transparent)",
-          }}
-        />
-
-        <div className="max-w-7xl mx-auto px-6 relative">
-          <div className="max-w-2xl mb-4">
-            <span className="text-emerald-600 text-sm font-semibold uppercase tracking-wide">Pricing</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2 tracking-tight">
-              Start free, upgrade only if you need more
-            </h2>
-          </div>
-          <p className={`${t.sub} mb-8 max-w-2xl`}>
-            The app and virtual trading are free to use. These optional plans unlock more screeners
-            and faster alerts for traders who want an edge.
-          </p>
-
-          {/* Billing toggle */}
-          <div className="flex items-center gap-3 mb-12">
-            <span className={`text-sm font-medium ${!isAnnual ? "" : t.sub}`}>Monthly</span>
-            <button
-              role="switch"
-              aria-checked={isAnnual}
-              onClick={() => setIsAnnual((v) => !v)}
-              className={`relative w-11 h-6 rounded-full transition-colors ${isAnnual ? "bg-emerald-600" : dark ? "bg-neutral-700" : "bg-neutral-300"}`}
-            >
-              <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${isAnnual ? "translate-x-5" : "translate-x-0"}`} />
-            </button>
-            <span className={`text-sm font-medium ${isAnnual ? "" : t.sub}`}>Annual</span>
-            <span className="text-xs font-semibold text-emerald-600 bg-emerald-500/10 px-2 py-0.5 rounded-full">Save 2 months</span>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 items-start">
-            {PLANS.map((p) => {
-              const displayPrice = isAnnual ? Math.round((p.price * 10) / 12) : p.price;
-              return (
-                <div key={p.key} className={`relative rounded-2xl p-[1px] ${p.popular ? "md:scale-[1.04] z-10" : ""}`}
-                  style={{
-                    background: p.popular
-                      ? "linear-gradient(160deg, rgba(16,185,129,0.9), rgba(16,185,129,0.05) 55%, rgba(16,185,129,0.4))"
-                      : dark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)",
-                  }}
-                >
-                  <div className={`relative h-full rounded-2xl p-8 ${t.card} ${p.popular ? "shadow-xl shadow-emerald-500/10" : ""} transition-transform hover:-translate-y-1`}>
-                    {p.popular && (
-                      <span className="absolute -top-3 left-8 bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm">
-                        Most popular
-                      </span>
-                    )}
-
-                    <h3 className="text-xl font-bold">{p.name}</h3>
-                    <p className={`${t.sub} text-sm mb-6`}>{p.tagline}</p>
-
-                    <div className="mb-1 flex items-baseline gap-1">
-                      <span className="text-4xl font-extrabold font-mono">₹{displayPrice}</span>
-                      <span className={t.sub}>/month</span>
-                    </div>
-                    <div className={`text-xs ${t.sub} mb-6 h-4`}>
-                      {isAnnual && p.price > 0 ? `Billed ₹${p.price * 10} yearly` : p.price > 0 ? "Billed monthly" : ""}
-                    </div>
-
-                    <ul className="space-y-3 mb-8">
-                      {p.features.map((f, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm">
-                          <CheckCircle2 size={16} className="text-emerald-500 flex-shrink-0 mt-0.5" />
-                          <span className={t.sub}>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <button
-                      onClick={() => handleChoosePlan(p)}
-                      disabled={launchingPlanKey === p.key}
-                      className={`w-full py-3 rounded-xl font-semibold transition-colors disabled:opacity-60 ${
-                        p.popular ? "bg-emerald-600 hover:bg-emerald-700 text-white" : `border ${t.border} ${t.navHover}`
-                      }`}
-                    >
-                      {launchingPlanKey === p.key ? "Opening…" : `Choose ${p.name}`}
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <p className={`${t.sub} text-xs mt-8 text-center`}>
-            No card required for the free plan · Cancel or switch plans anytime
-          </p>
-        </div>
-      </section>
+      <PricingSection/>
 
       {/* ---------------- Reviews ---------------- */}
       <section id="reviews" className="py-24 overflow-hidden">
