@@ -468,7 +468,7 @@ export default function HeroFeature() {
 
                     <div className={`mt-3 rounded-xl border ${P.row} ${P.card} px-3 py-2.5`}>
                       <p className={`text-[10px] ${P.sub}`}>Virtual cash</p>
-                      <p className="text-lg font-semibold tabular-nums leading-tight">₹10,00,000</p>
+                      <p className="text-lg font-semibold tabular-nums leading-tight">₹3,00,000</p>
                     </div>
 
                     <p className={`text-[10px] ${P.sub} mt-3 mb-1.5`}>Your list</p>
