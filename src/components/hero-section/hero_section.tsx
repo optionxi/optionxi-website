@@ -4,10 +4,13 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 import { useTheme } from "next-themes";
 import type { LucideIcon } from "lucide-react";
 import {
-  Github, ChevronRight, Star, Users, Lock,
+  Github, ChevronRight, Star, Lock,
   TrendingUp, BrainCircuit, Newspaper, Check, Eye, GraduationCap, Trophy,
   ChevronLeft, Minus, Plus,
 } from "lucide-react";
+import XiFoxMascot from "@/app/components/optionxi-mascot";
+
+const JOIN_URL = "https://app.optionxi.com/login"; // point this at your Google sign-in route
 
 /* ------------------------------------------------------------------ */
 /*  Usage: <HeroFeature />  — no props. Theme comes from next-themes.  */
@@ -130,6 +133,68 @@ function PhoneFrame({
         {children}
         <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-4 rounded-full bg-black z-30" />
       </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+function GoogleG() {
+  return (
+    <svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true">
+      <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z" />
+      <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.6 5.9c4.4-4.1 7-10.1 7-17.6z" />
+      <path fill="#FBBC05" d="M10.5 28.7A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.8-4.7l-7.9-6.1A24 24 0 0 0 0 24c0 3.9.9 7.5 2.6 10.8l7.9-6.1z" />
+      <path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.6-5.9c-2.1 1.4-4.9 2.3-8.3 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z" />
+    </svg>
+  );
+}
+
+/* Fake names + DiceBear avatars (deterministic, no local files) */
+const AVATARS: { name: string; bg: string }[] = [
+  { name: "Aarav Kapoor",  bg: "bg-slate-600" },
+  { name: "Meera Sharma",  bg: "bg-stone-600" },
+  { name: "Rohan Patel",   bg: "bg-zinc-600" },
+  { name: "Ananya Reddy",  bg: "bg-neutral-600" },
+];
+
+function initials(name: string) {
+  return name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
+}
+
+function avatarSrc(name: string) {
+  const seed = encodeURIComponent(name.toLowerCase().replace(/\s+/g, "-"));
+  return `https://api.dicebear.com/9.x/notionists/svg?seed=${seed}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
+}
+
+function AvatarStack({ ring }: { ring: string }) {
+  const [failed, setFailed] = useState<Record<number, boolean>>({});
+
+  return (
+    <div className="flex -space-x-2.5">
+      {AVATARS.map((a, i) => (
+        <span
+          key={a.name}
+          className={`relative w-9 h-9 rounded-full ring-2 ${ring} overflow-hidden flex items-center justify-center text-white text-[11px] font-semibold ${a.bg}`}
+          style={{ zIndex: AVATARS.length - i }}
+          title={a.name}
+        >
+          {!failed[i] ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={avatarSrc(a.name)}
+              alt={a.name}
+              width={36}
+              height={36}
+              loading="lazy"
+              className="w-full h-full object-cover bg-white"
+              onError={() => setFailed((p) => ({ ...p, [i]: true }))}
+            />
+          ) : (
+            initials(a.name)
+          )}
+        </span>
+      ))}
     </div>
   );
 }
@@ -340,40 +405,46 @@ export default function HeroFeature() {
               You can explore stocks, get market alerts, and practice with previous option prices — try it out for free.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 mb-8">
+            <div className="flex flex-col items-start gap-3 mb-8">
+             <a
+                href={JOIN_URL}
+                className={`group inline-flex items-center gap-3 rounded-xl border px-6 py-3.5 font-semibold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 ${
+                  dark
+                    ? "bg-white border-white text-slate-900 shadow-lg shadow-black/40 hover:shadow-emerald-500/20 focus-visible:ring-offset-[#070708]"
+                    : "bg-[#131314] border-[#131314] text-[#E3E3E3] shadow-lg shadow-slate-900/20 hover:bg-black hover:shadow-xl hover:shadow-slate-900/30 focus-visible:ring-offset-slate-50"
+                }`}
+              >
+                <GoogleG />
+                Join with Google
+                <ChevronRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+              </a>
+              <p className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-600">
+                <Check size={15} /> 7 Days Free WhatsApp Notifications, then ₹800/month
+              </p>
               <a
                 href="https://play.google.com/store/apps/details?id=com.optionxi.app"
                 target="_blank" rel="noreferrer"
-                className="transition-transform hover:scale-105"
+                className={`text-xs underline underline-offset-4 ${t.sub}`}
               >
-                <img
-                  src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-                  alt="Get it on Google Play"
-                  className="h-16 w-auto"
-                />
-              </a>
-
-              <a
-                href="https://app.optionxi.com"
-                target="_blank" rel="noreferrer"
-                className={`inline-flex items-center gap-2 border ${t.border} px-6 py-4 rounded-xl font-semibold ${t.navHover} transition-colors`}
-              >
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                Open Web Terminal
-                <ChevronRight size={16} />
+                Prefer the app? Get it on Google Play
               </a>
             </div>
 
-            <div className={`flex flex-wrap gap-x-8 gap-y-3 text-sm ${t.sub}`}>
-              <div className="flex items-center gap-2">
-                <div className="flex text-amber-400">
-                  {[...Array(4)].map((_, i) => <Star key={i} size={14} fill="currentColor" strokeWidth={0} />)}
-                  <Star size={14} fill="currentColor" strokeWidth={0} className="opacity-40" />
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+              <div className="flex items-center gap-3">
+                <AvatarStack ring={dark ? "ring-[#070708]" : "ring-slate-50"} />
+                <div className="leading-tight">
+                  <p className={`text-sm font-semibold ${t.text}`}>Join 10,000+ learners</p>
+                  <div className={`mt-0.5 flex items-center gap-1.5 text-xs ${t.sub}`}>
+                    <span className="flex text-amber-400">
+                      {[...Array(4)].map((_, i) => <Star key={i} size={12} fill="currentColor" strokeWidth={0} />)}
+                      <Star size={12} fill="currentColor" strokeWidth={0} className="opacity-40" />
+                    </span>
+                    4.2 on Google Play
+                  </div>
                 </div>
-                <span><strong className={t.text}>4.2</strong> on Google Play</span>
               </div>
-              <div className="flex items-center gap-2"><Users size={15} /> 10,000+ downloads</div>
-              <div className="flex items-center gap-2"><Lock size={15} /> Secure Google sign-in</div>
+              <div className={`flex items-center gap-2 text-sm ${t.sub}`}><Lock size={15} /> Secure Google sign-in</div>
             </div>
           </div>
 
@@ -671,6 +742,11 @@ export default function HeroFeature() {
                   </div>
                 </div>
               </PhoneFrame>
+
+              {/* ===== Mascot ===== */}
+              <div className="hidden sm:block absolute bottom-0 left-0 w-[150px] lg:w-[190px] z-[2] pointer-events-none">
+                <XiFoxMascot size="100%" />
+              </div>
             </div>
           </div>
         </div>
