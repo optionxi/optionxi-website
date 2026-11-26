@@ -18,6 +18,7 @@ import AlgoBuilder from "@/components/feature-list/ft-algo-builder";
 import StrategyBuilder from "@/components/feature-list/ft-statergy-builder";
 import HowItWorksSection from "@/components/how-it-works/how-it-works-section";
 import PricingSection from "@/components/pricing/pricing-section";
+import FinalCta from "@/components/feature-list/final-cta-section";
 
 /* ------------------------------------------------------------------ */
 /*  Data pulled from the live Play Store listing + subscription CSV    */
@@ -422,69 +423,15 @@ export default function OptionXiLanding() {
       </section>
 
       {/* ---------------- Final CTA ---------------- */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
-        <div
-          className="rounded-2xl sm:rounded-3xl border border-emerald-500/20 p-8 sm:p-12 md:p-16 text-center relative overflow-hidden"
-          style={{
-            background: dark
-              ? "linear-gradient(135deg, rgba(16,185,129,0.12), rgba(15,23,42,0))"
-              : "linear-gradient(135deg, rgba(16,185,129,0.08), rgba(255,255,255,0))",
-          }}
-        >
-          <img
-            src={getSrc(APP_ICON.light === APP_ICON.dark ? { src: APP_ICON.light } : { src: APP_ICON.light, darkSrc: APP_ICON.dark })}
-            alt="OptionXi"
-            className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl mx-auto mb-4 sm:mb-6 shadow-lg"
-          />
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold tracking-tight mb-3 sm:mb-4">
-            Start trading smarter, <span className="text-emerald-600">today</span>
-          </h2>
-          <p className={`${t.sub} text-base sm:text-lg max-w-xl mx-auto mb-8 sm:mb-10 px-2`}>
-            Free to download. No real money at risk until you're ready. Open source, always.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-            
-              <a href="https://play.google.com/store/apps/details?id=com.optionxi.app"
-              target="_blank"
-              rel="noreferrer"
-              className="transition-transform hover:scale-105"
-            >
-              <img
-                src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-                alt="Get it on Google Play"
-                className="h-14 sm:h-16 w-auto"
-              />
-            </a>
-
-            
-              <a href="https://app.optionxi.com"
-              target="_blank"
-              rel="noreferrer"
-              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 border ${t.border} ${t.text} px-5 py-3.5 sm:px-6 sm:py-4 rounded-xl font-semibold hover:bg-emerald-500/5 transition-colors whitespace-nowrap`}
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-              <span className="text-sm sm:text-base">
-                <span className="sm:hidden">Web Terminal</span>
-                <span className="hidden sm:inline">Open Web Terminal</span>
-              </span>
-              <ChevronRight size={16} className="shrink-0" />
-            </a>
-          </div>
-
-          <div className={`hidden sm:flex flex-wrap items-center justify-center gap-8 mt-10 text-sm ${t.sub}`}>
-            <div className="flex items-center gap-2">
-              <Shield size={15} className="text-emerald-500 shrink-0" /> Open source & auditable
-            </div>
-            <div className="flex items-center gap-2">
-              <GraduationCap size={15} className="text-emerald-500 shrink-0" /> Built for learning
-            </div>
-            <div className="flex items-center gap-2">
-              <Lock size={15} className="text-emerald-500 shrink-0" /> No card needed to start
-            </div>
-          </div>
-        </div>
-      </section>
+     <FinalCta
+        dark={dark}
+        t={t}
+        iconSrc={getSrc(
+          APP_ICON.light === APP_ICON.dark
+            ? { src: APP_ICON.light }
+            : { src: APP_ICON.light, darkSrc: APP_ICON.dark }
+        )}
+      />
     </div>
   );
 }

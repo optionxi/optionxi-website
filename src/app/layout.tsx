@@ -5,6 +5,7 @@ import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import ChatwootWidget from './components/chatwoot-chat';
 import { ThemeProvider } from '@/components/theme-provider';
+import DownloadAppFab from '@/components/download_app_fav';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://optionxi.com'),
@@ -72,7 +73,9 @@ export default function RootLayout({
           <Footer />
         </ThemeProvider>
         <SpeedInsights />
-        <ChatwootWidget/>
+        {/* <ChatwootWidget/> */}
+        <DownloadAppFab />
+
       </body>
     </html>
   );

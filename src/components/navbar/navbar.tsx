@@ -97,7 +97,7 @@ export default function Navbar() {
             </a>
 
             <Link
-              href="https://app.optionxi.com"
+              href="https://app.optionxi.com/login"
               className="hidden sm:inline-flex items-center gap-1.5 bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold px-4 py-1.5 rounded-full transition-colors"
             >
               Login Now <ArrowRight size={13} />
@@ -147,7 +147,7 @@ export default function Navbar() {
               </a>
 
               <Link
-                href="https://app.optionxi.com"
+                href="https://app.optionxi.com/login"
                 onClick={() => setIsOpen(false)}
                 className="flex items-center justify-center gap-1.5 w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors"
               >
