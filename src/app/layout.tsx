@@ -63,6 +63,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://challenges.cloudflare.com" />
+      </head>
       <body className="flex flex-col min-h-screen bg-background text-foreground transition-colors">
         {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>

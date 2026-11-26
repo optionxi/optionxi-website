@@ -5,6 +5,7 @@ import { ChevronRight, Shield, GraduationCap, Lock, MessageCircle, CheckCircle2 
 import { QRCodeSVG } from "qrcode.react";
 import { Turnstile } from "@marsidev/react-turnstile";
 import XiFoxMascot from "@/app/components/optionxi-mascot";
+import { useWhatsAppSignup, WhatsAppButton, WhatsAppStatus } from "../hero-section/whatsapp-signup";
 
 type Theme = { sub: string; border: string; text: string };
 
@@ -95,6 +96,8 @@ export default function FinalCta({
     };
   }, [status, code, whatsappEndpoint]);
 
+  const wa = useWhatsAppSignup("landing-cta", whatsappEndpoint);
+
   return (
     <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
       <div
@@ -157,85 +160,29 @@ export default function FinalCta({
             </div>
 
             {/* WhatsApp card — form replaced with button + QR */}
-            <div
-              className={`rounded-xl border ${t.border} p-4 sm:p-5 max-w-xl mx-auto md:mx-0 text-left ${
-                dark ? "bg-slate-900/40" : "bg-white/70"
-              }`}
-            >
-              {status === "success" ? (
-                <div className="flex items-start gap-3" role="status">
-                  <CheckCircle2 className="text-emerald-500 shrink-0 mt-0.5" size={22} />
-                  <div>
-                    <p className="font-semibold">You&apos;re in! 7-day free trial started.</p>
-                    <p className={`${t.sub} text-sm`}>
-                      Check WhatsApp, your welcome message is there. Breakout alerts start next market open.
-                    </p>
-                  </div>
-                </div>
-              ) : status === "waiting" ? (
-                <div className="flex flex-col sm:flex-row items-center gap-4">
-                  {!isMobile && (
-                    <div className="bg-white p-2 rounded-lg shrink-0">
-                      <QRCodeSVG value={waUrl} size={120} />
-                    </div>
-                  )}
-                  <div className="text-center sm:text-left">
-                    <p className="font-semibold">Send the pre-filled message on WhatsApp</p>
-                    <p className={`${t.sub} text-sm mb-3`}>
-                      {isMobile ? "Tap below if WhatsApp didn't open." : "Scan with your phone, or open WhatsApp Web."}
-                      {" "}Just hit send, we&apos;ll confirm here automatically.
-                    </p>
-                    <a
-                      href={waUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-5 py-2.5 rounded-lg text-sm"
-                    >
-                      Open WhatsApp <ChevronRight size={16} />
-                    </a>
-                    <p className={`${t.sub} text-xs mt-2 animate-pulse`}>Waiting for your message…</p>
-                  </div>
-                </div>
-              ) : (
+            {wa.showStatus ? (
+                <WhatsAppStatus wa={wa} t={t} />
+                ) : (
                 <>
-                  <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center gap-2 mb-1">
                     <MessageCircle size={18} className="text-emerald-500" />
-                    <h3 className="font-semibold text-sm sm:text-base">
-                      Try trade alerts on WhatsApp, free for 7 days
-                    </h3>
-                  </div>
-                  <p className={`${t.sub} text-xs sm:text-sm mb-3`}>
+                    <h3 className="font-semibold text-sm sm:text-base">Try trade alerts on WhatsApp, free for 7 days</h3>
+                    </div>
+                    <p className={`${t.sub} text-xs sm:text-sm mb-3`}>
                     Live breakout alerts straight to your chat. No card, no spam, stop anytime.
-                  </p>
+                    </p>
 
-                  <Turnstile
-                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                    onSuccess={setCaptcha}
-                    options={{ size: "invisible" }}
-                  />
+                    <WhatsAppButton wa={wa} className="w-full sm:w-auto rounded-lg px-5 py-3 text-sm" />
 
-                  <button
-                    type="button"
-                    onClick={startWhatsApp}
-                    disabled={status === "loading" || !captcha}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-60 text-white font-semibold px-5 py-3 rounded-lg text-sm transition-colors"
-                  >
-                    <MessageCircle size={16} />
-                    {status === "loading" ? "Preparing…" : "Start free trial on WhatsApp"}
-                  </button>
-
-                  <p className={`mt-3 text-xs ${t.sub}`}>
+                    <p className={`mt-3 text-xs ${t.sub}`}>
                     By sending the message you agree to receive WhatsApp messages from OptionXi.
                     Educational content only, not investment advice.
-                  </p>
-                  {status === "error" && (
-                    <p className="text-red-500 text-xs mt-2" role="alert">
-                      {error}
                     </p>
-                  )}
+                    {wa.status === "error" && (
+                    <p className="text-red-500 text-xs mt-2" role="alert">{wa.error}</p>
+                    )}
                 </>
-              )}
-            </div>
+                )}
 
             <div className="mt-5">
               <a

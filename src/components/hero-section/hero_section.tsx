@@ -9,6 +9,7 @@ import {
   ChevronLeft, Minus, Plus,
 } from "lucide-react";
 import XiFoxMascot from "@/app/components/optionxi-mascot";
+import { useWhatsAppSignup, WhatsAppButton, WhatsAppStatus } from "./whatsapp-signup";
 
 const JOIN_URL = "https://app.optionxi.com/login"; // point this at your Google sign-in route
 
@@ -207,6 +208,8 @@ export default function HeroFeature() {
   useEffect(() => setMounted(true), []);
   const dark = mounted && resolvedTheme === "dark";
   const t = pageTokens(dark);
+  const wa = useWhatsAppSignup("landing-hero");   // ← here
+
 
   const rootRef = useRef<HTMLElement | null>(null);
   const idRef = useRef(0);
@@ -406,20 +409,43 @@ export default function HeroFeature() {
             </p>
 
             <div className="flex flex-col items-start gap-3 mb-8">
-             <a
-                href={JOIN_URL}
-                className={`group inline-flex items-center gap-3 rounded-xl border px-6 py-3.5 font-semibold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 ${
-                  dark
-                    ? "bg-white border-white text-slate-900 shadow-lg shadow-black/40 hover:shadow-emerald-500/20 focus-visible:ring-offset-[#070708]"
-                    : "bg-[#131314] border-[#131314] text-[#E3E3E3] shadow-lg shadow-slate-900/20 hover:bg-black hover:shadow-xl hover:shadow-slate-900/30 focus-visible:ring-offset-slate-50"
-                }`}
-              >
-                <GoogleG />
-                Join with Google
-                <ChevronRight size={16} className="transition-transform group-hover:translate-x-0.5" />
-              </a>
+              {wa.showStatus ? (
+                <div className={`w-full max-w-md rounded-xl border ${t.border} p-4 sm:p-5 ${dark ? "bg-white/5" : "bg-white"}`}>
+                  <WhatsAppStatus wa={wa} t={t} />
+                </div>
+              ) : (
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full sm:w-auto">
+                  <a
+                    href={JOIN_URL}
+                    className={`group w-full sm:w-auto justify-center inline-flex items-center gap-3 rounded-xl border px-6 py-3.5 font-semibold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 ${
+                      dark
+                        ? "bg-white border-white text-slate-900 shadow-lg shadow-black/40 hover:shadow-emerald-500/20 focus-visible:ring-offset-[#070708]"
+                        : "bg-[#131314] border-[#131314] text-[#E3E3E3] shadow-lg shadow-slate-900/20 hover:bg-black hover:shadow-xl hover:shadow-slate-900/30 focus-visible:ring-offset-slate-50"
+                    }`}
+                  >
+                    <GoogleG />
+                    Join with Google
+                    <ChevronRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+                  </a>
+
+                  <WhatsAppButton
+                    wa={wa}
+                    label="Start free on WhatsApp"
+                    className="w-full sm:w-auto rounded-xl border border-emerald-600 px-6 py-3.5"
+                  />
+                </div>
+              )}
+
+              {wa.status === "error" && (
+                <p className="text-red-500 text-xs" role="alert">{wa.error}</p>
+              )}
+
               <p className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-600">
                 <Check size={15} /> 7 Days Free WhatsApp Notifications, then ₹800/month
+              </p>
+              <p className={`text-xs ${t.sub} max-w-md`}>
+                By starting the WhatsApp trial you agree to receive WhatsApp messages from OptionXi.
+                Educational content only, not investment advice.
               </p>
               <a
                 href="https://play.google.com/store/apps/details?id=com.optionxi.app"
